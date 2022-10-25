@@ -1,0 +1,159 @@
+$theme-colors: (
+  "crimson": #900,
+  "blue": #3490dc,
+  'dark-blue':#034972,
+  'coral':#FF7F50,
+  "indigo": #6574cd,
+  "purple": #9561e2,
+  "pink": #f66d9b,
+  "red": #e3342f,
+  "orange": #f6993f,
+  "yellow": #ffed4a,
+  "green": #38c172,
+  "light-green": #6ceea2,
+  "teal":#008080,
+  "light-teal": #4dc0b5,
+  "dark-teal": #004b49,
+  "gray": #8a8888,
+  "light-gray": #dfdfdf,
+  "dark-gray": #5c5b5b,
+  "cyan": #6cb2eb
+);
+
+
+$enable-gradients: true;
+$enable-shadows: true;
+
+.square {
+    border-radius: 0 !important;
+}
+
+
+
+.small-text {font-size: 0.5 rem !important;}
+
+.down-50 {top:6rem;}
+
+.overlay-spinner {
+  position: absolute;
+  top:12rem;
+  left: 50%;
+  margin-top: -1rem;
+  margin-left: -1rem;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0);
+  /*dim the background*/
+}
+
+.thumbnail
+{
+    height:90px;
+    width:90px;
+}
+
+.avatar {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ccc;
+    border-radius: 50%;
+    font-family: sans-serif;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .weight700 {
+      font-weight: 700;
+  }
+  .weight900 {
+    font-weight: 900;
+}
+
+.dodgerblue{
+    color:dodgerblue;
+}
+
+.recipe-box {
+    position: relative;
+    width:20%;
+    min-width:20%;
+  }
+
+  .image {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  }
+
+  .middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .recipe-box:hover .image {
+    opacity: 0.3;
+  }
+
+  .recipe-box:hover .middle {
+    opacity: 1;
+  }
+
+  .text {
+
+    font-weight:700;
+    color: black;
+
+  }
+
+  .gold-star {
+    color: gold;
+  }
+
+
+  .card-img-top {
+
+    max-height: 30vh; /*not want to take all vertical space*/
+    height:30vh;
+    object-fit: cover;/*show all image, autosized, no cut, in available space*/
+}
+
+.card > a, a:hover {
+    text-decoration: none;
+
+  }
+
+ .card > a:hover {
+    opacity: 0.7;
+    filter: hue-rotate(10deg);
+  }
+
+  .card-img {
+
+    max-height: 20vh; /*not want to take all vertical space*/
+    height:20vh;
+    min-height:20vh !important;
+    object-fit: cover;/*show all image, autosized, no cut, in available space*/
+}
+
+.recipe-image
+{
+    max-height: 50vh; /*not want to take all vertical space*/
+    height:50vh;
+    object-fit: cover
+}
+
+
+
+
