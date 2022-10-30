@@ -17,16 +17,31 @@ use App\Models\RecipeMethod;
 use App\Http\Helpers\IngredientJson;
 use App\Models\IngredientList;
 use Auth;
+use Illuminate\Support\Str;
 
 
 
 class RecipeController extends Controller
 {
-    public function show($slug)
+    public function show($id,$slug)
     {
 
-        $temp = explode('-',$slug);
-        $id = end($temp);
+        dd(Str::slug('duck', '-'));
+     
+
+        /*$recipes = Recipe::all();
+
+        foreach($recipes as $recipe)
+        {
+            $title=$recipe->title;
+
+            $slug = Str::slug($title, '-');
+            
+            $recipe->slug = $slug;
+            $recipe->save();
+
+        }*/
+
 
         $recipe = Recipe::where('id',$id)->with('HashIngredient','HashDiet','HashMethod','HashCuisine','HashCourse','commentRecipe')->first();
 
@@ -50,10 +65,10 @@ class RecipeController extends Controller
         $algorithm = new SimilarRecipe;
 
         $similarRecipes = $algorithm->similar($recipe->HashIngredient,$recipe->HashDiet, $recipe->HashMethod, $recipe->HashCuisine, $recipe->HashCourse, $id);
-
+    
 
          $similarRecipes = Recipe::whereIn('id',$similarRecipes)->get();
-
+        
 
         return view('recipe.show',compact(['recipe','similarRecipes']));
 
@@ -189,9 +204,9 @@ class RecipeController extends Controller
 
         $id = Recipe::create($recipe)->id;
 
-        $slug = (str_replace(' ', '-', strtolower($request->title)));
+        $slug = $slug = Str::slug($recipe->title, '-');
 
-        Recipe::where('id', $id)->update(['slug' => $slug . '-' . $id]);
+        Recipe::where('id', $id)->update(['slug' => $slug]);
 
         if($request->check)
         {
@@ -231,12 +246,12 @@ class RecipeController extends Controller
         {
             foreach($request->wireIngredients as $ingredient)
             {
-		if($ingredient == 0){break;}
-                $hash = new HashIngredient();
-                $hash->ingredient = $ingredient;
-                $hash->recipe_id = $id;
-                $hash->save();
-            }
+            if($ingredient == 0){break;}
+                    $hash = new HashIngredient();
+                    $hash->ingredient = $ingredient;
+                    $hash->recipe_id = $id;
+                    $hash->save();
+                }
         }
 
 

@@ -1,12 +1,12 @@
 <div>
-    <h2 class="mt-5">Easter is around the corner</h2>
-    <p class="mt-5">With Easter fast approaching below are some of our easter themed dishes and treats well suited for the christian festival.</p>
+    <h2 class="mt-5">Some of our Favourites</h2>
+    
     <div class="row mt-5">
         <div class="mt-2 row row row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-center">
             @foreach($seasonal as $recipe)
             <div class="col d-flex justify-content-center align-items-stretch">
             <div class="p-1 m-1 mb-5 w-75 w-sm-100 shadow card">
-                <a href="{{ route('recipe',$recipe->recipe->slug) }}" data-toggle="popover" data-placement="right"
+                <a href="{{ route('recipe', ['id'=>$recipe->id, 'slug'=> $recipe->recipe->slug]) }}" data-toggle="popover" data-placement="right"
                     title="{{ $recipe->recipe->description }}" class="stretched-link">
                     <div class="">
                         <img class="card-img-top" src="{{ asset('storage/' . $recipe->recipe->image) }}" alt="Card image cap">

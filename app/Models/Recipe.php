@@ -8,17 +8,14 @@ use Laravel\Scout\Searchable;
 
 class Recipe extends Model
 {
-    use HasFactory,Searchable;
+    use HasFactory;
 
 
-    protected $table = 'recipe';
+    protected $table = 'claire.recipe';
 
     protected $fillable = ['title','description','method','slug','image','author','attachment','cooking_time'];
 
-    public function SearchableAs()
-    {
-	return  'recipe_index';
-    }
+   
 
     public function rplanner()
     {

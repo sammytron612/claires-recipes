@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.app', ['image'=> $recipe->image, 'title' => $recipe->title . ' | Claires Recipes', 'description' => $recipe->description]))
 
 @section('content')
 
 <div class="container-fluid">
-    @include('includes.search')
+    {{-- @include('includes.search')--}}
 </div>
 
 <div class="container px-3 bg-white mt-3 pb-5">
@@ -84,7 +84,7 @@
 
     @isset($recipe->recipeMethod->description)
     <div id="method" class="row p-5">
-        <div class="col-12">
+        <div id="recipe-method" class="col-12">
              <div id="title" class="d-none text-center h2">{{ $recipe->title }}</div>
             {!! $recipe->recipeMethod->description !!}
         </div>
@@ -96,7 +96,7 @@
     <div class="mt-2 row justify-content-start justify-content-md-center flex-wrap">
         @foreach($similarRecipes as $similarRecipe)
             <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex mt-2 align-items-stretch">
-                <a href="{{ route('recipe',$similarRecipe->slug) }}" class="stretched-link"></a>
+                <a href="{{ route('recipe',[$similarRecipe->id,$similarRecipe->slug]) }}" class="stretched-link"></a>
                 <div class="shadow card p-0 col w-50 w-sm-100">
                     <div style="overflow-y:hidden" class="d-flex flex-column h-auto h5 px-2 pt-3">
                         <div class="text-center text-teal">{{ $similarRecipe->title }}</div>

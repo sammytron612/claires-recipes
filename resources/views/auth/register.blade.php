@@ -1,11 +1,14 @@
 @extends('layouts.app1')
 
 @section('content')
-<div class="container">
-    <div class="row align-items-center justify-content-center">
-        <div class="col-md-8">
+<div style="background-color:#fffef7" class="container py-5 border border-dark shadow">
+    <div class="row w-100 justify-content-center align-items-center">
+        <div class="col-md-6 d-flex justify-content-center">
+            <img src="{{asset('storage/claires-recipes.PNG')}}" alt="Site Logo">
+        </div>
+        <div class="col-md-6">
             <div class="card shadow">
-                <div class="card-header bg-dark text-white">{{ __('Register') }}</div>
+                <div class="text-center card-header bg-dark text-white h5">{{ __('Register') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">

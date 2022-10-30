@@ -44,7 +44,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 
-Route::get('/home/recipe/{slug}',[RecipeController::class, 'show'])->name('recipe');
+Route::get('/home/recipe/{id}/{slug?}',[RecipeController::class, 'show'])->name('recipe');
 
 Route::get('/home/index', [IndexController::class, 'index'])->name('recipe.index');
 

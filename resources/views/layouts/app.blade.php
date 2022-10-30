@@ -3,18 +3,27 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- CSRF Token -->
-    <title>{{ $metaTitle }}</title>
+    
     <meta name="robots" content="index, follow">
+    <meta name=”robots” content=”noindex”>
 
-    @isset($recipe)
-        <meta property="og:image" content={{ asset('storage/'. $recipe->image) }}>
-        <meta name="twitter:image" content="{{ asset('storage/'. $recipe->image) }}">
-       @if($recipe->description)
-            <meta name="description" content="{{ $recipe->description }}">
+    <meta name="robots" content="noindex,nofollow" />
+
+    <meta name="robots" content="all" />
+
+    @isset($title)
+        <title>{{$title}}</title>
+        <meta property="og:image" content={{ asset('storage/'. $image) }}>
+        <meta name="twitter:image" content="{{ asset('storage/'. $image) }}">
+       @if($description)
+            <meta name="description" content="{{ $description }}">
+            <meta content="{{$title}}" name="keywords">
        @endif
+    
     @endisset
+  
+
+
 
     @stack('styles')
     @livewireScripts
@@ -47,8 +56,12 @@
             background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(137,137,139,1) 90%);
         }
 
+        .recipe-ingredients__link {
+  pointer-events:none;
+}
 
 
+        
 
     </style>
 </head>

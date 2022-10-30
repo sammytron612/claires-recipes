@@ -1,5 +1,6 @@
 
-@extends('layouts.app')
+@extends('layouts.app', ['image'=> "fb2e60213d4b9e175f23e08bbc8ed01f.jpg", 'title' => 'Claires Recipes', 'description' => "Claires Recipes, tasty recipes tried and tested for everyone"])
+
 
 @section('content')
 <div class="container-fluid">
@@ -17,7 +18,8 @@
               <div class="carousel-item @if($loop->first)  {{ 'active' }} @endif" >
                 <img class="d-block w-100" style="object-fit: cover; height: 60vh" src="{{ asset('storage/' . $recipe->image) }}" alt="First slide">
                 <div class="carousel-caption d-flex h-100 align-items-center justify-content-center">
-                    <a href ="{{ route('recipe', $recipe->slug) }}" class="stretched-link"></a>
+                    
+                    <a href ="{{ route('recipe', ['id'=>$recipe->id, 'slug'=>$recipe->slug]) }}" class="stretched-link"></a>
                     <h3 style="font-family: 'Pacifico', cursive; background: rgba(204, 204, 204, 0.8);" class="border border-dark text-dark p-3">{{ $recipe->title }}</h3>
                 </div>
               </div>
@@ -65,7 +67,7 @@
                 @foreach($top10 as $recipe)
                 <div class="col d-flex align-items-stretch">
                 <div class="p-1 m-1 mb-5 w-75 w-sm-100 shadow card">
-                    <a href="{{ route('recipe',$recipe->slug) }}" data-toggle="popover" data-placement="right"
+                    <a href="{{ route('recipe', ['id'=>$recipe->id, 'slug'=> $recipe->slug]) }}" data-toggle="popover" data-placement="right"
                         title="{{ $recipe->description }}" class="stretched-link">
                         <div class="">
                             <img class="card-img-top" src="{{ asset('storage/' . $recipe->image) }}" alt="Card image cap">
