@@ -21,7 +21,6 @@ class HomeController extends Controller
 
         //$recipes = Recipe::with('HashDiet')->where('hash_diets.diet','<>','4')->limit(3)->get();
 
-
         $recipes = Recipe::whereDoesntHave('HashDiet')->inRandomOrder()->limit(10)->get();
         if(Auth::check()){$favourites = Favourites::where('user_id', Auth::user()->id)->get();}
         else {$favourites = null;}

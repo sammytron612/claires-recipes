@@ -57,20 +57,20 @@ class NewHashtag extends Component
 
         if($this->category == "course")
         {
-            $id = Course::create($data)->id;
+            Course::create($data);
             Course::where('id', $id)->update(['slug' => $slug . '-' . $id]);
 
         }
 
         if($this->category == "diet")
         {
-            $id = Diet::create($data)->id;
+            Diet::create($data);
             Diet::where('id', $id)->update(['slug' => $slug . '-' . $id]);
         }
 
         if($this->category == "method")
         {
-            $id = Method::create($data)->id;
+            Method::create($data);
             Method::where('id', $id)->update(['slug' => $slug . '-' . $id]);
         }
 

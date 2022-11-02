@@ -17,58 +17,29 @@ use App\Models\RecipeMethod;
 use App\Http\Helpers\IngredientJson;
 use App\Models\IngredientList;
 use Auth;
-use Illuminate\Support\Str;
 
 
 
 class RecipeController extends Controller
 {
-    public function show($id,$slug)
+    public function show($slug)
     {
 
-        dd(Str::slug('duck', '-'));
-     
-
-        /*$recipes = Recipe::all();
-
-        foreach($recipes as $recipe)
-        {
-            $title=$recipe->title;
-
-            $slug = Str::slug($title, '-');
-            
-            $recipe->slug = $slug;
-            $recipe->save();
-
-        }*/
-
+        $temp = explode('-',$slug);
+        $id = end($temp);
 
         $recipe = Recipe::where('id',$id)->with('HashIngredient','HashDiet','HashMethod','HashCuisine','HashCourse','commentRecipe')->first();
 
         $recipe->views ++;
         $recipe->save();
 
-
-
-        //$hashIngredient = HashIngredient::where('recipe_id', $recipe->id)->get();
-
-        //$hashDiet = HashDiet::where('recipe_id', $recipe->id)->get();
-
-        //$hashMethod = HashMethod::where('recipe_id', $recipe->id)->get();
-
-        //$hashCuisine = HashCuisine::where('recipe_id', $recipe->id)->get();
-
-        //$hashCourse = HashCourse::where('recipe_id', $recipe->id)->get();
-
-        //$comments = Comment::where('recipe_id', $recipe->id)->get();
-
         $algorithm = new SimilarRecipe;
 
         $similarRecipes = $algorithm->similar($recipe->HashIngredient,$recipe->HashDiet, $recipe->HashMethod, $recipe->HashCuisine, $recipe->HashCourse, $id);
-    
 
-         $similarRecipes = Recipe::whereIn('id',$similarRecipes)->get();
-        
+
+        $similarRecipes = Recipe::whereIn('id',$similarRecipes)->get();
+
 
         return view('recipe.show',compact(['recipe','similarRecipes']));
 
@@ -204,9 +175,9 @@ class RecipeController extends Controller
 
         $id = Recipe::create($recipe)->id;
 
-        $slug = $slug = Str::slug($recipe->title, '-');
+        $slug = (str_replace(' ', '-', strtolower($request->title)));
 
-        Recipe::where('id', $id)->update(['slug' => $slug]);
+        Recipe::where('id', $id)->update(['slug' => $slug . '-' . $id]);
 
         if($request->check)
         {
@@ -246,12 +217,12 @@ class RecipeController extends Controller
         {
             foreach($request->wireIngredients as $ingredient)
             {
-            if($ingredient == 0){break;}
-                    $hash = new HashIngredient();
-                    $hash->ingredient = $ingredient;
-                    $hash->recipe_id = $id;
-                    $hash->save();
-                }
+		if($ingredient == 0){break;}
+                $hash = new HashIngredient();
+                $hash->ingredient = $ingredient;
+                $hash->recipe_id = $id;
+                $hash->save();
+            }
         }
 
 

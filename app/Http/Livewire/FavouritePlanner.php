@@ -20,7 +20,7 @@ class FavouritePlanner extends Component
     public function render()
     {
         $this->favourites = Favourites::join('recipe','recipe.id','=','favourites.recipe_id')
-			    ->orderBy('recipe.title')
+                            ->orderBy('recipe.title')
                             ->where('user_id', Auth::user()->id)->paginate(12);
 
         $this->plannerEntries = Planner::where('user_id',Auth::user()->id)->get();

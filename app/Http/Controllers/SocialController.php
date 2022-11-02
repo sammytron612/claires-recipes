@@ -22,9 +22,7 @@ class SocialController extends Controller
     {
         try {
 
-
             $user = Socialite::driver('facebook')->user();
-
 
             User::where('email',$user->email)->update(['fb_id' => $user->id]);
             $isUser = User::where('fb_id', $user->id)->first();
