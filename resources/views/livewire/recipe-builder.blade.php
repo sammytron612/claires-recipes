@@ -82,7 +82,7 @@
                 @foreach($recipes as $recipe)
 
                 <div class="p-1 d-flex align-items-stretch col card m-1 mb-5 shadow">
-                    <a href="{{ route('recipe',['id'=>$recipe->recipe->id, 'slug'=>$recipe->recipes->slug]) }}" class="stretched-link">
+                    <a href="{{ route('recipe',['id'=>$recipe->recipes->id, 'slug'=>$recipe->recipess->slug]) }}" class="stretched-link">
                         <div class="">
                             <img class="card-img-top" src="{{ asset('storage/' . $recipe->recipes->image) }}" alt="Card image cap">
                         </div>
@@ -137,27 +137,28 @@
 
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    
+    Livewire.on('clearSearch', () => {
+        $('#search').val('');
+    
+    })
+        });
+        function search(searchTerm)
+        {
+            if(searchTerm.length > 2)
+           {
+               @this.set('searchTerm', searchTerm);
+            }
+            else {
+                //alert("kl")
+                $('#dropdown').hide();
+            }
+        }
+    
+    
+    </script>
 
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
 
-Livewire.on('clearSearch', () => {
-    $('#search').val('');
-
-})
-    });
-    function search(searchTerm)
-    {
-        if(searchTerm.length > 2)
-       {
-           @this.set('searchTerm', searchTerm);
-        }
-        else {
-            //alert("kl")
-            $('#dropdown').hide();
-        }
-    }
-
-
-</script>
