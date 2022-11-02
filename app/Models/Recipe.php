@@ -6,16 +6,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
+
 class Recipe extends Model
 {
-    use HasFactory;
+    use HasFactory,Searchable;
 
 
-    protected $table = 'claire.recipe';
+    protected $table = 'recipe';
 
     protected $fillable = ['title','description','method','slug','image','author','attachment','cooking_time'];
 
-   
+
+    public function searchableAs()
+    {
+        return 'recipe_index';
+    }
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        // Customize the data array...
+
+        return (['title' => $array['title']]);
+    }
 
     public function rplanner()
     {
