@@ -9,7 +9,7 @@
                       {{ session('error') }}
                     </div>
     @endif
-   {{-- @include('includes.search') --}}
+   @include('includes.search')
 
     <div class="mt-4">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
