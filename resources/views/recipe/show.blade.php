@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container-fluid">
-    {{-- @include('includes.search')--}}
+@include('includes.search')
 </div>
 
 <div class="container px-3 bg-white mt-3 pb-5">
