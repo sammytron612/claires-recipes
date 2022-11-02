@@ -1,4 +1,4 @@
-@extends('layouts.app', ['image'=> $recipe->image, 'title' => $recipe->title . ' | Claires Recipes', 'description' => $recipe->description]))
+@extends('layouts.app', ['image'=> $recipe->image, 'title' => $recipe->title . ' | Claires Recipes', 'description' => $recipe->description])
 
 @section('content')
 
