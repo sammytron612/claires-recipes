@@ -4,7 +4,7 @@
 <div style="background-color:#fffef7" class="container py-5 border border-dark shadow">
     <div class="row w-100 justify-content-center align-items-center">
         <div class="col-md-6 d-flex justify-content-center">
-            <img src="{{asset('storage/claires-recipes.PNG')}}" alt="Site Logo">
+            <img src="{{asset('storage/claires-recipes.png')}}" alt="Site Logo">
         </div>
         <div class="col-md-6">
             <div class="card shadow">
