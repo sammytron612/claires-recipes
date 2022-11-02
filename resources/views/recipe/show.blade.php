@@ -101,7 +101,7 @@
                     <div style="overflow-y:hidden" class="d-flex flex-column h-auto h5 px-2 pt-3">
                         <div class="text-center text-teal">{{ $similarRecipe->title }}</div>
                     </div>
-                    <div class="d-none pb-2 h-auto card-body h-100 d-md-block mb-2">
+                    <div class="pb-2 h-auto card-body h-100 d-block mb-2">
                         <div>{{ $similarRecipe->description }}</div>
                     </div>
                     <img class="my-height mt-1 card-img-bottom w-100" src="{{ asset('storage/'. $similarRecipe->image) }}" alt="Card image cap">
