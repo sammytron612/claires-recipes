@@ -95,7 +95,7 @@
     <h5 class="my-5 weight700 text-left text-teal">Like this? Then  we are sure you will also like these:</h5>
     <div class="mt-2 row justify-content-start justify-content-md-center flex-wrap">
         @foreach($similarRecipes as $similarRecipe)
-            <div class="col-6 col-md-4 col-lg-3 d-flex mt-2 align-items-stretch">
+            <div class="col-12 col-md-4 col-lg-3 d-flex mt-2 align-items-stretch">
                 <a href="{{ route('recipe',[$similarRecipe->id,$similarRecipe->slug]) }}" class="stretched-link"></a>
                 <div class="shadow card p-0 col w-50 w-sm-100">
                     <div style="overflow-y:hidden" class="d-flex flex-column h-auto h5 px-2 pt-3">
