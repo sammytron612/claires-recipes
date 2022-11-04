@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Planner | Claires Recipes', 'description' => "Claires Recipes, tasty recipes tried and tested for everyone"])
+
 
 @section('content')
 
