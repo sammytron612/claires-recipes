@@ -12,6 +12,7 @@ class IndexController extends Controller
     public function index()
     {
 
+        Cache::forget( 'cacheIndex' );
         if( !Cache::has( 'cacheIndex' ) )
         {
             $i = Ingredient::all();
@@ -94,7 +95,7 @@ class IndexController extends Controller
 
             array_multisort($title, SORT_ASC, $index);
 
-            Cache::put( 'cacheIndex', $index, 300 );
+            Cache::put( 'cacheIndex', $index, 600 );
         }
 
     $index = Cache::get('cacheIndex');   
