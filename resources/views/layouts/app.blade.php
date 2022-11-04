@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    @if(issest($noFollow))
+    @if(isset($noFollow))
         <meta name="robots" content="nofollow" />
     @else
         <meta name="robots" content="all" />
