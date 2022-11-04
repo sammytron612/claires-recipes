@@ -10,7 +10,7 @@
                     <div class="font-italic text-left text-orange">In recipes</div>
                     <ul class="list-unstyled text-left list-group list-group-flush">
                         @foreach($WireRecipes as $WireRecipe)
-                        <li><a class="btn text-left" href="{{ route('recipe','id'=> $WireRecipe->id, 'slug'=>$WireRecipe->slug) }}"><img style="height:50px" class="img-thumbnail thumbnail" src="{{ asset('storage/' . $WireRecipe->image) }}" ><span style="width: 260px;" class="d-inline-block text-truncate ml-2">{{ $WireRecipe->title }} </span></a>
+                        <li><a class="btn text-left" href="{{ route('recipe',['id'=> $WireRecipe->id, 'slug'=>$WireRecipe->slug]) }}"><img style="height:50px" class="img-thumbnail thumbnail" src="{{ asset('storage/' . $WireRecipe->image) }}" ><span style="width: 260px;" class="d-inline-block text-truncate ml-2">{{ $WireRecipe->title }} </span></a>
                         </li>
                         @endforeach
                     </ul>
