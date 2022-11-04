@@ -22,11 +22,9 @@ use Auth;
 
 class RecipeController extends Controller
 {
-    public function show($slug)
+    public function show($id)
     {
 
-        $temp = explode('-',$slug);
-        $id = end($temp);
 
         $recipe = Recipe::where('id',$id)->with('HashIngredient','HashDiet','HashMethod','HashCuisine','HashCourse','commentRecipe')->first();
 
