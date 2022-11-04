@@ -1,5 +1,5 @@
 
-@extends('layouts.app', ['image'=> "fb2e60213d4b9e175f23e08bbc8ed01f.jpg", 'title' => 'Claires Recipes', 'description' => "Claires Recipes, tasty recipes tried and tested for everyone"])
+@extends('layouts.app', ['image'=> "fb2e60213d4b9e175f23e08bbc8ed01f.jpg", 'title' => 'Home | Claires Recipes', 'description' => "Claires Recipes, tasty recipes tried and tested for everyone"])
 
 
 @section('content')

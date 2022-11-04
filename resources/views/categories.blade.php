@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' =>'Categories | Claires Recipes', 'description' => 'Choose a Cuisine Category'])
+
 
 @section('content')
     @include('includes.search')

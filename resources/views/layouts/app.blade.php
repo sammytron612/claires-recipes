@@ -4,7 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <meta name="robots" content="all" />
+    @if(issest($noFollow))
+        <meta name="robots" content="nofollow" />
+    @else
+        <meta name="robots" content="all" />
+    @endif
+   
 
     @isset($title)
         <title>{{$title}}</title>

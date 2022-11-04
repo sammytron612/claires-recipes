@@ -1,5 +1,6 @@
 
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Privacy | Claires Recipes', 'description' => 'Privacy'])
+
 
 @section('content')
 <div class="container py-5">

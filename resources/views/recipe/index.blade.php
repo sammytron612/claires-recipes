@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.app', ['noFollow' => true, title' => 'Recipe Index | Claires Recipes', 'description' => "Claires Recipes, tasty recipes tried and tested for everyone"])
+
 
 @section('content')
 

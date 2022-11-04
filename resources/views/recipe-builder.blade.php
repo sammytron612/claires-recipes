@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.app', ['noFollow' => true 'title' => 'Recipe Builder | Claires Recipes', 'description' => "Search for Recipes on the ingredients you have."])
+
 
 @section('content')
 <div class="container-fluid bg-white">
