@@ -13,7 +13,7 @@
 
     @isset($title)
         <title>{{$title}}</title>
-        @if($image)
+        @if(isset($image))
             <meta property="og:image" content={{ asset('storage/'. $image) }}>
             <meta name="twitter:image" content="{{ asset('storage/'. $image) }}">
         @endif
