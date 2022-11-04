@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Ingredient;
+use Illuminate\Support\Facades\Cache;
 
 
 class IndexController extends Controller
@@ -90,6 +91,8 @@ class IndexController extends Controller
         $title = array_column($index, 'title');
 
         array_multisort($title, SORT_ASC, $index);
+
+        Cache::put( 'cacheIndex', $index, 300 );
 
        return view('recipe.index', compact(['index']));
     }
