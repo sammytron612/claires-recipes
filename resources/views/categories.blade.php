@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => $category->title . ' | Claires Recipes', 'description' => 'Choose a Cuisine Category'])
+@extends('layouts.app', ['title' => $category->title . ' | Claires Recipes', 'description' => $cateegory->title])
 
 @section('content')
     @include('includes.search')
