@@ -12,7 +12,6 @@ class IndexController extends Controller
     public function index()
     {
 
-        Cache::forget( 'cacheIndex' );
         if( !Cache::has( 'cacheIndex' ) )
         {
             $i = Ingredient::all();
