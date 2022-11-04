@@ -2,7 +2,7 @@
 
 @section('content')
     @include('includes.search')
-hjhhkh
+
     <div class="col-12 mt-4 d-flex h-100 align-items-center justify-content-center">
         <div class="position-relative">
             <img style="width:100vw; object-fit: cover; height:45vh"  src="{{ asset('storage/' . $image) }}">

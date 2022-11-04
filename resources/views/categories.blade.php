@@ -1,6 +1,6 @@
 @extends('layouts.app', ['title' =>'Categories | Claires Recipes', 'description' => 'Choose a Cuisine Category'])
 
-
+jljlkjlk
 @section('content')
     @include('includes.search')
 
