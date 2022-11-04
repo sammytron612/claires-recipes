@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => $caption . ' | Claires Recipes', 'description' => "Claires Recipes, tasty recipes tried and tested for everyone"])
 
 @section('content')
     @include('includes.search')
