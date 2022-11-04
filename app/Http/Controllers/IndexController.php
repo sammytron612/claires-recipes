@@ -93,6 +93,7 @@ class IndexController extends Controller
         array_multisort($title, SORT_ASC, $index);
 
         Cache::put( 'cacheIndex', $index, 300 );
+        $index = Cache::get('cacheIndex');
 
        return view('recipe.index', compact(['index']));
     }
