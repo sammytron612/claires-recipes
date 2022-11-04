@@ -17,6 +17,7 @@ use App\Models\RecipeMethod;
 use App\Http\Helpers\IngredientJson;
 use App\Models\IngredientList;
 use Auth;
+use Illuminate\Support\Str;
 
 
 
@@ -162,20 +163,20 @@ class RecipeController extends Controller
 
         $pic = md5($request->photo . microtime()).'.'.$request->photo->extension();
 
+        $slug = Str::slug($request->title, '-');
+
         $recipe = ['title' =>  $request->title,
                 'description' => $request->description,
                 'author' => Auth::user()->id,
                 'attachment' => $attach,
                 'image' => $pic,
+                'slug' => $slug,
                 'cooking_time' => $request->cooking_time,
             ];
 
 
         $id = Recipe::create($recipe)->id;
 
-        $slug = (str_replace(' ', '-', strtolower($request->title)));
-
-        Recipe::where('id', $id)->update(['slug' => $slug . '-' . $id]);
 
         if($request->check)
         {
