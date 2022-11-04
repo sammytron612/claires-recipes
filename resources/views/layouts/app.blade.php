@@ -13,8 +13,10 @@
 
     @isset($title)
         <title>{{$title}}</title>
-        <meta property="og:image" content={{ asset('storage/'. $image) }}>
-        <meta name="twitter:image" content="{{ asset('storage/'. $image) }}">
+        @if($image)
+            <meta property="og:image" content={{ asset('storage/'. $image) }}>
+            <meta name="twitter:image" content="{{ asset('storage/'. $image) }}">
+        @endif
        @if($description)
             <meta name="description" content="{{ $description }}">
             <meta content="{{$title}}" name="keywords">
