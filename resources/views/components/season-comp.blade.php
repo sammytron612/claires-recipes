@@ -6,7 +6,7 @@
             @foreach($seasonal as $recipe)
             <div class="col d-flex justify-content-center align-items-stretch">
             <div class="p-1 m-1 mb-5 w-75 w-sm-100 shadow card">
-                <a href="{{ route('recipe', ['id'=>$recipe_id, 'slug'=> $recipe->recipe->slug]) }}" data-toggle="popover" data-placement="right"
+                <a href="{{ route('recipe', ['id'=>$recipe->recipe_id, 'slug'=> $recipe->recipe->slug]) }}" data-toggle="popover" data-placement="right"
                     title="{{ $recipe->recipe->description }}" class="stretched-link">
                     <div class="">
                         <img class="card-img-top" src="{{ asset('storage/' . $recipe->recipe->image) }}" alt="Card image cap">
