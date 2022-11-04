@@ -33,7 +33,7 @@
                 @foreach($recipes as $recipe)
 
                     <div class="p-1 d-flex align-items-stretch col card m-1 mb-5 shadow">
-                        <a href="{{ route('recipe',['id' => $recipe->recipe->id, 'slug' => $recipe->recipes->slug]) }}" data-toggle="popover" data-placement="right"
+                        <a href="{{ route('recipe',['id' => $recipe->recipes->id, 'slug' => $recipe->recipes->slug]) }}" data-toggle="popover" data-placement="right"
                             title="{{ $recipe->recipes->description }}" class="stretched-link">
 
                             <div class="">
