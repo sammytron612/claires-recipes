@@ -363,7 +363,7 @@
                             <a class="nav-link text-white" href="{{ route('recipe.index') }}" aria-label="Recipe Index">Recipe index</a>
                         </li>
                         <li class="ml-0 ml-md-5 nav-item">
-                            <a class="nav-link text-white" href="">About</a>
+                            <a href="#" class="nav-link text-white" href="">About</a>
                         </li>
                     </ul>
 
