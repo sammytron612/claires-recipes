@@ -9,7 +9,7 @@
 <div class="container px-3 bg-white mt-3 pb-5">
     <div class="row align-items-center py-3">
         <div class="col-6 float-left">
-            <img class="d-inline avatar ml-2" src="{{ asset('storage/' . $recipe->User->avatar) }}">
+            <img class="d-inline avatar ml-2" src="{{ asset('storage/' . $recipe->User->avatar) }} alt="{{$recipe->User->name}}">
             <span class="weight700 ml-2 weight-900 text-teal">By {{ $recipe->User->name }}</span>
         </div>
 
@@ -30,7 +30,7 @@
     </div>
     <div class="row">
         <div class="col-12 col-md-6">
-            <img class="border recipe-image border-dark w-100" src="{{ asset('storage/'. $recipe->image) }}">
+            <img class="border recipe-image border-dark w-100" src="{{ asset('storage/'. $recipe->image) }}" alt="{{$recipe->title}}">
         </div>
         <div class="col-12 col-md-6 mt-4 mt-md-0">
             <h3>{{ $recipe->title }}</h3>
@@ -104,7 +104,7 @@
                     <div class="pb-2 h-auto card-body h-100 d-block mb-2">
                         <div>{{ $similarRecipe->description }}</div>
                     </div>
-                    <img class="my-height mt-1 card-img-bottom w-100" src="{{ asset('storage/'. $similarRecipe->image) }}" alt="Card image cap">
+                    <img class="my-height mt-1 card-img-bottom w-100" src="{{ asset('storage/'. $similarRecipe->image) }}" alt="{{ $similarRecipe->title }}">
                 </div>
             </div>
         @endforeach

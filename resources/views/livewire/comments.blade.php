@@ -3,7 +3,7 @@
         <i class="text-teal fas fa-comment fa-2x mr-2"></i><span class="weight700" >{{ count($comments) }}&nbsp-&nbspComments/Reviews</span>
     </div>
     <div class="mt-3 d-flex align-items-center">
-        <img style="height:4rem" class="border mr-2 d-inline" src="{{ asset('storage/'. $recipe->image) }}"></span>
+        <img style="height:4rem" class="border mr-2 d-inline" src="{{ asset('storage/'. $recipe->image) }}" alt="{{$recipe->title}}"></span>
         <span class="weight700">{{ $recipe->title }}</span>
     </div>
     @auth
