@@ -5,7 +5,7 @@
 
     <div class="col-12 mt-4 d-flex h-100 align-items-center justify-content-center">
         <div class="position-relative">
-            <img style="width:100vw; object-fit: cover; height:45vh"  src="{{ asset('storage/' . $recipes[0]->image) }}">
+            <img style="width:100vw; object-fit: cover; height:45vh"  src="{{ asset('storage/' . $recipes[0]->image) }}" alt="Claire Site Logo">
         </div>
         <div style="" class="position-absolute d-flex h-100 align-items-center justify-content-center">
             <h3 style="background: rgba(204, 204, 204, 0.8);" class=" border border-dark text-dark p-2 p-md-5">Searched recipes</h3>
