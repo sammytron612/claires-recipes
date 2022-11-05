@@ -13,7 +13,7 @@
         <div class="col-md-3">
           <div class="d-inline-block">
             <div class="bg-circle-outline d-inline-block">
-              <a href="https://www.facebook.com/" class="text-white"><i class="fab fa-2x fa-facebook" aria-label="Twitter"></i>
+              <a href="https://www.facebook.com/" class="text-white" aria-label="Facebook"><i class="fab fa-2x fa-facebook"></i>
 		</a>
             </div>
 
