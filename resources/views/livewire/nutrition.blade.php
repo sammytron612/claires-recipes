@@ -6,7 +6,7 @@
         <ul class="list-unstyled">
         @foreach($ingredients as $ingredient)
             <div x-data="{nutrition: false}">
-                <li>{{ ucfirst($ingredient) }}&nbsp<button @click="$wire.getNutrition('{{ $ingredient }}'); nutrition = !nutrition" class="btn"><i class="fas fa-plus"></i></i></button>
+                <li>{{ ucfirst($ingredient) }}&nbsp<button @click="$wire.getNutrition('{{ $ingredient }}'); nutrition = !nutrition" class="btn" aria-label="Expand"><i class="fas fa-plus"></i></i></button>
                     <div @click.away="nutrition = !nutrition" x-show="nutrition" class="">
 			@isset($nutritionList[0])
                         @if($nutritionList[0] !== "none")
