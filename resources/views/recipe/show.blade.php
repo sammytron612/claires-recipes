@@ -96,7 +96,7 @@
     <div class="mt-2 row justify-content-start justify-content-md-center flex-wrap">
         @foreach($similarRecipes as $similarRecipe)
             <div class="col-12 col-md-4 col-lg-3 d-flex mt-2 align-items-stretch">
-                <a href="{{ route('recipe',['id' => $similarRecipe->id,'slug' => $similarRecipe->slug]) }}" class="stretched-link"></a>
+                <a href="{{ route('recipe',['id' => $similarRecipe->id,'slug' => $similarRecipe->slug]) }}" class="stretched-link" aria-label="{{$similarRecipe->title}}"></a>
                 <div class="shadow card p-0 col w-50 w-sm-100">
                     <div style="overflow-y:hidden" class="d-flex flex-column h-auto h5 px-2 pt-3">
                         <div class="text-center text-teal">{{ $similarRecipe->title }}</div>
