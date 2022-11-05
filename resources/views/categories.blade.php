@@ -6,7 +6,7 @@
 
     <div class="col-12 mt-4 d-flex h-100 align-items-center justify-content-center">
         <div class="position-relative">
-            <img style="width:100vw; object-fit: cover; height:45vh"  src="{{ asset('storage/' . $category->image) }}">
+            <img style="width:100vw; object-fit: cover; height:45vh"  src="{{ asset('storage/' . $category->image) }}" alt="{{$category->title}}">
         </div>
         <div class="position-absolute d-flex h-100 align-items-center justify-content-center">
             <h3 style="background: rgba(204, 204, 204, 0.8);font-family: 'Pacifico', cursive;" class="border border-dark text-dark p-2 p-md-5">{{ $category->title}}</h3>
@@ -24,9 +24,9 @@
 
         <div class="d-flex justify-content-center row py-2 col-12">
             <a href="{{ url($url . $category->slug) }} " class="btn mt-1 mr-2 btn-outline-teal rounded-pill"><h5 class="pt-1">Reset</h5></a>
-            <a href="{{ url($url . $category->slug . '/created_at') }}" class="@if(str_contains(url()->current(), '/created_at')) ? btn-teal text-white  : '' @endif mt-1 btn-outline-teal btn mr-2 rounded-pill "><h5 class="pt-1">Recent</h5></a>
-            <a href="{{ url($url . $category->slug . '/rating') }}" class="@if(str_contains(url()->current(), '/rating')) ? btn-teal text-white : '' @endif btn mr-2  mt-1 btn-outline-teal rounded-pill"><h5 class="pt-1">Highest rated</h5></a>
-            <a href="{{ url($url . $category->slug . '/views') }}" class="@if(str_contains(url()->current(), '/views')) ? btn-teal text-white : '' @endif btn mr-2 mt-1 btn-outline-teal rounded-pill"><h5 class="pt-1">Most viewed</h5></a>
+            <a href="{{ url($url . $category->slug . '/created_at') }}" class="@if(str_contains(url()->current(), '/created_at')) ? btn-teal text-white  : '' @endif mt-1 btn-outline-teal btn mr-2 rounded-pill " aria-label="Most Recent"><h5 class="pt-1">Recent</h5></a>
+            <a href="{{ url($url . $category->slug . '/rating') }}" class="@if(str_contains(url()->current(), '/rating')) ? btn-teal text-white : '' @endif btn mr-2  mt-1 btn-outline-teal rounded-pill"><h5 class="pt-1" aria-label="Highest Rated">Highest rated</h5></a>
+            <a href="{{ url($url . $category->slug . '/views') }}" class="@if(str_contains(url()->current(), '/views')) ? btn-teal text-white : '' @endif btn mr-2 mt-1 btn-outline-teal rounded-pill"><h5 class="pt-1" aria-label="Most Viewed">Most viewed</h5></a>
         </div>
         <div class="mt-3 px-5 p-md-0 row row-cols-1 d-flex justify-content-around row-cols-md-3 row-cols-lg-4">
 
@@ -34,10 +34,10 @@
 
                     <div class="p-1 d-flex align-items-stretch col card m-1 mb-5 shadow">
                         <a href="{{ route('recipe',['id' => $recipe->recipes->id, 'slug' => $recipe->recipes->slug]) }}" data-toggle="popover" data-placement="right"
-                            title="{{ $recipe->recipes->description }}" class="stretched-link">
+                            title="{{ $recipe->recipes->description }}" class="stretched-link" aria-label="{{ $recipe->recipes->title }}">
 
                             <div class="">
-                                <img class="card-img-top" src="{{ asset('storage/' . $recipe->recipes->image) }}" alt="Card image cap">
+                                <img class="card-img-top" src="{{ asset('storage/' . $recipe->recipes->image) }}" alt="{{$recipe->recipes->title}}">
                             </div>
                         </a>
 
