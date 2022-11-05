@@ -19,7 +19,7 @@
                 <img class="d-block w-100" style="object-fit: cover; height: 60vh" src="{{ asset('storage/' . $recipe->image) }}" alt="{{$recipe->title}}">
                 <div class="carousel-caption d-flex h-100 align-items-center justify-content-center">
                     
-                    <a href ="{{ route('recipe', ['id'=>$recipe->id, 'slug'=>$recipe->slug]) }}" class="stretched-link"></a>
+                    <a href ="{{ route('recipe', ['id'=>$recipe->id, 'slug'=>$recipe->slug]) }}" class="stretched-link" aria-label="{{$recipe->title}}"></a>
                     <h3 style="font-family: 'Pacifico', cursive; background: rgba(204, 204, 204, 0.8);" class="border border-dark text-dark p-3">{{ $recipe->title }}</h3>
                 </div>
               </div>
@@ -68,7 +68,7 @@
                 <div class="col d-flex align-items-stretch">
                 <div class="p-1 m-1 mb-5 w-75 w-sm-100 shadow card">
                     <a href="{{ route('recipe', ['id'=>$recipe->id, 'slug'=> $recipe->slug]) }}" data-toggle="popover" data-placement="right"
-                        title="{{ $recipe->description }}" class="stretched-link">
+                        title="{{ $recipe->description }}" class="stretched-link" aria-label="{{$recipe->title}}">
                         <div class="">
                             <img class="card-img-top" src="{{ asset('storage/' . $recipe->image) }}" alt="{{$recipe->title}}">
                         </div>
