@@ -1,5 +1,5 @@
 <div x-data="{shown: false}">
-    <h5>Nutritional Info(100g)&nbsp<button @click="shown = !shown" class="btn btn-small btn-teal">
+    <h5>Nutritional Info(100g)&nbsp<button @click="shown = !shown" class="btn btn-small btn-teal" aria-label="Expand Nutrition Info">
         <i class="fas fa-plus"></i></i></button>
     </h5>
     <div x-cloak x-show="shown">
