@@ -9,7 +9,7 @@
 <div class="container px-3 bg-white mt-3 pb-5">
     <div class="row align-items-center py-3">
         <div class="col-6 float-left">
-            <img class="d-inline avatar ml-2" src="{{ asset('storage/' . $recipe->User->avatar) }} alt="{{$recipe->User->name}}">
+            <img class="d-inline avatar ml-2" src="{{ asset('storage/' . $recipe->User->avatar) }}" alt="{{$recipe->User->name}}">
             <span class="weight700 ml-2 weight-900 text-teal">By {{ $recipe->User->name }}</span>
         </div>
 
