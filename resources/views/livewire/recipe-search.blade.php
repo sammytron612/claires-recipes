@@ -66,19 +66,20 @@
                 @endif
             </div>
         </div>
-</div>
 <script>
-     function search(searchTerm)
-     {
-         if(searchTerm.length > 2)
+    function search(searchTerm)
+    {
+        if(searchTerm.length > 2)
         {
             @this.set('searchTerm', searchTerm);
-         }
-         else {
-             //alert("kl")
-             $('#dropdown').hide();
-         }
-     }
+        }
+        else {
+            //alert("kl")
+            $('#dropdown').hide();
+        }
+    }
 
 
 </script>
+</div>
+
