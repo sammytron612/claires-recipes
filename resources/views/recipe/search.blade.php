@@ -5,9 +5,9 @@
 
     <div class="col-12 mt-4 d-flex h-100 align-items-center justify-content-center">
         <div class="position-relative">
-            <img style="width:100vw; object-fit: cover; height:45vh"  src="{{ asset('storage/' . $recipes[0]->image) }}" alt="Claire Site Logo">
+            <img style="width:100vw; object-fit: cover; height:45vh"  src="{{ asset('storage/' . $recipes[0]->image) }}" alt="{{$recipes[0]->title}}">
         </div>
-        <div style="" class="position-absolute d-flex h-100 align-items-center justify-content-center">
+        <div class="position-absolute d-flex h-100 align-items-center justify-content-center">
             <h3 style="background: rgba(204, 204, 204, 0.8);" class=" border border-dark text-dark p-2 p-md-5">Searched recipes</h3>
         </div>
     </div>
@@ -27,7 +27,7 @@
                         <a href="{{ route('recipe',$recipe->slug) }}" data-toggle="popover" data-placement="right"
                             title="{{ $recipe->description }}" class="stretched-link">
                             <div class="">
-                                <img class="card-img-top" src="{{ asset('storage/' . $recipe->image) }}" alt="Card image cap">
+                                <img class="card-img-top" src="{{ asset('storage/' . $recipe->image) }}" alt="{{$recipe->title}}">
                             </div>
                         </a>
                         <div class="card-body">
