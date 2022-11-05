@@ -5,7 +5,7 @@
 
     <div class="col-12 mt-4 d-flex h-100 align-items-center justify-content-center">
         <div class="position-relative">
-            <img style="width:100vw; object-fit: cover; height:45vh"  src="{{ asset('storage/' . $image) }}">
+            <img style="width:100vw; object-fit: cover; height:45vh"  src="{{ asset('storage/' . $image) }}" alt="{{$caption}}">
         </div>
         <div style="" class="position-absolute d-flex h-100 align-items-center justify-content-center">
             <h3 style="font-family: 'Pacifico', cursive;background: rgba(204, 204, 204, 0.8);" class="text-capitalize border border-dark text-dark p-3">{{ $caption }}</h3>

@@ -353,14 +353,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li><a class="nav-link text-white" href="{{ url('/home') }}">Home</i>
+                        <li><a class="nav-link text-white" href="{{ url('/home') }}" aria-label="Home">Home</i>
                         </a>
                         </li>
                         <li class="ml-0 ml-md-5 nav-item">
-                            <a class="nav-link text-white" href="{{ route('recipe-builder') }}">Recipe builder</a>
+                            <a class="nav-link text-white" href="{{ route('recipe-builder') }}" aria-label="Recipe Builder">Recipe builder</a>
                         </li>
                         <li class="ml-0 ml-md-5 nav-item">
-                            <a class="nav-link text-white" href="{{ route('recipe.index') }}">Recipe index</a>
+                            <a class="nav-link text-white" href="{{ route('recipe.index') }}" aria-label="Recipe Index">Recipe index</a>
                         </li>
                         <li class="ml-0 ml-md-5 nav-item">
                             <a class="nav-link text-white" href="">About</a>
@@ -373,13 +373,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="text-white nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="text-white nav-link" href="{{ route('login') }}" aria-label="Login">{{ __('Login') }} </a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="text-white nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="text-white nav-link" href="{{ route('register') }}" aria-label="Register">{{ __('Register') }}</a>
                                 </li>
                             @endif
 
@@ -399,15 +399,15 @@
                                     @endcan
                                     @livewire('fav-count')
 
-                                    <a class="dropdown-item" href="{{ route('profile.planner') }}">
+                                    <a class="dropdown-item" href="{{ route('profile.planner') }}" aria-label="My Panner">
                                         My Planner
                                     </a>
 
-                                    <a class="dropdown-item" href="{{ route('profile.profile') }}">
+                                    <a class="dropdown-item" href="{{ route('profile.profile') }}" aria-label="Profile">
                                         My Profile
                                     </a>
 
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item" href="{{ route('logout') }}" aria-label="Logout"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
