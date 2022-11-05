@@ -20,7 +20,7 @@
                                 {{ ucfirst(substr($index[$loop->index]->title, 0, 1)) }}
                             </h1>
                             <div>
-                                <a href="{{ route($return->category,$return->slug) }}"><h5>{{ $return->title }}</h5>
+                                <a href="{{ route($return->category,$return->slug) }}" aria-label="{{$return->title}}"><h5>{{ $return->title }}</h5>
                                 </a>({{ $return->total }})
                             </div>
 
@@ -37,7 +37,7 @@
 
                                 @if($current == $next)
                                     <div>
-                                        <a href="{{ route($return->category,$return->slug) }}"><h5>{{ $return->title }}</h5>
+                                        <a href="{{ route($return->category,$return->slug) }}" aria-label="{{$return->title}}"><h5>{{ $return->title }}</h5>
                                         </a>({{ $return->total }})
                                     </div>
 
@@ -45,7 +45,7 @@
                                 </div><div class="col mt-2">
                                     <h1>{{ $next }}</h1>
                                     <div>
-                                        <a href="{{ route($return->category,$return->slug) }}"><h5>{{ $index[$loop->index]->title }}</h5>
+                                        <a href="{{ route($return->category,$return->slug) }}" aria-label="{{$return->title}}"><h5>{{ $index[$loop->index]->title }}</h5>
                                         </a>({{ $return->total }})
                                     </div>
 
