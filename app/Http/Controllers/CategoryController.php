@@ -16,7 +16,7 @@ class CategoryController extends Controller
 
         if($choice == 'special-diet')
         {
-            $returns = Diet::orderBy('title')->paginate(12);
+            $returns = Diet::orderBy('title')->paginate(20);
             $image = "diet1232.jpg";
             $caption = "Special diets";
             $route = "diet";
@@ -32,7 +32,7 @@ class CategoryController extends Controller
 
         if($choice == 'cuisine')
         {
-            $returns = Cuisine::orderBy('title')->paginate(12);
+            $returns = Cuisine::orderBy('title')->paginate(20);
             $route = "cuisine";
             $caption = "Cusines";
             $image = "cuisine1232.jpg";
@@ -40,7 +40,7 @@ class CategoryController extends Controller
 
         if($choice == 'course')
         {
-            $returns = Course::orderBy('title')->paginate(12);
+            $returns = Course::orderBy('title')->paginate(20);
             $route = "course";
             $caption = "Courses";
             $image = "course1232.jpg";
@@ -48,7 +48,7 @@ class CategoryController extends Controller
 
         if($choice == 'method')
         {
-            $returns = Method::orderBy('title')->paginate(12);
+            $returns = Method::orderBy('title')->paginate(20);
             $route = "method";
             $caption = "Cooking methods";
             $image = "method1232.png";
