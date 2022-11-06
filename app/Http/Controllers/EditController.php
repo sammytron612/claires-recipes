@@ -115,7 +115,7 @@ class EditController extends Controller
         }
 
         $recipe->title = $request->title;
-        $recipe->slug = (str_replace(' ', '-', strtolower($request->title))) . '-' . $request->recipeId;
+        $recipe->slug = (str_replace(' ', '-', strtolower($request->title)));
 
         $recipe->description = $request->description;
         $recipe->cooking_time = $request->cooking_time;
