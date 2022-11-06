@@ -94,7 +94,7 @@ class IndexController extends Controller
 
             array_multisort($title, SORT_ASC, $index);
 
-            Cache::put( 'cacheIndex', $index, 1440 );
+            Cache::put( 'cacheIndex', $index, 86400 );
         }
 
     $index = Cache::get('cacheIndex');   
