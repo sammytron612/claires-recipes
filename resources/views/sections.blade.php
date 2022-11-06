@@ -34,7 +34,7 @@
                                 <div>{{ $return->description }}</div>
                             </div>
                         @endif
-                        <img class="my-height mt-1 card-img-bottom w-100" src="{{ asset('storage/'. $return->image) }}" alt="Card image cap">
+                        <img class="my-height mt-1 card-img-bottom w-100" src="{{ asset('storage/'. $return->image) }}" alt="{{$return->title}}">
                     </div>
                 </div>
             @endforeach
