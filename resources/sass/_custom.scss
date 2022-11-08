@@ -155,7 +155,7 @@ $enable-shadows: true;
 }
 
 li a {
-  pointer-events:none;
+
   color: #4a862a !important;
 }
 
@@ -169,6 +169,6 @@ span a {
   color: #4a862a !important;
 }
 
-.page-link {
+.page-item a  {
   pointer-events: all !important;
 }
