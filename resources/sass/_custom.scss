@@ -154,4 +154,17 @@ $enable-shadows: true;
     object-fit: cover
 }
 
+li a {
+  pointer-events:none;
+  color: #4a862a !important;
+}
 
+p a {
+  pointer-events:none;
+  color: #4a862a !important;
+}
+
+span a {
+  pointer-events:none;
+  color: #4a862a !important;
+}
