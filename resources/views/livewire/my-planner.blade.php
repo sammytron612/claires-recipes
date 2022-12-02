@@ -11,7 +11,7 @@
                         Monday-slot&nbsp{{ $monday[0]->slot }}
                     </div>
                     <div class="card-body p-0">
-                        <a href="{{ route('recipe', $monday[0]->recipe->slug) }}">
+                        <a href="{{ route('recipe', [$monday[0]->recipe->id,$monday[0]->recipe->slug]) }}">
                             <img style="object-fit: cover;height:200px" class="w-100" src="{{ asset('storage/' .$monday[0]->recipe->image) }}">
                         </a>
                         <div class="d-flex justify-content-center align-items-center px-2 py-3">
@@ -41,7 +41,7 @@
                         Tuesday-slot&nbsp{{ $tuesday[0]->slot }}
                     </div>
                     <div class="card-body p-0">
-                        <a href="{{ route('recipe', $tuesday[0]->recipe->slug) }}">
+                        <a href="{{ route('recipe', [$tuesday[0]->recipe->id, $tuesday[0]->recipe->slug]) }}">
                             <img style="object-fit: cover;height:200px" class="w-100" src="{{ asset('storage/' .$tuesday[0]->recipe->image) }}">
                         </a>
                         <div class="d-flex justify-content-center align-items-center px-2 py-3">
@@ -71,7 +71,7 @@
                         Wednesday-slot&nbsp{{ $wednesday[0]->slot }}
                     </div>
                     <div class="card-body p-0">
-                        <a href="{{ route('recipe', $wednesday[0]->recipe->slug) }}">
+                        <a href="{{ route('recipe', [$wednesday[0]->recipe->id, $wednesday[0]->recipe->slug]) }}">
                             <img style="object-fit: cover;height:200px" class="w-100" src="{{ asset('storage/' .$wednesday[0]->recipe->image) }}">
                         </a>
                         <div class="d-flex justify-content-center align-items-center px-2 py-3">
@@ -100,7 +100,7 @@
                         Thursday-slot&nbsp{{ $thursday[0]->slot }}
                     </div>
                     <div class="card-body p-0">
-                        <a href="{{ route('recipe', $thursday[0]->recipe->slug) }}">
+                        <a href="{{ route('recipe', [$thursday[0]->recipe->slug,$thursday[0]->recipe->slug]) }}">
                             <img style="object-fit: cover;height:200px" class="w-100" src="{{ asset('storage/' .$thursday[0]->recipe->image) }}">
                         </a>
                         <div class="d-flex justify-content-center align-items-center px-2 py-3">
@@ -129,7 +129,7 @@
                         Friday-slot&nbsp{{ $friday[0]->slot }}
                     </div>
                     <div class="card-body p-0">
-                        <a href="{{ route('recipe', $friday[0]->recipe->slug) }}">
+                        <a href="{{ route('recipe', [$friday[0]->recipe->id, $friday[0]->recipe->slug]) }}">
                             <img style="object-fit: cover;height:200px" class="w-100" src="{{ asset('storage/' .$friday[0]->recipe->image) }}">
                         </a>
                         <div class="d-flex justify-content-center align-items-center px-2 py-3">
@@ -158,7 +158,7 @@
                         Saturday-slot&nbsp{{ $saturday[0]->slot }}
                     </div>
                     <div class="card-body p-0">
-                        <a href="{{ route('recipe', $saturday[0]->recipe->slug) }}">
+                        <a href="{{ route('recipe', [$saturday[0]->recipe->id, $saturday[0]->recipe->slug]) }}">
                             <img style="object-fit: cover;height:200px" class="w-100" src="{{ asset('storage/' .$saturday[0]->recipe->image) }}">
                         </a>
                         <div class="d-flex justify-content-center align-items-center px-2 py-3">
@@ -187,7 +187,7 @@
                         Sunday-slot&nbsp{{ $sunday[0]->slot }}
                     </div>
                     <div class="card-body p-0">
-                        <a href="{{ route('recipe', $sunday[0]->recipe->slug) }}">
+                        <a href="{{ route('recipe', [$sunday[0]->recipe->id, $sunday[0]->recipe->slug]) }}">
                             <img style="object-fit: cover;height:200px" class="w-100" src="{{ asset('storage/' .$sunday[0]->recipe->image) }}">
                         </a>
                         <div class="d-flex justify-content-center align-items-center px-2 py-3">
