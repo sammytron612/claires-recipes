@@ -24,7 +24,7 @@
         <div class="mt-3 px-5 p-md-0 row row-cols-1 d-flex justify-content-around row-cols-md-3 row-cols-lg-4">
                 @foreach($recipes as $recipe)
                     <div class="p-1 d-flex align-items-stretch col card m-1 mb-5 shadow">
-                        <a href="{{ route('recipe',['id'=> $recipe->id. 'slug'=>$recipe->slug]) }}" data-toggle="popover" data-placement="right"
+                        <a href="{{ route('recipe',['id'=> $recipe->id, 'slug'=>$recipe->slug]) }}" data-toggle="popover" data-placement="right"
                             title="{{ $recipe->description }}" class="stretched-link">
                             <div class="">
                                 <img class="card-img-top" src="{{ asset('storage/' . $recipe->image) }}" alt="{{$recipe->title}}">
