@@ -365,9 +365,9 @@
                         <li class="ml-0 ml-md-5 nav-item">
                             <a href="#" class="nav-link text-white" href="">About</a>
                         </li>
-                        <li class="ml-0 ml-md-5 nav-item">
+                       <!-- <li class="ml-0 ml-md-5 nav-item">
                           <a href="{{route('blog.index')}}" class="nav-link text-white" href="">Blog</a>
-                      </li>
+                      </li> -->
                     </ul>
 
                     <!-- Right Side Of Navbar -->
