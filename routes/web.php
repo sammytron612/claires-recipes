@@ -13,6 +13,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EditController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SocialController;
+use App\Http\Controllers\BlogController;
 
 
 
@@ -86,6 +87,7 @@ Route::delete('/home/admin/recipe/delete/{id}',[EditController::class, 'destroy'
 Route::post('/home/admin/recipe/update',[EditController::class, 'update'])->name('admin.recipe-update')->middleware('auth','admin');
 
 
+Route::get('/blog',[BlogController::class, 'index'])->name('blog.index');
 
 Auth::routes();
 
