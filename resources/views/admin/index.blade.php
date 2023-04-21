@@ -11,7 +11,10 @@
   </div>
 @endif
 
-    <div class="mt-5 d-flex justify-content-around row-cols-md-3 row-cols-lg-4">
+<x-header title="Admin Menu" />
+
+<div class="container bg-white">
+    <div class="pt-5 d-flex justify-content-center row row-cols-2 row-cols-lg-3">
         <div class="p-1 d-flex col card m-1 mb-5 shadow">
             <a href="{{ route('admin.new-recipe') }}" class="">
                 <div class="card-body">
@@ -20,7 +23,7 @@
             </a>
         </div>
 
-        <div class="p-1 d- col card m-1 mb-5 shadow">
+        <div class="p-1 d-flex col card m-1 mb-5 shadow">
             <a href="{{ route('admin.recipe-index') }}" class="">
                 <div class="card-body">
                     <h5 class="weight700 text-teal text-center">Edit a  recipe</h5>
@@ -28,15 +31,23 @@
             </a>
         </div>
 
-            <div class="p-1 d-flex  col card m-1 mb-5 shadow">
-                <a href="{{ route('admin.new-hashtag') }}" class="">
-                    <div class="card-body">
-                        <h5 class="weight700 text-teal text-center">Add a hashtag/Ingredient</h5>
-                    </div>
-                </a>
-            </div>
-    </div>
+        <div class="p-1 d-flex col card m-1 mb-5 shadow">
+            <a href="{{ route('blog.new-article') }}" class="">
+                <div class="card-body">
+                    <h5 class="weight700 text-teal text-center">New Blog Article</h5>
+                </div>
+            </a>
+        </div>
 
+        <div class="p-1 d-flex  col card m-1 mb-5 shadow">
+            <a href="{{ route('admin.new-hashtag') }}" class="">
+                <div class="card-body">
+                    <h5 class="weight700 text-teal text-center">Add a hashtag/Ingredient</h5>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
 
 
 

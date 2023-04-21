@@ -88,6 +88,7 @@ Route::post('/home/admin/recipe/update',[EditController::class, 'update'])->name
 
 
 Route::get('/blog',[BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/article',[BlogController::class, 'newArticle'])->name('blog.new-article');
 
 Auth::routes();
 

@@ -17,7 +17,9 @@ class Blog extends Migration
             $table->id('id');
             $table->text('title');
             $table->string('main_image');
+            $table->integer('author');
             $table->timestamps();
+            
         });
     }
 
