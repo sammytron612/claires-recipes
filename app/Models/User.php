@@ -62,5 +62,10 @@ class User extends Authenticatable
         return $this->hasMany(Planner::class,'user_id','id');
     }
 
+    public function article()
+    {
+        return $this->hasMany(BlogArticle::class,'id');
+    }
+
 
 }

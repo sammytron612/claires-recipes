@@ -14,6 +14,8 @@ use App\Http\Controllers\EditController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ImageController;
+use App\Models\BlogArticle;
 
 
 
@@ -87,8 +89,35 @@ Route::delete('/home/admin/recipe/delete/{id}',[EditController::class, 'destroy'
 Route::post('/home/admin/recipe/update',[EditController::class, 'update'])->name('admin.recipe-update')->middleware('auth','admin');
 
 
-Route::get('/blog',[BlogController::class, 'index'])->name('blog.index');
-Route::get('/blog/article',[BlogController::class, 'newArticle'])->name('blog.new-article');
+Route::get('/blog', function(){
+    $articles = BlogArticle::paginate(9);
+    return view('blog.index', ['articles' => $articles]);
+}
+)->name('blog.index');
+
+Route::get('/blog/new',function(){
+    return view('blog.new-article');
+})->name('blog.new-article')->middleware('auth','admin');
+
+
+Route::post('/image/upload',[ImageController::class, 'imageUpload'])->name('image.upload')->middleware('auth','admin');
+
+Route::post('/blog/post',[BlogController::class, 'postArticle'])->name('postArticle')->middleware('auth','admin');
+
+Route::post('/post/update/{BlogArticle}',[BlogController::class, 'update'])->name('updateArticle')->middleware('auth','admin');
+
+Route::get('/post/view/{BlogArticle}',function(BlogArticle $BlogArticle){
+        return view('blog.edit', ['post' => $BlogArticle]);
+    })->middleware('admin');
+
+Route::get('/post/{BlogArticle}/{slug}', function(BlogArticle $BlogArticle){
+    
+    $body = $BlogArticle->postBody;
+    $tmp = explode('/', $BlogArticle->main_image);
+    $image = end($tmp);
+    
+    return view('blog.show-post', ['body' => $body, 'image' => $image, 'BlogArticle' => $BlogArticle]);
+});
 
 Auth::routes();
 
