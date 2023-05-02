@@ -63,7 +63,7 @@ class NewIngredient
         $curl = curl_init();
 
         curl_setopt_array($curl, [
-            CURLOPT_URL => "https://edamam-food-and-grocery-database.p.rapidapi.com/parser?ingr=" . $query,
+            CURLOPT_URL => "https://edamam-food-and-grocery-database.p.rapidapi.com/api/food-database/v2/parser?ingr=" . $query,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_ENCODING => "",
