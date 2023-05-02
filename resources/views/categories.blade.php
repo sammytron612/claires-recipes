@@ -23,10 +23,10 @@
         <x-breadcrumb/>
 
         <div class="d-flex justify-content-center row py-2 col-12">
-            <a href="{{ url($url . $category->slug) }} " class="btn mt-1 mr-2 btn-outline-teal rounded-pill"><h5 class="pt-1">Reset</h5></a>
-            <a href="{{ url($url . $category->slug . '/created_at') }}" class="@if(str_contains(url()->current(), '/created_at')) ? btn-teal text-white  : '' @endif mt-1 btn-outline-teal btn mr-2 rounded-pill " aria-label="Most Recent"><h5 class="pt-1">Recent</h5></a>
-            <a href="{{ url($url . $category->slug . '/rating') }}" class="@if(str_contains(url()->current(), '/rating')) ? btn-teal text-white : '' @endif btn mr-2  mt-1 btn-outline-teal rounded-pill"><h5 class="pt-1" aria-label="Highest Rated">Highest rated</h5></a>
-            <a href="{{ url($url . $category->slug . '/views') }}" class="@if(str_contains(url()->current(), '/views')) ? btn-teal text-white : '' @endif btn mr-2 mt-1 btn-outline-teal rounded-pill"><h5 class="pt-1" aria-label="Most Viewed">Most viewed</h5></a>
+            <a href="{{ url($url . $category->slug) }} " rel="nofollow" class="btn mt-1 mr-2 btn-outline-teal rounded-pill"><h5 class="pt-1">Reset</h5></a>
+            <a href="{{ url($url . $category->slug . '/created_at') }}" rel="nofollow" class="@if(str_contains(url()->current(), '/created_at')) ? btn-teal text-white  : '' @endif mt-1 btn-outline-teal btn mr-2 rounded-pill " aria-label="Most Recent"><h5 class="pt-1">Recent</h5></a>
+            <a href="{{ url($url . $category->slug . '/rating') }}" rel="nofollow" class="@if(str_contains(url()->current(), '/rating')) ? btn-teal text-white : '' @endif btn mr-2  mt-1 btn-outline-teal rounded-pill"><h5 class="pt-1" aria-label="Highest Rated">Highest rated</h5></a>
+            <a href="{{ url($url . $category->slug . '/views') }}" rel="nofollow" class="@if(str_contains(url()->current(), '/views')) ? btn-teal text-white : '' @endif btn mr-2 mt-1 btn-outline-teal rounded-pill"><h5 class="pt-1" aria-label="Most Viewed">Most viewed</h5></a>
         </div>
         <div class="mt-3 px-5 p-md-0 row row-cols-1 d-flex justify-content-around row-cols-md-3 row-cols-lg-4">
 
