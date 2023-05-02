@@ -40,14 +40,14 @@
                                 @if($current == $next)
 
                                     <a class="d-block" href="{{  route($route,$return->slug) }}"
-                                        data-toggle="popover" data-placement="right"
+                                        rel="nofollow" data-toggle="popover" data-placement="right"
                                         data-img="{{ asset('storage/' . $return->image) }}"><h5>{{ $return->title }}</h5></a>
 
                                 @else
                                 </div><div class="col mt-2">
                                     <h1>{{ $next }}</h1>
                                     <a class="d-block" href="{{  route($route,$returns[$loop->index]->slug) }}"
-                                        data-toggle="popover" data-placement="right"
+                                        rel="nofollow" data-toggle="popover" data-placement="right"
                                         data-img="{{ asset('storage/' . $returns[$loop->index]->image) }}"><h5>{{ $returns[$loop->index]->title }}</h5>
                                     </a>
 
