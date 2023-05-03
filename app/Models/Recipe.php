@@ -4,18 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Scout\Searchable;
+//use Laravel\Scout\Searchable;
 
 
 class Recipe extends Model
 {
-    use HasFactory,Searchable;
+    use HasFactory;//,Searchable;
 
 
     protected $table = 'recipe';
 
     protected $fillable = ['title','description','method','slug','image','author','attachment','cooking_time'];
 
+    /*
 
     public function searchableAs()
     {
@@ -30,7 +31,7 @@ class Recipe extends Model
 
         return (['title' => $array['title']]);
     }
-
+*/
     public function rplanner()
     {
         return $this->hasMany(planner::class);
