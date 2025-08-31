@@ -2,22 +2,23 @@
     @if(!count($favourites))
     <h2 class="text-center py-5">You have none</h2>
     @else
-    <section class="container bg-wite mt-5">
-        <table  class="table table-inverse table-responsive">
-            <thead class="thead-inverse">
-                <tr>
-                    <th></th>
-                    <th class="w-25">Title</th>
-                    <th class="w-50 text-truncate">Description</th>
-                    <th class="align-middle d-none d-md-block">Planner</th>
-                    <th class="w-25 text-center">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($favourites as $fav)
+    <section class="max-w-7xl mx-auto bg-white mt-5 px-4">
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white">
+                <thead class="bg-gray-50">
                     <tr>
-                        <td class="align-middle"><a href="{{ route('recipe',$fav->slug) }}"><img style="width:8rem; height:100px;" class="border-dark" src="{{ asset('storage/' . $fav->image) }}"></a></td>
-                        <td class="align-middle weight700"><a href="{{ route('recipe',$fav->slug) }}">
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4">Title</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/2 truncate">Description</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">Planner</th>
+                        <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach($favourites as $fav)
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap"><a href="{{ route('recipe',$fav->slug) }}"><img style="width:8rem; height:100px;" class="border border-gray-800 rounded" src="{{ asset('storage/' . $fav->image) }}"></a></td>
+                            <td class="px-6 py-4 whitespace-nowrap font-bold"><a href="{{ route('recipe',$fav->slug) }}">
                             {{ $fav->title }}
                         </a></td>
                         <td class="align-middle d-none d-md-block"">{{ $fav->description }}</td>

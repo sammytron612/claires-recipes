@@ -41,17 +41,6 @@
     @livewireStyles
     @livewireScripts
     <style>
-
-        .my-hover:hover
-        {
-            background-color: lightgray;
-        }
-
-        .nav-opaque
-        {
-            opacity: 0.5;
-        }
-
         .bg-custom {
             background: rgb(0,0,0);
             background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(137,137,139,1) 90%);
@@ -59,7 +48,7 @@
 
         .recipe-ingredients__link {
             pointer-events:none;
-    }
+        }
 
     '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
 
@@ -338,119 +327,166 @@
 
     </style>
 </head>
-<body class="d-flex flex-column h-100" style="font-family: Merriweather,serif;min-height:100vh">
+<body class="flex flex-col min-h-screen font-merriweather">
     <div id="app">
         @if (Request::path() != 'login')
-        <nav id="my-nav" class="py-2 h6 navbar sticky-top bg-custom navbar-expand-md navbar-dark">
-            <div class="container">
+        <nav id="my-nav" class="py-2 text-base sticky top-0 bg-custom md:block z-50">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex justify-between items-center">
+                    <!-- Mobile menu button -->
+                    <button 
+                        type="button" 
+                        class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-gray-700 focus:outline-none"
+                        onclick="toggleMobileMenu()"
+                        aria-label="{{ __('Toggle navigation') }}"
+                    >
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
 
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:block w-full">
+                        <div class="flex items-center justify-between">
+                            <!-- Left Side Of Navbar -->
+                            <ul class="flex space-x-0 md:space-x-5">
+                                <li><a class="text-white hover:text-gray-200 px-3 py-2 transition-colors" href="{{ url('/home') }}" aria-label="Home">Home</a></li>
+                                <li><a class="text-white hover:text-gray-200 px-3 py-2 transition-colors" href="{{ route('recipe-builder') }}" aria-label="Recipe Builder">Recipe builder</a></li>
+                                <li><a class="text-white hover:text-gray-200 px-3 py-2 transition-colors" href="{{ route('recipe.index') }}" aria-label="Recipe Index">Recipe index</a></li>
+                                <li><a class="text-white hover:text-gray-200 px-3 py-2 transition-colors" href="{{route('blog.index')}}" aria-label="Blog">Blog</a></li>
+                            </ul>
 
+                            <!-- Right Side Of Navbar -->
+                            <ul class="flex items-center space-x-4">
+                                <!-- Authentication Links -->
+                                @guest
+                                    @if (Route::has('login'))
+                                        <li>
+                                            <a class="text-white hover:text-gray-200 px-3 py-2 transition-colors" href="{{ route('login') }}" aria-label="Login">{{ __('Login') }} </a>
+                                        </li>
+                                    @endif
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                                    @if (Route::has('register'))
+                                        <li>
+                                            <a class="text-white hover:text-gray-200 px-3 py-2 transition-colors" href="{{ route('register') }}" aria-label="Register">{{ __('Register') }}</a>
+                                        </li>
+                                    @endif
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        <li><a class="nav-link text-white" href="{{ url('/home') }}" aria-label="Home">Home</i>
-                        </a>
-                        </li>
-                        <li class="ml-0 ml-md-5 nav-item">
-                            <a class="nav-link text-white" href="{{ route('recipe-builder') }}" aria-label="Recipe Builder">Recipe builder</a>
-                        </li>
-                        <li class="ml-0 ml-md-5 nav-item">
-                            <a class="nav-link text-white" href="{{ route('recipe.index') }}" aria-label="Recipe Index">Recipe index</a>
-                        </li>
-          
-                        <li class="ml-0 ml-md-5 nav-item">
-                            <a href="{{route('blog.index')}}" class="nav-link text-white" href="">Blog</a>
-                        </li>
-                    </ul>
+                                @else
+                                    <li class="relative" x-data="{ open: false }">
+                                        <button 
+                                            @click="open = !open" 
+                                            class="text-white hover:text-gray-200 px-3 py-2 flex items-center transition-colors"
+                                            aria-haspopup="true" 
+                                            :aria-expanded="open"
+                                        >
+                                            {{ Auth::user()->name }}
+                                            <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </button>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="text-white nav-link" href="{{ route('login') }}" aria-label="Login">{{ __('Login') }} </a>
-                                </li>
-                            @endif
+                                        <div 
+                                            x-show="open" 
+                                            @click.away="open = false"
+                                            x-transition:enter="transition ease-out duration-100"
+                                            x-transition:enter-start="transform opacity-0 scale-95"
+                                            x-transition:enter-end="transform opacity-100 scale-100"
+                                            x-transition:leave="transition ease-in duration-75"
+                                            x-transition:leave-start="transform opacity-100 scale-100"
+                                            x-transition:leave-end="transform opacity-0 scale-95"
+                                            class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50"
+                                        >
+                                            @can('isAdmin')
+                                                <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="{{ route('admin.index') }}">
+                                                Admin
+                                                </a>
+                                            @endcan
+                                            @livewire('fav-count')
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="text-white nav-link" href="{{ route('register') }}" aria-label="Register">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="text-white nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    @can('isAdmin')
-
-                                            <a class="dropdown-item" href="{{ route('admin.index') }}">
-                                            Admin
+                                            <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="{{ route('profile.planner') }}" aria-label="My Panner">
+                                                My Planner
                                             </a>
 
-                                    @endcan
-                                    @livewire('fav-count')
+                                            <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="{{ route('profile.profile') }}" aria-label="Profile">
+                                                My Profile
+                                            </a>
 
-                                    <a class="dropdown-item" href="{{ route('profile.planner') }}" aria-label="My Panner">
-                                        My Planner
-                                    </a>
-
-                                    <a class="dropdown-item" href="{{ route('profile.profile') }}" aria-label="Profile">
-                                        My Profile
-                                    </a>
-
-                                    <a class="dropdown-item" href="{{ route('logout') }}" aria-label="Logout"
+                                            <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="{{ route('logout') }}" aria-label="Logout"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                                         @csrf
                                     </form>
-                                </div>
-                            </li>
-                        @endguest
+                                        </div>
+                                    </li>
+                                @endguest
+                            </ul>
+                        </div>
+                    </div>
 
-                    </ul>
+                    <!-- Mobile menu -->
+                    <div id="mobile-menu" class="hidden md:hidden">
+                        <div class="px-2 pt-2 pb-3 space-y-1">
+                            <a class="text-white hover:text-gray-200 block px-3 py-2 transition-colors" href="{{ url('/home') }}" aria-label="Home">Home</a>
+                            <a class="text-white hover:text-gray-200 block px-3 py-2 transition-colors" href="{{ route('recipe-builder') }}" aria-label="Recipe Builder">Recipe builder</a>
+                            <a class="text-white hover:text-gray-200 block px-3 py-2 transition-colors" href="{{ route('recipe.index') }}" aria-label="Recipe Index">Recipe index</a>
+                            <a class="text-white hover:text-gray-200 block px-3 py-2 transition-colors" href="{{route('blog.index')}}" aria-label="Blog">Blog</a>
+                            
+                            @guest
+                                @if (Route::has('login'))
+                                    <a class="text-white hover:text-gray-200 block px-3 py-2 transition-colors" href="{{ route('login') }}" aria-label="Login">{{ __('Login') }}</a>
+                                @endif
+                                @if (Route::has('register'))
+                                    <a class="text-white hover:text-gray-200 block px-3 py-2 transition-colors" href="{{ route('register') }}" aria-label="Register">{{ __('Register') }}</a>
+                                @endif
+                            @else
+                                <div class="border-t border-gray-600 pt-2">
+                                    <div class="text-white px-3 py-2 font-medium">{{ Auth::user()->name }}</div>
+                                    @can('isAdmin')
+                                        <a class="text-white hover:text-gray-200 block px-3 py-2 transition-colors" href="{{ route('admin.index') }}">Admin</a>
+                                    @endcan
+                                    <a class="text-white hover:text-gray-200 block px-3 py-2 transition-colors" href="{{ route('profile.planner') }}" aria-label="My Planner">My Planner</a>
+                                    <a class="text-white hover:text-gray-200 block px-3 py-2 transition-colors" href="{{ route('profile.profile') }}" aria-label="Profile">My Profile</a>
+                                    <a class="text-white hover:text-gray-200 block px-3 py-2 transition-colors" href="{{ route('logout') }}" aria-label="Logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                </div>
+                            @endguest
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
         @endif
 
-        <main class="flex-shrink-0">
-          
+        <main class="flex-1">
             @yield('content')
         </main>
     </div>
-
 
     @if(!Request::is('login'))
         @include('includes.footer')
     @endif
 
-
     <script src="{{ mix('js/app.js') }}"></script>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <!--  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
     @stack('scripts')
     <script>
-        $(window).scroll(function() {
-        if ($(document).scrollTop() > 50) {
-            $('#my-nav').addClass('nav-opaque');
-        } else {
-            $('#my-nav').removeClass('nav-opaque');
-        }
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('my-nav');
+            if (window.pageYOffset > 50) {
+                nav.classList.add('nav-opaque');
+            } else {
+                nav.classList.remove('nav-opaque');
+            }
         });
     </script>
 </body>

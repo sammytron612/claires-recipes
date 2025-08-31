@@ -1,6 +1,10 @@
 require('./bootstrap');
 
-import 'alpinejs';
+import Alpine from 'alpinejs';
+
+// Start Alpine
+window.Alpine = Alpine;
+Alpine.start();
 
 import 'select2';
 

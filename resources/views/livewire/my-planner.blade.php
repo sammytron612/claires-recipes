@@ -1,28 +1,28 @@
 <div>
     <section>
-        <div class="pb-5 row row-cols-1 row-cols-md-2 row-cols-lg-4 justify-content-center py-5">
+        <div class="pb-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-center py-5">
             @isset($monday['slot'])
                 <x-slot-component day="1" :slott="$monday['slot']"/>
             @else
             @if(count($monday))
-            <div class="col d-flex align-items-stretch">
-                <div class="w-100 card p-0 mt-2 text-center">
-                    <div class="bg-white text-teal weight700 card-header">
+            <div class="flex items-stretch">
+                <div class="w-full bg-white rounded-lg shadow-md p-0 mt-2 text-center">
+                    <div class="bg-white text-teal-600 font-bold rounded-t-lg border-b px-4 py-3">
                         Monday-slot&nbsp{{ $monday[0]->slot }}
                     </div>
-                    <div class="card-body p-0">
+                    <div class="p-0">
                         <a href="{{ route('recipe', [$monday[0]->recipe->id,$monday[0]->recipe->slug]) }}">
-                            <img style="object-fit: cover;height:200px" class="w-100" src="{{ asset('storage/' .$monday[0]->recipe->image) }}">
+                            <img style="object-fit: cover;height:200px" class="w-full" src="{{ asset('storage/' .$monday[0]->recipe->image) }}">
                         </a>
-                        <div class="d-flex justify-content-center align-items-center px-2 py-3">
+                        <div class="flex justify-center items-center px-2 py-3">
                             {{ $monday[0]->recipe->title }}
                         </div>
-                        <div class="card-footer">
-                            <button class="btn @if($monday[0]->slot == 1) text-green @else text-dark @endif" onclick="changeSlot(1,'1')">
+                        <div class="bg-gray-50 px-4 py-3 rounded-b-lg">
+                            <button class="@if($monday[0]->slot == 1) text-green-600 @else text-gray-800 @endif" onclick="changeSlot(1,'1')">
                                 <i class="fa fa-square" aria-hidden="true"></i></button>
-                            <button class="btn @if($monday[0]->slot == 2) text-green @else text-dark @endif" onclick="changeSlot(2,'1')">
+                            <button class="@if($monday[0]->slot == 2) text-green-600 @else text-gray-800 @endif" onclick="changeSlot(2,'1')">
                                 <i class="fa fa-square" aria-hidden="true"></i></button>
-                            <button class="btn @if($monday[0]->slot == 3) text-green @else text-dark @endif" onclick="changeSlot(3,'1')">
+                            <button class="@if($monday[0]->slot == 3) text-green-600 @else text-gray-800 @endif" onclick="changeSlot(3,'1')">
                                 <i class="fa fa-square" aria-hidden="true"></i></button>
                         </div>
                     </div>

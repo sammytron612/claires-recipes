@@ -3,91 +3,85 @@
 @section('content')
     @include('includes.search')
 
-
-    <div class="col-12 mt-4 d-flex h-100 align-items-center justify-content-center">
-        <div class="position-relative">
+    <div class="w-full mt-4 flex h-full items-center justify-center relative">
+        <div class="relative">
             <img style="width:100vw; object-fit: cover; height:45vh"  src="{{ asset('storage/' . $category->image) }}" alt="{{$category->title}}">
         </div>
-        <div class="position-absolute d-flex h-100 align-items-center justify-content-center">
-            <h3 style="background: rgba(204, 204, 204, 0.8);font-family: 'Pacifico', cursive;" class="border border-dark text-dark p-2 p-md-5">{{ $category->title}}</h3>
+        <div class="absolute flex h-full items-center justify-center">
+            <h3 style="background: rgba(204, 204, 204, 0.8);font-family: 'Pacifico', cursive;" class="border border-gray-800 text-gray-800 p-2 md:p-5">{{ $category->title}}</h3>
         </div>
     </div>
 
-
-    <div class="h5 py-5 w-75 mx-auto">
+    <div class="text-lg py-5 w-3/4 mx-auto">
         <p>{{ $category->description }}</p>
     </div>
 
-    <div class="container px-3 py-3 bg-white">
+    <div class="container mx-auto px-3 py-3 bg-white">
 
         <x-breadcrumb/>
 
-        <div class="d-flex justify-content-center row py-2 col-12">
-            <a href="{{ url($url . $category->slug) }} " rel="nofollow" class="btn mt-1 mr-2 btn-outline-teal rounded-pill"><h5 class="pt-1">Reset</h5></a>
-            <a href="{{ url($url . $category->slug . '/created_at') }}" rel="nofollow" class="@if(str_contains(url()->current(), '/created_at')) ? btn-teal text-white  : '' @endif mt-1 btn-outline-teal btn mr-2 rounded-pill " aria-label="Most Recent"><h5 class="pt-1">Recent</h5></a>
-            <a href="{{ url($url . $category->slug . '/rating') }}" rel="nofollow" class="@if(str_contains(url()->current(), '/rating')) ? btn-teal text-white : '' @endif btn mr-2  mt-1 btn-outline-teal rounded-pill"><h5 class="pt-1" aria-label="Highest Rated">Highest rated</h5></a>
-            <a href="{{ url($url . $category->slug . '/views') }}" rel="nofollow" class="@if(str_contains(url()->current(), '/views')) ? btn-teal text-white : '' @endif btn mr-2 mt-1 btn-outline-teal rounded-pill"><h5 class="pt-1" aria-label="Most Viewed">Most viewed</h5></a>
+        <div class="flex justify-center flex-wrap py-2 w-full gap-2">
+            <a href="{{ url($url . $category->slug) }} " rel="nofollow" class="inline-block mt-1 px-4 py-2 border border-teal-500 text-teal-500 rounded-full hover:bg-teal-50 transition-colors"><h5 class="pt-1">Reset</h5></a>
+            <a href="{{ url($url . $category->slug . '/created_at') }}" rel="nofollow" class="@if(str_contains(url()->current(), '/created_at')) bg-teal-500 text-white @else border border-teal-500 text-teal-500 hover:bg-teal-50 @endif mt-1 px-4 py-2 rounded-full transition-colors" aria-label="Most Recent"><h5 class="pt-1">Recent</h5></a>
+            <a href="{{ url($url . $category->slug . '/rating') }}" rel="nofollow" class="@if(str_contains(url()->current(), '/rating')) bg-teal-500 text-white @else border border-teal-500 text-teal-500 hover:bg-teal-50 @endif px-4 py-2 mt-1 rounded-full transition-colors"><h5 class="pt-1" aria-label="Highest Rated">Highest rated</h5></a>
+            <a href="{{ url($url . $category->slug . '/views') }}" rel="nofollow" class="@if(str_contains(url()->current(), '/views')) bg-teal-500 text-white @else border border-teal-500 text-teal-500 hover:bg-teal-50 @endif px-4 py-2 mt-1 rounded-full transition-colors"><h5 class="pt-1" aria-label="Most Viewed">Most viewed</h5></a>
         </div>
-        <div class="mt-3 px-5 p-md-0 row row-cols-1 d-flex justify-content-around row-cols-md-3 row-cols-lg-4">
-
+        
+        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center px-5 md:px-16">
                 @foreach($recipes as $recipe)
-
-                    <div class="p-1 d-flex align-items-stretch col card m-1 mb-5 shadow">
-                        <a href="{{ route('recipe',['id' => $recipe->recipes->id, 'slug' => $recipe->recipes->slug]) }}" data-toggle="popover" data-placement="right"
-                            title="{{ $recipe->recipes->description }}" class="stretched-link" aria-label="{{ $recipe->recipes->title }}">
-
-                            <div class="">
-                                <img class="card-img-top" src="{{ asset('storage/' . $recipe->recipes->image) }}" alt="{{$recipe->recipes->title}}">
-                            </div>
+                
+                    <div class="bg-white shadow-md rounded-lg overflow-hidden w-full max-w-xs relative flex flex-col">
+                        <a href="{{ route('recipe',['id' => $recipe->recipes->id, 'slug' => $recipe->recipes->slug]) }}" 
+                           class="absolute inset-0 z-10" aria-label="{{ $recipe->recipes->title }}">
                         </a>
+                        <div>
+                            <img class="w-full h-48 object-cover" src="{{ asset('storage/' . $recipe->recipes->image) }}" alt="{{$recipe->recipes->title}}">
+                        </div>
 
-                        <div class="card-body">
-                            <h5 class="weight700 text-teal">{{ $recipe->recipes->title }}&nbsp
+                        <div class="p-4 flex-grow">
+                            <h5 class="font-bold text-teal-600 mb-2">{{ $recipe->recipes->title }}
                                     @auth
                                         @foreach($recipe->recipes->User->favourite as $fav)
                                             @if ($fav->recipe_id == $recipe->id)
-                                                <span><i class="text-danger fa far fa-heart"></i></span>
+                                                <span><i class="text-red-500 fa far fa-heart"></i></span>
                                             @endif
                                         @endforeach
                                     @endauth
                             </h5>
 
                             <x-rating-system rating="{{ $recipe->rating }}"></x-rating-system>
-                            <small class="weight700 text-dark-teal">By {{ $recipe->recipes->user->name }}</small>
+                            <small class="font-bold text-teal-800 block mt-1">By {{ $recipe->recipes->user->name }}</small>
                         </div>
-                        <div class="d-flex align-items-center p-2">
+                        <div class="flex items-center justify-between p-4 pt-0">
                             @if($recipe->cooking_time)
-                                <i class="text-primary fa fa-clock"></i><span class="weight700">&nbsp{{ $recipe->recipes->cooking_time }}&nbspmins</span>
+                                <div class="flex items-center">
+                                    <i class="text-blue-500 fa fa-clock"></i>
+                                    <span class="font-bold ml-1">{{ $recipe->recipes->cooking_time }} mins</span>
+                                </div>
+                            @else
+                                <div></div>
                             @endif
 
                             @if($recipe->recipes->commentRecipe)
-                                <div class="ml-auto text-teal">
+                                <div class="text-teal-600 font-bold">
                                    @if(count($recipe->recipes->commentRecipe) == 1)
-                                        <span>1&nbspcomment</span>
+                                        <span>1 comment</span>
                                    @elseif(count($recipe->recipes->commentRecipe) > 1)
-                                        <span>{{ count($recipe->recipes->commentRecipe) }}&nbspcomments</span>
+                                        <span>{{ count($recipe->recipes->commentRecipe) }} comments</span>
                                     @else
                                         <span>No comments</span>
                                    @endif
                                 </div>
                             @else
-                                <div class="weight700 ml-auto text-teal">No Reviews</div>
+                                <div class="font-bold text-teal-600">No Reviews</div>
                             @endif
                         </div>
                     </div>
                 @endforeach
         </div>
-        <div class="pagination">
+        <div class="pagination mt-6">
         {{ $recipes->links() }}
         </div>
     </div>
 
-
-    <script>
-       document.addEventListener('DOMContentLoaded', function () {
-    $('[data-toggle="popover"]').popover({
-        trigger: 'hover',
-        });
-    });
-        </script>
 @endsection

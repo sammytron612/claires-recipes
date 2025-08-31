@@ -1,33 +1,61 @@
-<div class="position-relative text-center form-inline">
-        <label style="font-weight: 700" class="h4 text-orange mr-1" for="search">find a recipe:</label>
-        <input oninput="search(this.value)" type="search" class="w-100 w-md-50 form-control" id="search">
-        <div class="d-none d-md-block input-group-append">
-            <span class="input-group-text"><i class="py-1 fa fa-search"></i></span>
+<div class="relative text-center">
+    <div class="flex flex-col md:flex-row items-center gap-2">
+        <label class="font-bold text-lg text-orange-500" for="search">find a recipe:</label>
+        <div class="relative w-full md:w-auto">
+            <input 
+                oninput="search(this.value)" 
+                type="search" 
+                class="w-full md:w-96 px-4 py-2 border border-gray-300 rounded-l-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                id="search"
+                placeholder="Search recipes..."
+            >
+            <div class="hidden md:block absolute inset-y-0 right-0">
+                <span class="flex items-center justify-center px-3 bg-gray-100 border border-l-0 border-gray-300 rounded-r-md">
+                    <i class="fa fa-search text-gray-500"></i>
+                </span>
+            </div>
         </div>
-        <div x-cloak x-data="{ visible : @entangle('isVisible').defer }">
-            <div id="dropdown" x-show="visible" style="z-index:99; left:-25px; top:72px; min-width:430px;" class="bg-white w-100 border border-secondry p-2 position-absolute w-100">
-                @if(count($WireRecipes) > 0)
-                    <div class="font-italic text-left text-orange">In recipes</div>
-                    <ul class="list-unstyled text-left list-group list-group-flush">
-                        @foreach($WireRecipes as $WireRecipe)
-                        <li><a class="btn text-left" href="{{ route('recipe',['id'=> $WireRecipe->id, 'slug'=>$WireRecipe->slug]) }}"><img style="height:50px" class="img-thumbnail thumbnail" src="{{ asset('storage/' . $WireRecipe->image) }}" ><span style="width: 260px;" class="d-inline-block text-truncate ml-2">{{ $WireRecipe->title }} </span></a>
-                        </li>
-                        @endforeach
-                    </ul>
-                @endif
+    </div>
+    
+    <div x-cloak x-data="{ visible : @entangle('isVisible').defer }">
+        <div 
+            id="dropdown" 
+            x-show="visible" 
+            class="absolute z-50 left-0 md:left-auto md:right-0 top-full mt-2 min-w-full md:min-w-[430px] bg-white border border-gray-200 rounded-md shadow-lg p-2"
+        >
+            @if(count($WireRecipes) > 0)
+                <div class="italic text-left text-orange-500 font-medium mb-2">In recipes</div>
+                <ul class="space-y-1 text-left">
+                    @foreach($WireRecipes as $WireRecipe)
+                    <li>
+                        <a class="flex items-center p-2 hover:bg-gray-50 rounded-md transition-colors" 
+                           href="{{ route('recipe',['id'=> $WireRecipe->id, 'slug'=>$WireRecipe->slug]) }}">
+                            <img style="height:50px" class="w-12 h-12 object-cover rounded" src="{{ asset('storage/' . $WireRecipe->image) }}" alt="{{ $WireRecipe->title }}">
+                            <span class="ml-2 flex-1 truncate max-w-[260px]">{{ $WireRecipe->title }}</span>
+                        </a>
+                    </li>
+                    @endforeach
+                </ul>
+            @endif
 
-                @if(count($WireCuisines) > 0)
-                    <div class="font-italic text-left text-orange">In cuisines</div>
-                    <ul class="list-unstyled text-left">
-                        @foreach($WireCuisines as $WireCuisine)
-                        <li><a class="btn text-left" href="{{ route('cuisine',$WireCuisine->slug) }}"><img style="height:50px" class="img-thumbnail thumbnail" src="{{ asset('storage/' . $WireCuisine->image) }}" ><span span style="width: 260px;" class="d-inline-block text-truncate ml-2">{{ $WireCuisine->title }}</span></a></li>
-                        @endforeach
-                    </ul>
-                @endif
+            @if(count($WireCuisines) > 0)
+                <div class="italic text-left text-orange-500 font-medium mb-2 mt-4">In cuisines</div>
+                <ul class="space-y-1 text-left">
+                    @foreach($WireCuisines as $WireCuisine)
+                    <li>
+                        <a class="flex items-center p-2 hover:bg-gray-50 rounded-md transition-colors" 
+                           href="{{ route('cuisine',$WireCuisine->slug) }}">
+                            <img style="height:50px" class="w-12 h-12 object-cover rounded" src="{{ asset('storage/' . $WireCuisine->image) }}" alt="{{ $WireCuisine->title }}">
+                            <span class="ml-2 flex-1 truncate max-w-[260px]">{{ $WireCuisine->title }}</span>
+                        </a>
+                    </li>
+                    @endforeach
+                </ul>
+            @endif
 
-                @if(count($WireIngredients) > 0)
-                    <div class="font-italic text-left text-orange">In ingrdients</div>
-                    <ul class="list-unstyled text-left">
+            @if(count($WireIngredients) > 0)
+                <div class="italic text-left text-orange-500 font-medium mb-2 mt-4">In ingredients</div>
+                <ul class="space-y-1 text-left">
                         @foreach($WireIngredients as $WireIngredient)
                         <li><a class="btn text-left" href="{{ route('ingredient',$WireIngredient->slug) }}"><img style="height:50px" class="img-thumbnail thumbnail" src="{{ asset('storage/'. $WireIngredient->image) }}" ><span span style="width: 260px;" class="d-inline-block text-truncate ml-2">{{ $WireIngredient->title }}</span></a></li>
                         @endforeach

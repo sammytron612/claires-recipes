@@ -1,7 +1,5 @@
 const mix = require('laravel-mix');
 
-require('laravel-mix-purgecss');
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -14,9 +12,9 @@ require('laravel-mix-purgecss');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
-    .sourceMaps()
-    .purgeCss({
-        enabled: true,
-    });
+    .postCss('resources/css/app.css', 'public/css', [
+        require('@tailwindcss/postcss7-compat'),
+        require('autoprefixer'),
+    ])
+    .sourceMaps();
 

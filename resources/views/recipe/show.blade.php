@@ -2,38 +2,38 @@
 
 @section('content')
 
-<div class="container-fluid">
+<div class="w-full">
 @include('includes.search')
 </div>
 
-<div class="container px-3 bg-white mt-3 pb-5">
-    <div class="row align-items-center py-3">
-        <div class="col-6 float-left">
-            <img class="d-inline avatar ml-2" src="{{ asset('storage/' . $recipe->User->avatar) }}" alt="{{$recipe->User->name}}">
-            <span class="weight700 ml-2 weight-900 text-teal">By {{ $recipe->User->name }}</span>
+<div class="max-w-7xl mx-auto px-3 bg-white mt-3 pb-5">
+    <div class="flex items-center justify-between py-3">
+        <div class="flex items-center">
+            <img class="inline-block w-12 h-12 rounded-full ml-2" src="{{ asset('storage/' . $recipe->User->avatar) }}" alt="{{$recipe->User->name}}">
+            <span class="font-bold ml-2 text-teal-600">By {{ $recipe->User->name }}</span>
         </div>
 
-        <div class="col-6 float-right position-relative">
-                <div style="right:0" class="position-absolute">
-                    @if($recipe->attachment)
-                        @livewire('download-recipe',['recipe' => $recipe->id])
-                    @else
-                    <div onclick="CreatePDFfromHTML()" class="my-tab shadow border  btn py-1 float-right">
-                        <i class="text-info fas fa-save"></i>
-                    </div>
-                    @endif
-                </div>
-                @auth
-                @livewire('favourite', ['recipe' => $recipe->id])
-                @endAuth
+        <div class="flex items-center space-x-2">
+            @if($recipe->attachment)
+                @livewire('download-recipe',['recipe' => $recipe->id])
+            @else
+            <div onclick="CreatePDFfromHTML()" class="shadow border rounded btn py-1 px-3 bg-white hover:bg-gray-50 cursor-pointer">
+                <i class="text-blue-500 fas fa-save"></i>
+            </div>
+            @endif
+            
+            @auth
+            @livewire('favourite', ['recipe' => $recipe->id])
+            @endAuth
         </div>
     </div>
-    <div class="row">
-        <div class="col-12 col-md-6">
-            <img class="border recipe-image border-dark w-100" src="{{ asset('storage/'. $recipe->image) }}" alt="{{$recipe->title}}">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="w-full">
+            <img class="border border-gray-800 w-full rounded-lg object-cover" src="{{ asset('storage/'. $recipe->image) }}" alt="{{$recipe->title}}">
         </div>
-        <div class="col-12 col-md-6 mt-4 mt-md-0">
-            <h3>{{ $recipe->title }}</h3>
+        <div class="mt-4 md:mt-0">
+            <h3 class="text-2xl font-bold">{{ $recipe->title }}</h3>
             <div id="stars">
                 @livewire('rating-component',['recipe' => $recipe])
             </div>
@@ -42,11 +42,11 @@
                 @livewire('comment-counter',['recipe' => $recipe])
             </div>
             @if($recipe->cooking_time)
-            <div class="mt-2">
-                <i class="text-primary fa fa-clock"></i><span class="weight700">&nbsp{{ $recipe->cooking_time }}&nbspmins</span>
+            <div class="mt-2 flex items-center">
+                <i class="text-blue-500 fa fa-clock"></i><span class="font-bold ml-1">{{ $recipe->cooking_time }} mins</span>
             </div>
             @endif
-            <div class="mt-3 dodgerblue d-flex align-content-round flex-wrap">
+            <div class="mt-3 text-blue-600 flex items-center flex-wrap gap-2">
 
                     @foreach($recipe->HashIngredient as $h_ingredient)
                         <a href="{{ route('ingredient', $h_ingredient->ingredients->slug) }}" class="mr-1 text-decoration-none "><i class="fas fa-hashtag"></i>{{ $h_ingredient->ingredients->title }}</a>
@@ -83,28 +83,28 @@
     <hr>
 
     @isset($recipe->recipeMethod->description)
-    <div id="method" class="row p-5">
-        <div id="recipe-method" class="col-12">
-             <div id="title" class="d-none text-center h2">{{ $recipe->title }}</div>
+    <div id="method" class="p-5">
+        <div id="recipe-method" class="w-full">
+             <div id="title" class="hidden text-center text-2xl">{{ $recipe->title }}</div>
             {!! $recipe->recipeMethod->description !!}
         </div>
     </div>
     @endisset
     <br>
     <hr>
-    <h5 class="my-5 weight700 text-left text-teal">Like this? Then  we are sure you will also like these:</h5>
-    <div class="mt-2 row justify-content-start justify-content-md-center flex-wrap">
+    <h5 class="my-5 font-bold text-left text-teal-600">Like this? Then  we are sure you will also like these:</h5>
+    <div class="mt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-center">
         @foreach($similarRecipes as $similarRecipe)
-            <div class="col-12 col-md-4 col-lg-3 d-flex mt-2 align-items-stretch">
-                <a href="{{ route('recipe',['id' => $similarRecipe->id,'slug' => $similarRecipe->slug]) }}" class="stretched-link" aria-label="{{$similarRecipe->title}}"></a>
-                <div class="shadow card p-0 col w-50 w-sm-100">
-                    <div style="overflow-y:hidden" class="d-flex flex-column h-auto h5 px-2 pt-3">
-                        <div class="text-center text-teal">{{ $similarRecipe->title }}</div>
+            <div class="flex mt-2 relative">
+                <a href="{{ route('recipe',['id' => $similarRecipe->id,'slug' => $similarRecipe->slug]) }}" class="absolute inset-0 z-10" aria-label="{{$similarRecipe->title}}"></a>
+                <div class="shadow-md bg-white rounded-lg p-0 w-full flex flex-col">
+                    <div style="overflow-y:hidden" class="flex flex-col h-auto text-xl px-2 pt-3">
+                        <div class="text-center text-teal-600">{{ $similarRecipe->title }}</div>
                     </div>
-                    <div class="pb-2 h-auto card-body h-100 d-block mb-2">
+                    <div class="pb-2 h-auto p-4 flex-1 block mb-2">
                         <div>{{ $similarRecipe->description }}</div>
                     </div>
-                    <img class="my-height mt-1 card-img-bottom w-100" src="{{ asset('storage/'. $similarRecipe->image) }}" alt="{{ $similarRecipe->title }}">
+                    <img class="my-height mt-1 w-full object-cover rounded-b-lg" src="{{ asset('storage/'. $similarRecipe->image) }}" alt="{{ $similarRecipe->title }}">
                 </div>
             </div>
         @endforeach
@@ -117,7 +117,7 @@
 <script>
 
 function CreatePDFfromHTML() {
-    $('#title').addClass('d-block')
+    $('#title').removeClass('hidden').addClass('block')
     var HTML_Width = $("#method").width();
     var HTML_Height = $("#method").height() * 1.3;
     var top_left_margin = 15;

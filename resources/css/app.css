@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom fonts */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://use.fontawesome.com/releases/v5.8.1/css/all.css');
+
+/* Custom components - converted from Bootstrap patterns */
+@layer components {
+  .btn-primary {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors;
+  }
+  
+  .btn {
+    @apply px-4 py-2 rounded font-medium transition-colors cursor-pointer;
+  }
+  
+  .card {
+    @apply bg-white shadow-md rounded-lg overflow-hidden;
+  }
+  
+  .card-body {
+    @apply p-6;
+  }
+  
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .my-hover:hover {
+    @apply bg-gray-100;
+  }
+  
+  .nav-opaque {
+    @apply bg-opacity-90;
+  }
+  
+  .text-teal {
+    @apply text-teal-600;
+  }
+  
+  .bg-teal {
+    @apply bg-teal-600;
+  }
+  
+  .text-orange {
+    @apply text-orange-500;
+  }
+  
+  .weight700 {
+    @apply font-bold;
+  }
+  
+  .weight-900 {
+    @apply font-black;
+  }
+  
+  .avatar {
+    @apply w-12 h-12 rounded-full object-cover;
+  }
+  
+  .recipe-image {
+    @apply w-full h-auto object-cover;
+  }
+  
+  .dodgerblue {
+    @apply text-blue-600;
+  }
+  
+  .my-tab {
+    @apply bg-white border border-gray-300 rounded shadow-sm hover:shadow-md transition-shadow;
+  }
+}
+
+/* Custom utilities */
+@layer utilities {
+  .my-height {
+    height: 180px;
+  }
+  
+  @screen sm {
+    .my-height {
+      height: 160px;
+    }
+  }
+  
+  .gold-star {
+    color: #fbbf24 !important;
+  }
+  
+  .bg-circle-outline {
+    @apply w-12 h-12 rounded-full border-2 border-white flex items-center justify-center;
+  }
+}
+
+/* Breadcrumb customization */
+.breadcrumb-item + .breadcrumb-item::before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f105";
+  font-weight: 900;
+  color: theme('colors.teal.600');
+}
+
+/* Form controls */
+.form-control {
+  @apply px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+}
