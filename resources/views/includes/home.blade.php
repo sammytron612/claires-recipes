@@ -7,6 +7,7 @@
                       {{ session('error') }}
                     </div>
     @endif
+    
     @include('includes.search')
 
     <div class="mt-4">

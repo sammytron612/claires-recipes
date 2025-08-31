@@ -31,6 +31,7 @@
 <body class="d-flex flex-column" style="font-family: Merriweather,serif;min-height:100vh">
 
     <main class="mt-auto">
+        
         @yield('content')
     </main>
 

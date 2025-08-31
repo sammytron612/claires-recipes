@@ -8,7 +8,7 @@ use App\Models\Ingredient;
 use App\Models\Method;
 use App\Models\Diet;
 use App\Models\Course;
-use App\Models\Cuisine;;
+use App\Models\Cuisine;
 
 
 class RecipeSearch extends Component
@@ -42,7 +42,7 @@ class RecipeSearch extends Component
         }
 
 
-        $this->WireRecipes = Recipe::search($searchTerm1)->paginate(5);
+        $this->WireRecipes = Recipe::where('title', 'like', '%' . $searchTerm1 . '%')->paginate(5);
         $this->WireCuisines = Cuisine::where('title', 'like', $searchTerm)->limit(2)->get();
         $this->WireIngredients = Ingredient::where('title', 'like', $searchTerm)->limit(4)->get();
         $this->WireDiets = Diet::where('title', 'like', $searchTerm)->limit(2)->get();
