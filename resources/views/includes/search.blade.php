@@ -2,12 +2,12 @@
     <div class="flex justify-center">
         <img style="height:170px" class="w-auto" src="{{ asset('storage/claires-recipes.png') }}" alt="Claires Site Logo">
     </div>
-    <div class="flex justify-center ml-2 sm:ml-0">
+    <div class="flex justify-center ml-2 sm:ml-0 relative z-10">
         @livewire('recipe-search')
     </div>
 </div>
 
-<div class="mt-3 flex flex-wrap justify-center items-center gap-2">
+<div class="mt-6 flex flex-wrap justify-center items-center gap-2 relative z-0">
     <div class="font-bold text-lg text-orange-500 text-center mr-2 w-full md:w-auto">Browse recipes:</div>
     
     <div class="text-center bg-white p-2 min-w-[120px]">

@@ -41,19 +41,19 @@
                         <div class="p-4 flex-grow">
                             <h5 class="font-bold text-teal-600 mb-2">{{ $recipe->recipes->title }}
                                     @auth
-                                        @foreach($recipe->recipes->User->favourite as $fav)
-                                            @if ($fav->recipe_id == $recipe->id)
+                                        @foreach($recipe->recipes->user->favourite ?? [] as $fav)
+                                            @if ($fav->recipe_id == $recipe->recipes->id)
                                                 <span><i class="text-red-500 fa far fa-heart"></i></span>
                                             @endif
                                         @endforeach
                                     @endauth
                             </h5>
 
-                            <x-rating-system rating="{{ $recipe->rating }}"></x-rating-system>
-                            <small class="font-bold text-teal-800 block mt-1">By {{ $recipe->recipes->user->name }}</small>
+                            <x-rating-system rating="{{ $recipe->recipes->rating ?? 0 }}"></x-rating-system>
+                            <small class="font-bold text-teal-800 block mt-1">By {{ $recipe->recipes->user->name ?? 'Unknown' }}</small>
                         </div>
                         <div class="flex items-center justify-between p-4 pt-0">
-                            @if($recipe->cooking_time)
+                            @if($recipe->recipes->cooking_time)
                                 <div class="flex items-center">
                                     <i class="text-blue-500 fa fa-clock"></i>
                                     <span class="font-bold ml-1">{{ $recipe->recipes->cooking_time }} mins</span>
@@ -62,14 +62,12 @@
                                 <div></div>
                             @endif
 
-                            @if($recipe->recipes->commentRecipe)
+                            @if($recipe->recipes->commentRecipe && count($recipe->recipes->commentRecipe) > 0)
                                 <div class="text-teal-600 font-bold">
                                    @if(count($recipe->recipes->commentRecipe) == 1)
                                         <span>1 comment</span>
-                                   @elseif(count($recipe->recipes->commentRecipe) > 1)
+                                   @else
                                         <span>{{ count($recipe->recipes->commentRecipe) }} comments</span>
-                                    @else
-                                        <span>No comments</span>
                                    @endif
                                 </div>
                             @else
@@ -79,8 +77,11 @@
                     </div>
                 @endforeach
         </div>
-        <div class="pagination mt-6">
-        {{ $recipes->links() }}
+        
+        <div class="flex justify-center mt-8">
+            <div class="pagination-container">
+                {{ $recipes->appends(request()->query())->links('pagination::custom-tailwind') }}
+            </div>
         </div>
     </div>
 

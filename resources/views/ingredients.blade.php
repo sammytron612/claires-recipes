@@ -3,74 +3,69 @@
 @section('content')
     @include('includes.search')
 
-    <div class="col-12 mt-4 d-flex h-100 align-items-center justify-content-center">
-        <div class="position-relative">
-            <img style="width:100vw; object-fit: cover; height:45vh"  src="{{ asset('storage/ingredients1232.jfif') }}">
-        </div>
-        <div style="" class="position-absolute d-flex h-100 align-items-center justify-content-center">
-            <h3 style="font-family: 'Pacifico', cursive;background: rgba(204, 204, 204, 0.8);" class="text-capitalize border border-dark text-dark p-3">{{ $caption }}</h3>
+    <div class="relative mt-4">
+        <img class="w-full h-96 object-cover" src="{{ asset('storage/ingredients1232.jfif') }}" alt="Ingredients">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <h3 class="text-4xl font-bold text-dark bg-gray-200 bg-opacity-80 p-4 border border-gray-800 rounded" style="font-family: 'Pacifico', cursive;">{{ $caption }}</h3>
         </div>
     </div>
 
-    <div class="container px-3 py-3 bg-white">
-
+    <div class="container mx-auto px-4 py-6 bg-white">
         <x-breadcrumb/>
 
-        <div class="mt-3 px-5 p-md-0">
+        <div class="mt-6">
+            @php
+                // Group ingredients by first letter
+                $groupedIngredients = $returns->groupBy(function($item) {
+                    return strtoupper(substr($item->title, 0, 1));
+                });
+                
+                // Split into 3 columns
+                $letters = $groupedIngredients->keys()->sort();
+                $totalLetters = $letters->count();
+                $perColumn = ceil($totalLetters / 3);
+                
+                $columns = [
+                    $letters->slice(0, $perColumn),
+                    $letters->slice($perColumn, $perColumn), 
+                    $letters->slice($perColumn * 2)
+                ];
+            @endphp
 
-                <div class="row row row-cols-1 row-cols-sm-2 row-cols-md-3 ">
-                    <div class="col mt-2">
-                    @foreach ($returns as $return)
-
-
-                            @if($loop->first)
-                            <h1>
-                                {{ ucfirst(substr($returns[$loop->index]->title, 0, 1)) }}
-                            </h1>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                @foreach($columns as $columnIndex => $columnLetters)
+                    <div class="space-y-6">
+                        @foreach($columnLetters as $letter)
+                            @if(isset($groupedIngredients[$letter]))
+                                <div>
+                                    <h2 class="text-3xl font-bold text-teal-600 mb-3 border-b-2 border-teal-200 pb-1">{{ $letter }}</h2>
+                                    <div class="space-y-2">
+                                        @foreach($groupedIngredients[$letter] as $ingredient)
+                                            <a href="{{ url('/ingredient/' . $ingredient->slug) }}" 
+                                               class="block text-lg text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded transition-colors duration-200"
+                                               data-toggle="tooltip" 
+                                               data-placement="right"
+                                               title="View recipes with {{ $ingredient->title }}">
+                                                {{ $ingredient->title }}
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </div>
                             @endif
-
-
-                            @if(!$loop->first)
-                                @php
-
-                                    $current = ucfirst(substr($returns[$loop->index-1]->title, 0, 1));
-                                    $next = ucfirst(substr($returns[$loop->index]->title, 0, 1));
-                                @endphp
-
-                                @if($current == $next)
-
-                                    <a class="d-block" href="{{  route($route,$return->slug) }}"
-                                        rel="nofollow" data-toggle="popover" data-placement="right"
-                                        data-img="{{ asset('storage/' . $return->image) }}"><h5>{{ $return->title }}</h5></a>
-
-                                @else
-                                </div><div class="col mt-2">
-                                    <h1>{{ $next }}</h1>
-                                    <a class="d-block" href="{{  route($route,$returns[$loop->index]->slug) }}"
-                                        rel="nofollow" data-toggle="popover" data-placement="right"
-                                        data-img="{{ asset('storage/' . $returns[$loop->index]->image) }}"><h5>{{ $returns[$loop->index]->title }}</h5>
-                                    </a>
-
-                                @endif
-                            @endif
-                    @endforeach
-                        </div>
-                </div>
-
+                        @endforeach
+                    </div>
+                @endforeach
+            </div>
         </div>
-        
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            $('[data-toggle="popover"]').popover({
-                html: true,
-                trigger: 'hover',
-                placement: 'bottom',
-                content: function(){return '<img class="img-thumbnail" src="'+$(this).data('img') + '" />';}
-         });
-
-     });
-         </script>
-
+            // Initialize tooltips if using Bootstrap (optional)
+            if (typeof $ !== 'undefined' && $.fn.tooltip) {
+                $('[data-toggle="tooltip"]').tooltip();
+            }
+        });
+    </script>
 
 @endsection

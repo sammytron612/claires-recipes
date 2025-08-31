@@ -10,6 +10,7 @@ class CuisineController extends Controller
 {
     public function show($slug, $sort=null)
     {
+        
         $temp = explode('-',$slug);
         $id = end($temp);
 

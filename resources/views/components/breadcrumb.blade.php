@@ -6,9 +6,11 @@
                 @if($loop->last)
                     @php
                         $s = explode("-", $segment);
-                        if(is_numeric(end($s)))
+                        if(count($s) > 1 && is_numeric(end($s)))
                         {
-                            $segment   = implode('-', explode('-', $segment, -1));
+                            // Remove the last numeric segment
+                            array_pop($s);
+                            $segment = implode('-', $s);
                             $segment = str_replace('-', ' ', $segment);
                         }
                     @endphp

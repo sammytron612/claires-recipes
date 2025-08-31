@@ -38,18 +38,19 @@ class Breadcrumb extends Component
 
         $segments = [];
 
-        $i = count($urlParts) -1;
+        $i = count($urlParts) - 1;
 
-        while ($urlParts[$i] != 'home') {
-
-            //$urlParts[$i] = str_replace(' ', '-', $urlParts[$i]);
-            $segments[] .= $urlParts[$i];
+        while ($i >= 0 && $urlParts[$i] != 'home') {
+            $segments[] = $urlParts[$i];
             $i--;
-
         }
-        $segments[].= $urlParts[$i];
+        
+        // Add 'home' if we found it
+        if ($i >= 0 && $urlParts[$i] == 'home') {
+            $segments[] = $urlParts[$i];
+        }
 
-        $segments = (array_reverse($segments));
+        $segments = array_reverse($segments);
 
 
         return view('components.breadcrumb', compact(['segments']));

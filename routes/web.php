@@ -1,25 +1,20 @@
-
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CuisineController;
-use App\Http\Controllers\DietController;
-use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\CuisineController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MethodController;
 use App\Http\Controllers\IngredientController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\EditController;
-use App\Http\Controllers\IndexController;
-use App\Http\Controllers\SocialController;
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\ImageController;
+use App\Http\Controllers\DietController;
+use App\Models\Recipe;
 use App\Models\BlogArticle;
-
-
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -27,91 +22,82 @@ use App\Models\BlogArticle;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('home/privacy', function () {
-    return view('privacy');});
 
-Route::get('auth/facebook', [SocialController::class, 'facebookRedirect'])->name('login.facebook');
+Route::get('/', function () {
+    return redirect('/home');
+});
 
-Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
-
-Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
-
-Route::get('/home/builder', function () {
-    return view('recipe-builder');})->name('recipe-builder');
-
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-
-Route::get('/home/recipe/{id}/{slug?}',[RecipeController::class, 'show'])->name('recipe');
-
-Route::get('/home/index', [IndexController::class, 'index'])->name('recipe.index');
-
-Route::get('/home/cuisine/{slug}/{sort?}',[CuisineController::class, 'show'])->name('cuisine');
-
-Route::get('/home/special-diet/{slug}/{sort?}',[DietController::class, 'show'])->name('diet');
-
-Route::get('/home/ingredient/{slug}/{sort?}',[IngredientController::class, 'show'])->name('ingredient');
-
-Route::get('/home/method/{slug}/{sort?}',[MethodController::class, 'show'])->name('method');
-
-Route::get('/home/course/{slug}/{sort?}',[CourseController::class, 'show'])->name('course');
-
-Route::get('/home/admin', function () {
-    return view('admin.index');})->name('admin.index')->middleware('auth','admin');
-
-Route::get('/home/admin/new-recipe',[AdminController::class, 'newRecipe'])->name('admin.new-recipe')->middleware('auth','admin');
-
-Route::get('/home/admin/new-hashtag',[AdminController::class, 'newHashtag'])->name('admin.new-hashtag')->middleware('auth','admin');
-
-Route::get('/home/recipe/search/{query}/{sort?}',[RecipeController::class, 'search'])->name('recipe.search');
-
-route::post('/recipe/save',[RecipeController::class, 'store'])->name('recipe.store')->middleware('auth','admin');
-
-Route::get('/home/planner', function (){
-    return view('profile.planner'); })->name('profile.planner')->middleware('auth');
-Route::get('/home/favourites', function (){
-    return view('profile.favourites'); })->name('profile.favourites')->middleware('auth');
-Route::get('/home/profile', function (){
-        return view('profile.profile'); })->name('profile.profile')->middleware('auth');
-
-Route::get('/home/{choice}',[CategoryController::class, 'index'])->name('category');
-
-Route::get('/home/admin/recipe/index', function (){
-    return view('admin.recipe-index');})->name('admin.recipe-index')->middleware('auth','admin');
-
-Route::get('/home/admin/recipe/edit/{id}',[EditController::class, 'edit'])->name('admin.recipe-edit')->middleware('auth','admin');
-Route::delete('/home/admin/recipe/delete/{id}',[EditController::class, 'destroy'])->name('admin.recipe-delete')->middleware('auth','admin');
-Route::post('/home/admin/recipe/update',[EditController::class, 'update'])->name('admin.recipe-update')->middleware('auth','admin');
-
-
-Route::get('/blog', function(){
-    $articles = BlogArticle::paginate(9);
-    return view('blog.index', ['articles' => $articles]);
-}
-)->name('blog.index');
-
-Route::get('/blog/new',function(){
-    return view('blog.new-article');
-})->name('blog.new-article')->middleware('auth','admin');
-
-
-Route::post('/image/upload',[ImageController::class, 'imageUpload'])->name('image.upload')->middleware('auth','admin');
-
-Route::post('/blog/post',[BlogController::class, 'postArticle'])->name('postArticle')->middleware('auth','admin');
-
-Route::post('/post/update/{BlogArticle}',[BlogController::class, 'update'])->name('updateArticle')->middleware('auth','admin');
-
-Route::get('/post/view/{BlogArticle}',function(BlogArticle $BlogArticle){
-        return view('blog.edit', ['post' => $BlogArticle]);
-    })->middleware('admin');
-
-Route::get('/post/{BlogArticle}/{slug}', function(BlogArticle $BlogArticle){
+Route::get('/home', function () {
+    $recipes = Recipe::where('featured', 1)->limit(6)->get();
+    $top10 = Recipe::orderBy('rating', 'desc')->limit(10)->get();
+    $favourites = [];
     
+    // Get user favorites if authenticated
+    if (auth()->check()) {
+        $favourites = \App\Models\Favourites::where('user_id', auth()->id())->get();
+    }
+    
+    return view('home', compact('recipes', 'top10', 'favourites'));
+})->name('home');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+// Public recipe routes
+Route::get('/recipe-builder', function () {
+    return view('recipe-builder');
+})->name('recipe-builder');
+
+Route::get('/recipes', [RecipeController::class, 'index'])->name('recipe.index');
+
+// Recipe index/search route
+Route::get('/recipe/index', [IndexController::class, 'index'])->name('recipe.search.index');
+
+// Legacy recipe routes for compatibility with existing views
+Route::get('/recipe/{id}/{slug}', [RecipeController::class, 'show'])->where('id', '[0-9]+')->name('recipe');
+Route::get('/recipe/{slug}', function($slug) {
+    // Try to find recipe by slug, fallback to treating it as ID
+    $recipe = \App\Models\Recipe::where('slug', $slug)->first();
+    if (!$recipe) {
+        $recipe = \App\Models\Recipe::find($slug);
+    }
+    if (!$recipe) {
+        abort(404);
+    }
+    return app(\App\Http\Controllers\RecipeController::class)->show($recipe->id);
+})->name('recipe.slug');
+
+Route::get('/recipe/{recipe}/print', [RecipeController::class, 'print'])->name('recipe.print');
+
+// Categories
+
+// Categories
+Route::get('/categories', function () {
+    return view('categories');
+})->name('categories');
+
+// Individual category type routes with optional slug parameter (MUST come before /category/{choice})
+Route::get('/special-diet/{slug?}', [CategoryController::class, 'index'])->defaults('choice', 'special-diet')->name('special-diet');
+Route::get('/diet/{slug?}', [DietController::class, 'show'])->defaults('choice', 'special-diet')->name('diet');
+
+Route::get('/ingredient/{slug?}', [IngredientController::class, 'show'])->name('ingredient');
+
+Route::get('/course/{slug?}', [CourseController::class, 'show'])->defaults('choice', 'course')->name('course');
+Route::get('/cuisine/{slug?}', [CuisineController::class, 'show'])->defaults('choice', 'cuisine')->name('cuisine');
+Route::get('/method/{slug?}', [MethodController::class, 'show'])->defaults('choice', 'method')->name('method');
+
+// Generic category route (MUST come AFTER specific routes)
+Route::get('/category/{choice}', [CategoryController::class, 'index'])->name('category');
+
+// Blog routes
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{BlogArticle}', function ($BlogArticle) {
+    $BlogArticle = BlogArticle::findOrFail($BlogArticle);
     $body = $BlogArticle->postBody;
     $tmp = explode('/', $BlogArticle->main_image);
     $image = end($tmp);
@@ -119,5 +105,21 @@ Route::get('/post/{BlogArticle}/{slug}', function(BlogArticle $BlogArticle){
     return view('blog.show-post', ['body' => $body, 'image' => $image, 'BlogArticle' => $BlogArticle]);
 });
 
-Auth::routes();
+// Protected routes
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // User profile routes
+    Route::get('/profile/planner', [HomeController::class, 'planner'])->name('profile.planner');
+    Route::get('/profile/profile', [HomeController::class, 'userProfile'])->name('profile.profile');
+    
+    // Admin routes
+    Route::middleware('can:isAdmin')->group(function () {
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+        // Add other admin routes as needed
+    });
+});
 
+require __DIR__.'/auth.php';

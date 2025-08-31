@@ -20,7 +20,7 @@ class IngredientController extends Controller
             $query .= $temp[$i] . ' ';
         }
         $query = rtrim($query, " ");
-	$query = rtrim($query, "s");
+	    $query = rtrim($query, "s");
 
         if($sort == 'created_at')
         {
