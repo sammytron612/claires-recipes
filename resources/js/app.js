@@ -1,10 +1,6 @@
 require('./bootstrap');
 
-import Alpine from 'alpinejs';
-
-// Start Alpine
-window.Alpine = Alpine;
-Alpine.start();
+// Alpine is automatically loaded by Livewire v3, no need to import it separately
 
 import 'select2';
 

@@ -12,7 +12,6 @@
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
         "@tailwindcss/postcss7-compat": "^2.2.17",
-        "alpinejs": "^3.4.2",
         "autoprefixer": "^10.4.2",
         "cross-env": "^7.0",
         "laravel-mix": "^6.0.49",
@@ -25,7 +24,6 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "alpinejs": "^2.8.0",
         "axios": "^1.11.0",
         "jquery": "^3.7.1",
         "select2": "^4.1.0-rc.0",

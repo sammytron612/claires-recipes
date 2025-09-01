@@ -19,7 +19,7 @@ class RecipeBuilder extends Component
     public $limit = 20;
     public $ingredients = [];
     public $nothing = false;
-    protected $paginationTheme = 'bootstrap';
+    protected $paginationTheme = 'tailwind';
 
     use WithPagination;
 
@@ -27,7 +27,7 @@ class RecipeBuilder extends Component
     public function render()
     {
 
-        if ($this->searchTerm != '')
+        if ($this->searchTerm != '' && strlen($this->searchTerm) >= 2)
             {
                 $searchTerm = '%' . $this->searchTerm . '%';
                 $this->wireIngredients = Ingredient::where('title', 'like', $searchTerm)->limit(4)->get();
@@ -35,12 +35,13 @@ class RecipeBuilder extends Component
             else
             {
                 $searchTerm = 'NULL';
+                $this->wireIngredients = [];
                 $this->isVisible = false;
             }
 
 
 
-            if($this->wireIngredients)
+            if($this->wireIngredients && count($this->wireIngredients) > 0)
                 {
                     $this->isVisible = true;
                 }
@@ -64,7 +65,10 @@ class RecipeBuilder extends Component
                 }
 
 
-                $this->recipes = IngredientList::where($condition)->limit($this->limit)->get();
+                $this->recipes = IngredientList::with(['recipes.user', 'recipes.commentRecipe'])
+                    ->where($condition)
+                    ->limit($this->limit)
+                    ->get();
 
                 if(!count($this->recipes))
                 {
@@ -119,7 +123,6 @@ class RecipeBuilder extends Component
         $this->wireIngredients = '';
         $this->isVisible = false;
 	$this->limit = 20;
-        $this->emit('clearSearch');
 
         $this->getRecipes();
 

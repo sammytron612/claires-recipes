@@ -361,7 +361,15 @@
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}"></script>
+    
     @livewireScripts
+    
+    <script>
+        // Handle Alpine initialization after Livewire
+        document.addEventListener('livewire:navigated', () => {
+            console.log('Livewire navigated');
+        });
+    </script>
 
     <!-- Mobile menu toggle script -->
     <script>

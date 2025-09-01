@@ -1,191 +1,183 @@
-<div>
-    <div class="flex flex-col md:flex-row items-center py-2 gap-4 px-8 md:px-16">
-        <div class="w-full md:w-2/12">
-        </div>
-        <div class="w-full relative">
-            <label class="block font-bold text-lg text-orange-500 mb-2" for="search">find an ingredient:</label>
-            <div class="relative">
-                <input 
-                    oninput="search(this.value)" 
-                    type="search" 
-                    class="w-full md:w-3/4 px-4 py-2 border border-gray-300 rounded-l-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
-                    id="search"
-                    placeholder="Search ingredients..."
-                >
-                <div class="hidden md:block absolute inset-y-0 right-0 md:right-1/4">
-                    <span class="flex items-center justify-center px-3 bg-gray-100 border border-l-0 border-gray-300 rounded-r-md">
-                        <i class="fa fa-search text-gray-500"></i>
-                    </span>
-                </div>
+<div class="min-h-screen bg-gradient-to-br from-orange-50 via-white to-teal-50">
+    <!-- Simplified Header Section with Search -->
+    <div class="bg-white border-b border-gray-200">
+        <div class="max-w-4xl mx-auto px-4 py-8">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">
+                    Recipe Builder
+                </h1>
+                <p class="text-gray-600">
+                    Find recipes based on ingredients you have at home
+                </p>
             </div>
-            <div x-cloak x-data="{ visible : @entangle('isVisible').defer }">
+            
+            <!-- Clean Search Section -->
+            <div class="max-w-xl mx-auto">
+                <label class="block text-sm font-medium text-gray-700 mb-3" for="search">
+                    Search for ingredients:
+                </label>
+                <div class="relative">
+                    <input 
+                        wire:model.live.debounce.300ms="searchTerm"
+                        type="search" 
+                        class="w-full px-4 py-3 text-gray-800 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors" 
+                        id="search"
+                        placeholder="Type an ingredient... (e.g., chicken, tomato, cheese)"
+                    >
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                        <i class="fa fa-search text-gray-400"></i>
+                    </div>
+                </div>
+                
+                <!-- Enhanced Dropdown -->
+                @if($isVisible)
                 <div 
                     id="dropdown" 
-                    x-show="visible" 
-                    class="absolute z-50 top-full mt-2 bg-white border border-gray-200 rounded-md shadow-lg p-2 w-full md:w-3/4"
+                    class="absolute z-50 top-full mt-3 bg-white rounded-xl shadow-2xl border border-gray-100 max-w-xl w-full left-1/2 transform -translate-x-1/2"
                 >
                     @if($wireIngredients)
-                        <div class="italic text-left text-orange-500 font-medium mb-2">Ingredients</div>
-                        <ul class="space-y-1 text-left">
-                            @foreach($wireIngredients as $wireIngredient)
-                            <li>
-                                <button 
-                                    wire:click="addIngredient({{ $wireIngredient }})" 
-                                    class="flex items-center w-full p-2 hover:bg-gray-50 rounded-md transition-colors text-left"
-                                >
-                                    <img 
-                                        style="height:80px;width:80px;object-fit:cover" 
-                                        class="rounded border" 
-                                        src="{{ asset('storage/' . $wireIngredient->image) }}" 
-                                        alt="{{ $wireIngredient->title }}"
+                        <div class="p-4">
+                            <div class="text-orange-600 font-bold text-sm uppercase tracking-wide mb-3 flex items-center">
+                                <i class="fas fa-carrot mr-2"></i>
+                                Available Ingredients
+                            </div>
+                            <ul class="space-y-2">
+                                @foreach($wireIngredients as $wireIngredient)
+                                <li>
+                                    <button 
+                                        wire:click="addIngredient({{ $wireIngredient }})" 
+                                        class="flex items-center w-full p-3 hover:bg-gradient-to-r hover:from-orange-50 hover:to-pink-50 rounded-lg transition-all duration-200 group border border-transparent hover:border-orange-200"
                                     >
-                                    <span class="ml-2 flex-1 truncate max-w-[260px]">{{ $wireIngredient->title }}</span>
-                                </button>
-                            </li>
-                            @endforeach
-                        </ul>
+                                        <div class="relative">
+                                            <img 
+                                                class="w-16 h-16 object-cover rounded-lg border-2 border-gray-200 group-hover:border-orange-300 transition-colors" 
+                                                src="{{ asset('storage/' . $wireIngredient->image) }}" 
+                                                alt="{{ $wireIngredient->title }}"
+                                            >
+                                            <div class="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <i class="fas fa-plus text-white text-xs"></i>
+                                            </div>
+                                        </div>
+                                        <span class="ml-4 text-gray-800 font-medium group-hover:text-orange-700 transition-colors">{{ $wireIngredient->title }}</span>
+                                    </button>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     @endif
                 </div>
+                @endif
             </div>
         </div>
     </div>
 
-    <div style="min-height:55vh" class="max-w-7xl mx-auto bg-white pb-5 py-2">
+    <!-- Main Content Section -->
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        
+        <!-- Selected Ingredients Section -->
         @if($ingredients)
-        <div class="flex justify-center mt-3">
-            <div class="border-t border-b border-gray-300 text-gray-600 py-3 px-5">
-                <div class="flex flex-wrap justify-center gap-2">
+        <div class="mb-12">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">
+                    <i class="fas fa-shopping-basket text-orange-500 mr-2"></i>
+                    Your Selected Ingredients
+                </h2>
+                <p class="text-gray-600">Click on any ingredient to remove it from your selection</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+                <div class="flex flex-wrap justify-center gap-3">
                     @foreach($ingredients as $ingredient)
                         <button 
                             wire:click="removeIngredient({{ $ingredient['id'] }})" 
-                            class="inline-flex items-center px-4 py-2 bg-white border border-teal-600 text-teal-600 rounded-full hover:bg-teal-50 transition-colors"
+                            class="group inline-flex items-center px-5 py-3 bg-gradient-to-r from-teal-500 to-emerald-500 text-white rounded-full hover:from-red-400 hover:to-pink-500 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
                         >
-                            {{ $ingredient['title'] }}
-                            <i class="ml-2 text-red-500 fas fa-times"></i>
+                            <span class="font-medium">{{ $ingredient['title'] }}</span>
+                            <div class="ml-3 w-6 h-6 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                                <i class="fas fa-times text-xs"></i>
+                            </div>
                         </button>
                     @endforeach
 
-                    <div wire:loading.inline wire:target="addIngredient" class="flex items-center">
-                        <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
-                        <span class="sr-only">Loading...</span>
+                    <div wire:loading.inline wire:target="addIngredient" class="flex items-center px-5 py-3">
+                        <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-orange-500"></div>
+                        <span class="ml-2 text-gray-600 font-medium">Adding...</span>
                     </div>
                 </div>
             </div>
         </div>
         @else
-            <div class="py-2" x-data="{ visible : @entangle('isVisible').defer }">
-                <div x-show="!visible" class="text-center">
-                    <h4 class="text-xl font-semibold text-teal-600 mb-2">Search the ingredients you have, and we do the rest</h4>
-                    <h5 class="text-lg text-teal-500">Bon apetit....</h5>
+            @if(!$isVisible)
+            <div class="text-center py-16">
+                <div class="max-w-md mx-auto">
+                    <div class="w-24 h-24 bg-gradient-to-br from-orange-400 to-pink-400 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i class="fas fa-utensils text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Let's Create Something Delicious!</h3>
+                    <p class="text-lg text-gray-600 mb-2">Start by searching for ingredients you have at home</p>
+                    <p class="text-gray-500 italic">We'll find the perfect recipes for you ✨</p>
                 </div>
             </div>
+            @endif
         @endif
 
 
+        <!-- Recipe Results Section -->
         @isset($recipes)
         @if(count($ingredients) > 1 && (count($recipes) == 0))
-        <div class="flex items-center justify-center mt-2 min-h-32 gap-4">
-            <h3 class="text-xl font-semibold text-gray-600">Looks like we have nothing to matches that combination</h3>
+        <div class="text-center py-16">
+            <div class="max-w-md mx-auto">
+                <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-search text-3xl text-gray-400"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-600 mb-3">No Recipes Found</h3>
+                <p class="text-gray-500">We couldn't find any recipes with that combination of ingredients. Try adding different ingredients or removing some to get more results.</p>
+            </div>
         </div>
         @else
-        <div wire:loading.inline wire:target="render" class="text-center">
-            <div class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-teal-500 transition ease-in-out duration-150">
-                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        
+        <!-- Loading State -->
+        <div wire:loading.inline wire:target="render" class="text-center py-12">
+            <div class="inline-flex items-center px-6 py-4 bg-white rounded-xl shadow-lg border border-gray-100">
+                <svg class="animate-spin -ml-1 mr-4 h-8 w-8 text-orange-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Loading...
+                <span class="text-lg font-medium text-gray-700">Finding perfect recipes for you...</span>
             </div>
         </div>
-        <div class="mt-3 pb-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 justify-items-center px-5 md:px-24">
+        
+        <!-- Recipes Grid -->
         @if($recipes)
-
+        <div class="mb-8">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-3">
+                    <i class="fas fa-magic text-orange-500 mr-2"></i>
+                    Recipes Made For You
+                </h2>
+                <p class="text-gray-600">{{ count($recipes) }} delicious recipe{{ count($recipes) > 1 ? 's' : '' }} found with your ingredients</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-8 md:px-16 lg:px-32">
                 @foreach($recipes as $recipe)
-
-                <div class="bg-white shadow-md rounded-lg overflow-hidden w-full max-w-xs relative flex flex-col">
-                    <a href="{{ route('recipe',['id'=>$recipe->recipes->id, 'slug'=>$recipe->recipes->slug]) }}" 
-                       class="absolute inset-0 z-10" aria-label="{{ $recipe->recipes->title }}">
-                    </a>
-                    <div>
-                        <img class="w-full h-48 object-cover" src="{{ asset('storage/' . $recipe->recipes->image) }}" alt="{{$recipe->recipes->title}}">
-                    </div>
-
-                    <div class="p-4 flex-grow">
-                        <h5 class="font-bold text-teal-600 mb-2">{{ $recipe->recipes->title }}
-                                @auth
-                                    @foreach($recipe->recipes->User->favourite as $fav)
-                                        @if ($fav->recipe_id == $recipe->id)
-                                            <span><i class="text-red-500 fa far fa-heart"></i></span>
-                                        @endif
-                                    @endforeach
-                                @endauth
-                        </h5>
-
-                        <x-rating-system rating="{{ $recipe->rating }}"></x-rating-system>
-                        <small class="font-bold text-teal-800 block mt-1">By {{ $recipe->recipes->user->name }}</small>
-                    </div>
-                    <div class="flex items-center justify-between p-4 pt-0">
-                        @if($recipe->recipes->cooking_time)
-                            <div class="flex items-center">
-                                <i class="text-blue-500 fa fa-clock"></i>
-                                <span class="font-bold ml-1">{{ $recipe->recipes->cooking_time }} mins</span>
-                            </div>
-                        @else
-                            <div></div>
-                        @endif
-
-                        @if($recipe->recipes->commentRecipe)
-                            <div class="text-teal-600 font-bold">
-                               @if(count($recipe->recipes->commentRecipe) == 1)
-                                    <span>1 comment</span>
-                               @elseif(count($recipe->recipes->commentRecipe) > 1)
-                                    <span>{{ count($recipe->recipes->commentRecipe) }} comments</span>
-                                @else
-                                    <span>No comments</span>
-                               @endif
-                            </div>
-                        @else
-                            <div class="font-bold text-teal-600">No Reviews</div>
-                        @endif
-                    </div>
-                </div>
+                <x-recipe-card :recipe="$recipe->recipes" />
                 @endforeach
+            </div>
+        </div>
         @endif
         @endif
-	</div>
+        <!-- Load More Button -->
         @if(count($recipes) >= 20)
-            <div class="text-center mt-2">
-                <button wire:click="viewMore" class="px-8 py-3 w-full md:w-auto bg-teal-500 hover:bg-teal-600 text-white font-bold rounded transition-colors">View more</button>
+            <div class="text-center mt-12">
+                <button wire:click="viewMore" class="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <span class="mr-2">Load More Recipes</span>
+                    <i class="fas fa-chevron-down group-hover:translate-y-1 transition-transform"></i>
+                </button>
             </div>
         @endif
         @endisset($recipes)
 
-
-
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-    
-    Livewire.on('clearSearch', () => {
-        $('#search').val('');
-    
-    })
-        });
-        function search(searchTerm)
-        {
-            if(searchTerm.length > 2)
-           {
-               @this.set('searchTerm', searchTerm);
-            }
-            else {
-                //alert("kl")
-                $('#dropdown').hide();
-            }
-        }
-    
-    
-    </script>
 
 </div>
 

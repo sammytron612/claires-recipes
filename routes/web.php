@@ -90,7 +90,6 @@ Route::get('/special-diet/{slug?}', [CategoryController::class, 'index'])->defau
 
 
 Route::get('/ingredient/{slug}/{sort?}', [IngredientController::class, 'show'])->name('ingredient');
-
 Route::get('/course/{slug}/{sort?}', [CourseController::class, 'show'])->name('course');
 Route::get('/diet/{slug}/{sort?}', [DietController::class, 'show'])->name('diet');
 Route::get('/cuisine/{slug}/{sort?}', [CuisineController::class, 'show'])->name('cuisine');
