@@ -45,14 +45,36 @@
                     <!-- Logo and Brand -->
                     <div class="flex items-center space-x-4">
                         <a href="{{ url('/home') }}" class="flex items-center space-x-3 group" aria-label="Claire's Recipes Home">
-                            <div class="w-12 h-12 bg-gradient-to-br from-teal-400 to-orange-500 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform duration-200">
-                                <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-                                </svg>
+                            <!-- Enhanced Recipe Logo -->
+                            <div class="relative w-14 h-14 transform group-hover:scale-110 transition-all duration-300">
+                                <!-- Background Circle with Gradient -->
+                                <div class="absolute inset-0 bg-gradient-to-br from-teal-400 via-emerald-500 to-orange-500 rounded-full shadow-lg group-hover:shadow-xl transition-shadow duration-300"></div>
+                                
+                                <!-- Chef Hat & Utensils SVG -->
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-white transform group-hover:rotate-12 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+                                        <!-- Chef Hat -->
+                                        <path d="M8.5 4.5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5c1.38 0 2.5 1.12 2.5 2.5 0 .69-.28 1.31-.73 1.76.44.19.73.63.73 1.24v8c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-8c0-.61.29-1.05.73-1.24C6.28 8.31 6 7.69 6 7c0-1.38 1.12-2.5 2.5-2.5z"/>
+                                        <!-- Spoon -->
+                                        <path d="M18 7c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1s1-.45 1-1V8c0-.55-.45-1-1-1z"/>
+                                        <!-- Fork -->
+                                        <path d="M20 6v1c0 .55.45 1 1 1s1-.45 1-1V6c0-.55-.45-1-1-1s-1 .45-1 1z"/>
+                                    </svg>
+                                </div>
+                                
+                                <!-- Decorative Sparkles -->
+                                <div class="absolute -top-1 -right-1 w-3 h-3 bg-yellow-300 rounded-full opacity-80 group-hover:animate-pulse"></div>
+                                <div class="absolute -bottom-1 -left-1 w-2 h-2 bg-pink-300 rounded-full opacity-60 group-hover:animate-pulse" style="animation-delay: 0.5s;"></div>
                             </div>
+                            
+                            <!-- Brand Text -->
                             <div class="hidden md:block">
-                                <h1 class="text-xl font-bold text-white group-hover:text-teal-300 transition-colors" style="font-family: 'Pacifico', cursive;">Claire's Recipes</h1>
-                                <p class="text-xs text-gray-300">Tested & Trusted</p>
+                                <h1 class="text-2xl font-bold bg-gradient-to-r from-teal-300 via-emerald-300 to-orange-300 bg-clip-text text-transparent group-hover:from-teal-200 group-hover:to-orange-200 transition-all duration-300" style="font-family: 'Pacifico', cursive;">
+                                    Claire's Recipes
+                                </h1>
+                                <p class="text-xs text-gray-300 group-hover:text-gray-200 transition-colors duration-200 font-medium">
+                                    🍳 Tested & Trusted Since Day One
+                                </p>
                             </div>
                         </a>
                     </div>

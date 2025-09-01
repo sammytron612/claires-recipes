@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Ingredient;
+use App\Models\Recipe;
+use App\Models\Cuisine;
+use App\Models\Course;
+use App\Models\Method;
+use App\Models\Diet;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Http\Request;
 
 
 class IndexController extends Controller
@@ -101,5 +107,52 @@ class IndexController extends Controller
 
     return view('recipe.index', compact(['index']));
 
+    }
+
+    public function search($searchTerm)
+    {
+        // Decode URL encoded search term
+        $searchTerm = urldecode($searchTerm);
+        
+        // Search for recipes
+        $recipes = Recipe::with(['user', 'commentRecipe'])
+                        ->where('title', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
+                        ->paginate(12);
+
+        // Search for cuisines
+        $cuisines = Cuisine::where('title', 'LIKE', '%' . $searchTerm . '%')
+                          ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
+                          ->get();
+
+        // Search for ingredients
+        $ingredients = Ingredient::where('title', 'LIKE', '%' . $searchTerm . '%')
+                                ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
+                                ->get();
+
+        // Search for courses
+        $courses = Course::where('title', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
+                        ->get();
+
+        // Search for methods
+        $methods = Method::where('title', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
+                        ->get();
+
+        // Search for diets
+        $diets = Diet::where('title', 'LIKE', '%' . $searchTerm . '%')
+                    ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
+                    ->get();
+
+        return view('recipe.search-results', compact([
+            'searchTerm', 
+            'recipes', 
+            'cuisines', 
+            'ingredients', 
+            'courses', 
+            'methods', 
+            'diets'
+        ]));
     }
 }

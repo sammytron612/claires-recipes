@@ -46,7 +46,7 @@ class CuisineController extends Controller
         }
 
 
-        $url = "/home/cuisine/";
+        $url = "cuisine";
         $category = Cuisine::find($id);
 
         return view('categories', compact(['recipes','category','url']));

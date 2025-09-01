@@ -55,8 +55,12 @@ Route::get('/recipe-builder', function () {
 
 Route::get('/recipes', [RecipeController::class, 'index'])->name('recipe.index');
 
+
 // Recipe index/search route
 Route::get('/recipe/index', [IndexController::class, 'index'])->name('recipe.search.index');
+
+// Recipe search results route
+Route::get('/home/recipe/search/{searchTerm}', [IndexController::class, 'search'])->name('recipe.search.results');
 
 // Legacy recipe routes for compatibility with existing views
 Route::get('/recipe/{id}/{slug}', [RecipeController::class, 'show'])->where('id', '[0-9]+')->name('recipe');
@@ -83,16 +87,18 @@ Route::get('/categories', function () {
 
 // Individual category type routes with optional slug parameter (MUST come before /category/{choice})
 Route::get('/special-diet/{slug?}', [CategoryController::class, 'index'])->defaults('choice', 'special-diet')->name('special-diet');
-Route::get('/diet/{slug?}', [DietController::class, 'show'])->defaults('choice', 'special-diet')->name('diet');
 
-Route::get('/ingredient/{slug?}', [IngredientController::class, 'show'])->name('ingredient');
 
-Route::get('/course/{slug?}', [CourseController::class, 'show'])->defaults('choice', 'course')->name('course');
-Route::get('/cuisine/{slug?}', [CuisineController::class, 'show'])->defaults('choice', 'cuisine')->name('cuisine');
-Route::get('/method/{slug?}', [MethodController::class, 'show'])->defaults('choice', 'method')->name('method');
+Route::get('/ingredient/{slug}/{sort?}', [IngredientController::class, 'show'])->name('ingredient');
+
+Route::get('/course/{slug}/{sort?}', [CourseController::class, 'show'])->name('course');
+Route::get('/diet/{slug}/{sort?}', [DietController::class, 'show'])->name('diet');
+Route::get('/cuisine/{slug}/{sort?}', [CuisineController::class, 'show'])->name('cuisine');
+Route::get('/method/{slug}/{sort?}', [MethodController::class, 'show'])->name('method');
 
 // Generic category route (MUST come AFTER specific routes)
 Route::get('/category/{choice}', [CategoryController::class, 'index'])->name('category');
+
 
 // Blog routes
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');

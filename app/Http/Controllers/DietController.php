@@ -44,7 +44,7 @@ class DietController extends Controller
         }
 
 
-        $url = "/home/special-diet/";
+        $url = "diet";
         $category = Diet::find($id);
 
         return view('categories', compact(['recipes','category','url']));

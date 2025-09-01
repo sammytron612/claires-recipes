@@ -51,7 +51,7 @@ class IngredientController extends Controller
                 ->paginate(12);
         }
 
-
+dd($id);
 
         $url = "/home/ingredient/";
         $category = Ingredient::find($id);

@@ -44,6 +44,7 @@ class RecipeController extends Controller
 
     public function search($searchTerm, $sort=null)
     {
+        
         $search = '%' . $searchTerm . '%';
 
         if($sort == 'created_at')

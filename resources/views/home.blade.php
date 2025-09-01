@@ -11,23 +11,8 @@
     @endif
    @include('includes.search')
 
-    <!-- Hero Section with Welcome Message -->
+    <!-- Hero Section with Recipe Name -->
     <div class="relative">
-        <!-- Welcome Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent z-20 flex items-center">
-            <div class="max-w-7xl mx-auto px-8 text-white">
-                <h1 class="text-4xl md:text-6xl font-bold mb-4 text-orange-500" style="font-family: 'Pacifico', cursive;">
-                    Welcome to Claire's Recipes
-                </h1>
-                <p class="text-xl md:text-2xl mb-6 max-w-2xl font-bold text-teal-500">
-                    Discover delicious, tested recipes that work every time
-                </p>
-                <button class="bg-teal-500 hover:bg-teal-600 text-white px-8 py-3 rounded-full text-lg font-semibold transition-colors shadow-lg">
-                    Start Cooking
-                </button>
-            </div>
-        </div>
-
         <!-- Carousel -->
         <div class="mt-4">
             <div x-data="{
@@ -64,7 +49,7 @@
         style="height: 60vh;">
             
             <!-- Carousel Items -->
-            <div class="relative w-full h-full">
+            <div class="relative w-full h-full z-0">
                 @foreach($recipes as $index => $recipe)
                 <div x-show="currentSlide === {{ $index }}" 
                      x-transition:enter="transition ease-in-out duration-500"
@@ -73,11 +58,8 @@
                      x-transition:leave="transition ease-in-out duration-500"
                      x-transition:leave-start="opacity-100 transform translate-x-0"
                      x-transition:leave-end="opacity-0 transform -translate-x-full"
-                     class="absolute inset-0 w-full h-full"
-                     style="display: none;"
-                     x-show.transition="currentSlide === {{ $index }}">
+                     class="absolute inset-0 w-full h-full">
                     <img class="w-full h-full object-cover" src="{{ asset('storage/' . $recipe->image) }}" alt="{{$recipe->title}}">
-                    
                 </div>
                 @endforeach
             </div>
@@ -172,44 +154,9 @@
         
         <div class="mt-8">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-8" style="font-family: 'Pacifico', cursive;">Our Top 10 Favorites</h2>
-            <div class="mt-2 flex flex-wrap justify-center gap-4">
+            <div class="mt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center gap-4">
                 @foreach($top10 as $recipe)
-                    <div class="bg-white shadow-md rounded-lg overflow-hidden w-full max-w-xs relative 
-                                md:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.67rem)]">
-                        <a href="{{ route('recipe', ['id'=>$recipe->id, 'slug'=> $recipe->slug]) }}" 
-                           class="absolute inset-0 z-10" aria-label="{{$recipe->title}}">
-                        </a>
-                        <div>
-                            <img class="w-full h-48 object-cover" src="{{ asset('storage/' . $recipe->image) }}" alt="{{$recipe->title}}">
-                        </div>
-                        <div class="p-4">
-                            <h5 class="font-bold text-teal-600 mb-2">{{ $recipe->title }}
-                                @auth
-                                    @foreach($favourites as $fav)
-                                        @if($recipe->id == $fav->recipe_id)<span><i class="text-red-500 fa far fa-heart"></i></span>@endif
-                                    @endforeach
-                                @endauth
-                            </h5>
-                            <x-rating-system rating="{{ $recipe->rating }}"></x-rating-system>
-                            <small class="font-bold text-teal-800 block mt-1">By {{ $recipe->user->name }}</small>
-                        </div>
-                        <div class="flex items-center justify-between p-4 pt-0">
-                            @if($recipe->cooking_time)
-                                <div class="flex items-center">
-                                    <i class="text-blue-500 fa fa-clock"></i>
-                                    <span class="font-bold ml-1">{{ $recipe->cooking_time }} mins</span>
-                                </div>
-                            @else
-                                <div></div>
-                            @endif
-
-                            @if(count($recipe->commentRecipe))
-                                <div class="font-bold text-teal-600">{{ count($recipe->commentRecipe) }} Reviews</div>
-                            @else
-                                <div class="font-bold text-teal-600">No Reviews</div>
-                            @endif
-                        </div>
-                    </div>
+                    <x-recipe-card :recipe="$recipe" />
                 @endforeach
             </div>
         </div>

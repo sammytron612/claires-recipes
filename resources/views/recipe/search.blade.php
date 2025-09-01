@@ -30,34 +30,7 @@
         </div>
         <div class="mt-3 px-5 md:px-0 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
             @foreach($recipes as $recipe)
-                <div class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col mb-5 relative">
-                    <a href="{{ route('recipe',['id'=> $recipe->id, 'slug'=>$recipe->slug]) }}" 
-                       data-toggle="popover" data-placement="right"
-                       title="{{ $recipe->description }}" 
-                       class="absolute inset-0 z-10">
-                    </a>
-                    <div>
-                        <img class="w-full h-48 object-cover" src="{{ asset('storage/' . $recipe->image) }}" alt="{{$recipe->title}}">
-                    </div>
-                    <div class="p-4 flex-1">
-                        <h5 class="font-bold text-teal-600 mb-2">{{ $recipe->title }}</h5>
-                        <x-rating-system rating="{{ $recipe->rating }}"></x-rating-system>
-                        <small class="font-bold text-teal-800">By {{ $recipe->user->name }}</small>
-                    </div>
-                    <div class="flex items-center justify-between p-4 pt-0">
-                        @if($recipe->cooking_time)
-                            <div class="flex items-center">
-                                <i class="text-blue-500 fa fa-clock"></i>
-                                <span class="font-bold ml-1">{{ $recipe->cooking_time }} mins</span>
-                            </div>
-                        @endif
-                        @if(count($recipe->comment))
-                            <div class="font-bold text-teal-600">{{ count($recipe->comment) }} Reviews</div>
-                        @else
-                            <div class="font-bold text-teal-600">No Reviews</div>
-                        @endif
-                    </div>
-                </div>
+                <x-recipe-card :recipe="$recipe" />
             @endforeach
         </div>
         <div class="flex justify-center">

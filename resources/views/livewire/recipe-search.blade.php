@@ -8,7 +8,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
                 <label class="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-orange-500" for="search">
-                    Find Your Perfect Recipe
+                    Find Your Perfect Recipe, cuisine, diet or ingredient
                 </label>
             </div>
             
@@ -289,7 +289,7 @@
                 @if(count($WireRecipes) > 4)
                     <div class="bg-gradient-to-r from-gray-50 to-gray-100 px-4 py-4 border-t border-gray-200">
                         <div class="text-center">
-                            <a href="{{ url('home/recipe/search/' . $searchTerm . '/views') }}" 
+                            <a href="{{ url('home/recipe/search/' . $searchTerm ) }}" 
                                class="inline-flex items-center gap-2 bg-gradient-to-r from-teal-600 to-orange-500 text-white font-semibold px-6 py-3 rounded-full hover:from-teal-700 hover:to-orange-600 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>

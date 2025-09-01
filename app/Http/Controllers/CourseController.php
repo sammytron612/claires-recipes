@@ -7,8 +7,9 @@ use App\Models\Course;
 
 class CourseController extends Controller
 {
-    public function show($slug, $sort=null)
+    public function show($slug, $sort = null)
     {
+       
         $temp = explode('-',$slug);
         $id = end($temp);
 
@@ -41,11 +42,13 @@ class CourseController extends Controller
             ->join('recipe','hash_courses.recipe_id','=','recipe.id')
 	    ->orderBy('title')
             ->paginate(12);
+            
         }
 
 
-        $url = "/home/course/";
+        $url = "course";
         $category = Course::find($id);
+     
 
         return view('categories', compact(['recipes','category','url']));
     }
