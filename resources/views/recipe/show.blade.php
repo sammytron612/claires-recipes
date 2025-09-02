@@ -2,11 +2,11 @@
 
 @section('content')
 
-<div class="w-full">
+<div class="w-full px-8 md:px-16 lg:px-32">
 @include('includes.search')
 </div>
 
-<div class="max-w-7xl mx-auto px-3 bg-white mt-3 pb-5">
+<div class="max-w-7xl mx-auto px-3 bg-white mt-3 pb-5 px-8 md:px-16 lg:px-32">
     <div class="flex items-center justify-between py-3">
         <div class="flex items-center">
             <img class="inline-block w-12 h-12 rounded-full ml-2" src="{{ asset('storage/' . $recipe->User->avatar) }}" alt="{{$recipe->User->name}}">
@@ -70,7 +70,7 @@
             </div>
 
             <p class="mt-3 font-italic">{{ $recipe->description }}</p>
-            <h6><i class="fa fa-lg fa-share-alt" aria-hidden="true"></i><span class="ml-2 weight700 text-teal">Share this</span></h6>
+            <h6 class="my-2"><i class="fa fa-lg fa-share-alt" aria-hidden="true"></i><span class="ml-2 weight700 text-teal">Share this</span></h6>
             <a href="https://www.facebook.com/sharer/sharer.php?u={{ Request::fullUrl() }}&display=popup" target="_blank" aria-label="Facebook"><i style="color:#3b5998" class="fab fa-2x fa-facebook"></i></a>
             <a href="https://twitter.com/intent/tweet?text=Im cooking {{ $recipe->title }}&url={{ Request::fullUrl() }}" target="_blank" aria-label="Twitter"><i style="color:dodgerblue" class="fab fa-2x fa-twitter"></i></a>
             <a class="info" target="_blank" data-pin-do="buttonPin" href="https://www.pinterest.com/pin/create/button/?url={{ Request::fullUrl()}}; &media={{ asset('storage/'. $recipe->image) }}&description={{ $recipe->title }}" data-pin-custom="true" aria-label="Pinterest"><i style="color:crimson" class="fab fa-2x fa-pinterest"></i></i></a>
