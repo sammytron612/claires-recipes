@@ -46,7 +46,7 @@ Route::get('/home', function () {
 })->name('home');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('profile.profile');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Public recipe routes
@@ -128,10 +128,12 @@ Route::middleware('auth')->group(function () {
     // User profile routes
     Route::get('/profile/planner', [HomeController::class, 'planner'])->name('profile.planner');
     Route::get('/profile/profile', [HomeController::class, 'userProfile'])->name('profile.profile');
+    Route::get('/profile/favourites', [HomeController::class, 'favourites'])->name('profile.favourites');
     
     // Admin routes
     Route::middleware('can:isAdmin')->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+        Route::get('/admin/recipe/{id}/edit', [AdminController::class, 'editRecipe'])->name('admin.recipe-edit');
         // Add other admin routes as needed
     });
 });

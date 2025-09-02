@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Recipe;
 use App\Models\Favourites;
+use App\Models\Planner;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -18,7 +18,6 @@ class HomeController extends Controller
 
     public function index()
     {
-
         //$recipes = Recipe::with('HashDiet')->where('hash_diets.diet','<>','4')->limit(3)->get();
 
         $recipes = Recipe::whereDoesntHave('HashDiet')->inRandomOrder()->limit(10)->get();
@@ -31,8 +30,43 @@ class HomeController extends Controller
         else
         {$top10 = Recipe::orderBy('rating', 'desc')->limit(10)->get();}
 
-
         $url = "/home";
         return view('home', compact('recipes','top10', 'url','favourites'));
+    }
+
+    /**
+     * Show the user's meal planner
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function planner()
+    {
+        
+        return view('profile.planner');
+    }
+
+    /**
+     * Show the user's profile page
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function userProfile()
+    {
+        $user = Auth::user();
+        $favourites = Favourites::where('user_id', $user->id)
+                                ->with('recipe')
+                                ->get();
+        
+        return view('profile.profile', compact('user', 'favourites'));
+    }
+
+    /**
+     * Show the user's favourites page
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function favourites()
+    {
+        return view('profile.favourites');
     }
 }

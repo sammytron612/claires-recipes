@@ -4,13 +4,12 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Comment;
+use Livewire\Attributes\On;
 
 class Comments extends Component
 {
     public $comments;
     public $recipe;
-
-    protected $listeners = ['commentAdded' => 'newComment'];
 
     public function render()
     {
@@ -18,6 +17,7 @@ class Comments extends Component
         return view('livewire.comments');
     }
 
+    #[On('commentAdded')]
     public function newComment()
     {
         $this->comments = Comment::where('recipe_id', $this->recipe->id)->orderBy('created_at', 'desc')->get();

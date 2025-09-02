@@ -1,16 +1,15 @@
 <?php
 
-namespace App\\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 use Auth;
+use Livewire\Attributes\On;
 
 
 class FavCount extends Component
 {
     public $favCounter;
-
-    protected $listeners = ['IncreaseFavCount' => 'increaseFav', 'DecreaseFavCount' => 'decreaseFav'];
 
     public function render()
     {
@@ -20,11 +19,13 @@ class FavCount extends Component
         return view('livewire.fav-count');
     }
 
+    #[On('IncreaseFavCount')]
     public function increaseFav()
     {
         $this->favCounter ++;
     }
 
+    #[On('DecreaseFavCount')]
     public function decreaseFav()
     {
         $this->favCounter --;

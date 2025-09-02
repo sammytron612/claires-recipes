@@ -1,6 +1,6 @@
 <?php
 
-namespace App\\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 use Auth;
@@ -11,7 +11,7 @@ class MyPlanner extends Component
 {
     use WithPagination;
 
-    protected $paginationTheme = 'bootstrap';
+    protected $paginationTheme = 'tailwind';
     protected $plannerEntries;
 
     public $monday;
@@ -65,16 +65,55 @@ class MyPlanner extends Component
 
     public function render()
     {
+        // Get planner entries with recipe details
+        $this->plannerEntries = Planner::with('recipe')
+            ->where('user_id', Auth::user()->id)
+            ->orderBy('day')
+            ->orderBy('slot')
+            ->paginate(12);
 
-        $this->plannerEntries = Planner::where('user_id',Auth::user()->id)->orderBy('day')->paginate(12);
+        // Simple weekly schedule for the card view
+        $weeklySchedule = [
+            1 => ['name' => 'Monday', 'number' => 1],
+            2 => ['name' => 'Tuesday', 'number' => 2],
+            3 => ['name' => 'Wednesday', 'number' => 3],
+            4 => ['name' => 'Thursday', 'number' => 4],
+            5 => ['name' => 'Friday', 'number' => 5],
+            6 => ['name' => 'Saturday', 'number' => 6],
+            7 => ['name' => 'Sunday', 'number' => 7]
+        ];
 
-        return view('livewire.my-planner', (['plannerEntries' => $this->plannerEntries]));
+        return view('livewire.my-planner', [
+            'plannerEntries' => $this->plannerEntries,
+            'weeklySchedule' => $weeklySchedule
+        ]);
+    }
+
+    public function getRecipeForSlot($day, $slot)
+    {
+        $plannerEntry = Planner::with('recipe')
+            ->where('user_id', Auth::user()->id)
+            ->where('day', $day)
+            ->where('slot', $slot)
+            ->first();
+        
+        if ($plannerEntry && $plannerEntry->recipe) {
+            return [
+                'id' => $plannerEntry->recipe->id,
+                'slug' => $plannerEntry->recipe->slug,
+                'title' => $plannerEntry->recipe->title,
+                'image' => $plannerEntry->recipe->image,
+                'cooking_time' => $plannerEntry->recipe->cooking_time,
+                'servings' => $plannerEntry->recipe->servings ?? null,
+                'description' => $plannerEntry->recipe->description ?? null
+            ];
+        }
+        
+        return null;
     }
 
     public function updatePlanner($day, $plannerId)
     {
-
-
         if($day == 8)
         {
             $planner = Planner::where('planner_id', $plannerId)->update(['day' => 8, 'slot' => 0]);
@@ -106,13 +145,17 @@ class MyPlanner extends Component
         }
 
 
-        //$this->plannerEntries = Planner::where('user_id',Auth::user()->id)->orderBy('day')->paginate(12);
-        $this->emit('hideModalDays');
+        // Force refresh of the component
+        $this->resetPage();
+        
         if($planner)
        {
             $message = ['text' =>  'Entry updated','type' => 'success'];
-            $this->emit('toast', $message);
+            $this->dispatch('toast', $message);
+            return true; // Return success for the promise
        }
+       
+       return false;
 
     }
 
@@ -230,6 +273,6 @@ class MyPlanner extends Component
         $this->refreshDays();
 
         $message = ['text' =>  'Entry removed','type' => 'success'];
-        $this->emit('toast', $message);
+        $this->dispatch('toast', $message);
     }
 }

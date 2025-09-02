@@ -6,9 +6,12 @@ class SEOService
 {
     public static function generateRecipeStructuredData($recipe)
     {
-        $ingredients = $recipe->ingredientList->map(function($ingredient) {
-            return $ingredient->ingredient->name ?? $ingredient->name;
-        })->filter()->values()->toArray();
+        $ingredients = [];
+        if ($recipe->HashIngredient) {
+            $ingredients = $recipe->HashIngredient->map(function($hashIngredient) {
+                return $hashIngredient->ingredients ? $hashIngredient->ingredients->name : null;
+            })->filter()->values()->toArray();
+        }
         
         $instructions = [];
         if ($recipe->recipeMethod && $recipe->recipeMethod->method) {

@@ -5,14 +5,13 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Comment;
 use App\Models\Recipe;
+use Livewire\Attributes\On;
 
 
 class RatingComponent extends Component
 {
     public $rating = 0;
     public $recipe;
-
-    protected $listeners = ['commentAdded' => 'rating'];
 
     public function render()
     {
@@ -22,6 +21,7 @@ class RatingComponent extends Component
         return view('livewire.rating-component');
     }
 
+    #[On('commentAdded')]
     public function rating()
     {
         $rating = round(Comment::where('recipe_id', $this->recipe->id)->Where('rating','<>', 0)->avg('rating'));

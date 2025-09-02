@@ -1,6 +1,6 @@
 <?php
 
-namespace App\\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -47,7 +47,7 @@ class MyProfile extends Component
         $user->save();
 
         $message = ['text' =>  'Avatar uploaded','type' => 'success'];
-        $this->emit('toast', $message);
+        $this->dispatch('toast', $message);
 
     }
 

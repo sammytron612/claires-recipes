@@ -1,6 +1,6 @@
 <?php
 
-namespace App\\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Favourites;
@@ -37,8 +37,8 @@ class Favourite extends Component
             $fav->save();
 
             $message = ['text' => 'Favourite added','type' => 'success'];
-            $this->emit('IncreaseFavCount');
-            $this->emit('toast', $message);
+            $this->dispatch('IncreaseFavCount');
+            $this->dispatch('toast', $message);
         }
         else
         {
@@ -47,8 +47,8 @@ class Favourite extends Component
                     ->where('recipe_id', $this->recipe)->delete();
 
             $message = ['text' => 'Favourite removed','type' => 'success'];
-            $this->emit('toast', $message);
-            $this->emit('DecreaseFavCount');
+            $this->dispatch('toast', $message);
+            $this->dispatch('DecreaseFavCount');
         }
 
     }

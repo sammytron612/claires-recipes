@@ -1,6 +1,6 @@
 <?php
 
-namespace App\\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Favourites;
@@ -41,8 +41,8 @@ class FavouritePlanner extends Component
         $fav->delete();
 
         $message = ['text' => 'Favourite removed','type' => 'success'];
-        $this->emit('toast', $message);
-        $this->emit('DecreaseFavCount');
+        $this->dispatch('toast', $message);
+        $this->dispatch('DecreaseFavCount');
     }
 
     public function AddPlanner($id)
@@ -56,7 +56,7 @@ class FavouritePlanner extends Component
         $this->plannerEntries = Planner::where('user_id',Auth::user()->id)->get();
 
         $message = ['text' => 'Added to planner','type' => 'success'];
-        $this->emit('toast', $message);
+        $this->dispatch('toast', $message);
 
     }
     public function RemovePlanner($id)
@@ -65,6 +65,6 @@ class FavouritePlanner extends Component
 
         $this->plannerEntries = Planner::where('user_id',Auth::user()->id)->get();
         $message = ['text' => 'Removed from planner','type' => 'success'];
-        $this->emit('toast', $message);
+        $this->dispatch('toast', $message);
     }
 }

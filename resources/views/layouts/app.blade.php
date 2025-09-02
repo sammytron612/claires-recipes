@@ -181,6 +181,8 @@
                                         </svg>
                                         <span>My Planner</span>
                                     </a>
+
+                                    @livewire('fav-count')
                                     
                                     <a class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors" href="{{ route('profile.profile') }}" aria-label="Profile">
                                         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -204,8 +206,8 @@
                                 </div>
                             </div>
                             
-                            <!-- Favorites count (if applicable) -->
-                            @livewire('fav-count')
+                            
+                            
                         @endguest
 
                         <!-- Mobile menu button -->
@@ -297,6 +299,9 @@
     <script src="{{ mix('js/app.js') }}"></script>
     
     @livewireScripts
+    
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
     <script>
         // Handle Alpine initialization after Livewire

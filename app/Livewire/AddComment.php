@@ -1,6 +1,6 @@
 <?php
 
-namespace App\\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Comment;
@@ -24,12 +24,12 @@ class AddComment extends Component
 
         $message = ['text' => 'Comment added','type' => 'success'];
 
-        $this->emit('toast', $message);
-        $this->dispatchBrowserEvent('hide-button');
+        $this->dispatch('toast', $message);
+        $this->js('document.dispatchEvent(new CustomEvent("hide-button"))');
 
-        $this->emit('commentAdded');
+        $this->dispatch('commentAdded');
         //$this->emit('checkRating');
-        $this->emit('IncreaseCommentCount');
+        $this->dispatch('IncreaseCommentCount');
 
         $comment->save();
         $this->reset('comment');

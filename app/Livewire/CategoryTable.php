@@ -1,6 +1,6 @@
 <?php
 
-namespace App\\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Ingredient;
@@ -225,10 +225,10 @@ class CategoryTable extends Component
             }
 
 
-        $this->emit('hideModalEdit');
+        $this->dispatch('hideModalEdit');
         $message = ['text' =>  'Updated','type' => 'success'];
         $this->reset(['editTitle','editDescription','editImage','updatedImage']);
-        $this->emit('toast', $message);
+        $this->dispatch('toast', $message);
 
     }
 
@@ -269,7 +269,7 @@ class CategoryTable extends Component
             }
 
         $message = ['text' => 'Deleted','type' => 'success'];
-        $this->emit('toast', $message);
+        $this->dispatch('toast', $message);
 
     }
 

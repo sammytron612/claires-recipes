@@ -1,6 +1,6 @@
 <?php
 
-namespace App\\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -76,10 +76,10 @@ class NewHashtag extends Component
 
         $this->image->storeAs('public', $data['image']);
         $this->reset(['title', 'description', 'image']);
-        $this->emit('hideModal');
+        $this->dispatch('hideModal');
 
         $message = ['text' => 'Recipe added','type' => 'success'];
-        $this->emit('toast', $message);
+        $this->dispatch('toast', $message);
 
     }
 }
