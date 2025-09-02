@@ -1,8 +1,5 @@
-<div class="bg-white grid grid-cols-1 md:grid-cols-2 items-center py-2 gap-4">
-    <div class="flex justify-center">
-        <img style="height:170px" class="w-auto" src="{{ asset('storage/claires-recipes.png') }}" alt="Claires Site Logo">
-    </div>
-    <div class="flex justify-center ml-2 sm:ml-0 relative z-10">
+<div class="bg-white text-center">
+    <div class="flex justify-center ml-2 sm:ml-0 relative z-10 top-8">
         @livewire('recipe-search')
     </div>
 </div>

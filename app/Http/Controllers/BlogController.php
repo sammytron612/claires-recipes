@@ -59,8 +59,15 @@ class BlogController extends Controller
         $BlogArticle->postBody->save();
 
         return redirect()->route('blog.index');
+    }
 
+    public function index()
+    {
+        $articles = BlogArticle::with(['postBody', 'articleAuthor'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
 
+        return view('blog.index', compact('articles'));
     }
 
    

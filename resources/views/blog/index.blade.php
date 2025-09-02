@@ -1,14 +1,43 @@
-@extends('layouts.app', ['image'=> "fb2e60213d4b9e175f23e08bbc8ed01f.jpg", 'title' => 'Blog | Claires Recipes', 'description' => "Claires Recipes, tasty recipes tried and tested for everyone"])
+@php
+    // Generate structured data for blog listing
+    $structuredData = [
+        "@context" => "https://schema.org",
+        "@type" => "Blog",
+        "name" => "Claire's Recipes Blog",
+        "description" => "Discover cooking tips, recipe inspiration, and culinary insights from Claire's kitchen. Learn new techniques and get inspired to cook at home.",
+        "url" => url()->current(),
+        "publisher" => [
+            "@type" => "Organization",
+            "name" => "Claire's Recipes",
+            "logo" => [
+                "@type" => "ImageObject",
+                "url" => asset('storage/fb2e60213d4b9e175f23e08bbc8ed01f.jpg')
+            ]
+        ]
+    ];
+@endphp
+
+@extends('layouts.app', [
+    'image' => "fb2e60213d4b9e175f23e08bbc8ed01f.jpg", 
+    'title' => 'Blog - Cooking Tips & Recipe Inspiration | Claire\'s Recipes', 
+    'description' => "Discover cooking tips, recipe inspiration, and culinary insights from Claire's kitchen. Learn new techniques and get inspired to cook delicious homemade meals.",
+    'keywords' => 'cooking blog, recipe tips, cooking techniques, food blog, culinary inspiration, kitchen tips, cooking advice',
+    'structuredData' => '<script type="application/ld+json">' . json_encode($structuredData, JSON_UNESCAPED_SLASHES) . '</script>'
+])
 
 @section('content')
 
-    <x-header title="Blog" />
-    <div class="w-full flex h-full items-center justify-center">
-        <div class="relative">
-            <img style="width:100vw; object-fit: cover; height:45vh"  src="{{ asset('storage/cuisine1232.jpg') }}" alt="">
-        </div>
-        <div class="absolute flex h-full items-center justify-center">
-            <h3 style="background: rgba(204, 204, 204, 0.8);font-family: 'Pacifico', cursive;" class="border border-gray-800 text-gray-800 p-2 md:p-5">Blog</h3>
+    <!-- Title Section -->
+    <div class="bg-gradient-to-r from-gray-50 to-gray-100 py-12 mb-8">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                    Blog
+                </h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Discover delicious recipes, cooking tips, and culinary inspiration from Claire's kitchen
+                </p>
+            </div>
         </div>
     </div>
 
@@ -22,7 +51,7 @@
                         <p class="text-gray-900 font-medium mb-2">{{$article->title}}</p>
                         <small class="text-gray-700">By <span class="text-teal-600">{{$article->articleAuthor->name}}</span></small>
                         <small class="text-gray-700 block">Date <span class="text-teal-600">{{ \Carbon\Carbon::parse($article->created_at)->format('d M Y')}}</span></small>
-                        <a href='{{url("post/{$article->id}/{$article->slug}")}}' class="absolute inset-0"></a>
+                        <a href='{{ route("blog.show", ["id" => $article->id, "slug" => $article->slug]) }}' class="absolute inset-0"></a>
                         <div class="flex justify-between items-center mt-3">
                             <button class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-1 px-3 rounded text-sm">Go there</button>
                             @can('isAdmin')
@@ -33,6 +62,11 @@
                   </div>
             </div>
             @endforeach
+        </div>
+        
+        <!-- Pagination Links -->
+        <div class="mt-8 flex justify-center">
+            {{ $articles->links() }}
         </div>
     </div>
 @endsection

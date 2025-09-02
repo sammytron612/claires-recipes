@@ -1,18 +1,49 @@
 
-@extends('layouts.app', ['image'=> "fb2e60213d4b9e175f23e08bbc8ed01f.jpg", 'title' => 'Home | Claires Recipes', 'description' => "Claires Recipes, tasty recipes tried and tested for everyone"])
+@php
+    // Generate structured data for home page
+    $structuredData = [
+        "@context" => "https://schema.org",
+        "@type" => "WebSite",
+        "name" => "Claire's Recipes",
+        "url" => url('/'),
+        "description" => "Discover delicious scratch cooking recipes tested in real home kitchens. Claire's Recipes offers tried and tested recipes you can rely on to work every time.",
+        "potentialAction" => [
+            "@type" => "SearchAction",
+            "target" => url('/') . "/search?q={search_term_string}",
+            "query-input" => "required name=search_term_string"
+        ],
+        "publisher" => [
+            "@type" => "Organization",
+            "name" => "Claire's Recipes",
+            "logo" => [
+                "@type" => "ImageObject",
+                "url" => asset('storage/fb2e60213d4b9e175f23e08bbc8ed01f.jpg')
+            ]
+        ]
+    ];
+@endphp
+
+@extends('layouts.app', [
+    'image' => "fb2e60213d4b9e175f23e08bbc8ed01f.jpg", 
+    'title' => 'Claire\'s Recipes - Tested Scratch Cooking Recipes You Can Trust', 
+    'description' => "Discover delicious scratch cooking recipes tested in real home kitchens. Every recipe is tried multiple times to ensure it works perfectly and is worth your time and effort.",
+    'keywords' => 'scratch cooking, tested recipes, homemade recipes, cooking from scratch, reliable recipes, home cooking, family recipes, kitchen tested',
+    'structuredData' => '<script type="application/ld+json">' . json_encode($structuredData, JSON_UNESCAPED_SLASHES) . '</script>'
+])
 
 
 @section('content')
-<div class="max-w-full">
+<main class="max-w-full">
     @if (session('error'))
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded text-center">
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded text-center" role="alert">
             {{ session('error') }}
         </div>
     @endif
    @include('includes.search')
 
-    <!-- Hero Section with Recipe Name -->
-    <div class="relative">
+    <!-- Hero Section with Recipe Carousel -->
+    <section class="relative" aria-label="Featured Recipes Carousel">
+        <h1 class="sr-only">Claire's Recipes - Tested Scratch Cooking Recipes</h1>
         <!-- Carousel -->
         <div class="mt-4">
             <div x-data="{
@@ -46,7 +77,9 @@
         @mouseenter="stopAutoPlay()" 
         @mouseleave="startAutoPlay()"
         class="relative overflow-hidden"
-        style="height: 60vh;">
+        style="height: 60vh;"
+        role="region"
+        aria-label="Recipe carousel">
             
             <!-- Carousel Items -->
             <div class="relative w-full h-full z-0">
@@ -58,15 +91,18 @@
                      x-transition:leave="transition ease-in-out duration-500"
                      x-transition:leave-start="opacity-100 transform translate-x-0"
                      x-transition:leave-end="opacity-0 transform -translate-x-full"
-                     class="absolute inset-0 w-full h-full">
-                    <img class="w-full h-full object-cover" src="{{ asset('storage/' . $recipe->image) }}" alt="{{$recipe->title}}">
+                     class="absolute inset-0 w-full h-full"
+                     role="img"
+                     aria-label="{{$recipe->title}}">
+                    <img class="w-full h-full object-cover" src="{{ asset('storage/' . $recipe->image) }}" alt="{{$recipe->title}} - Featured Recipe">
                 </div>
                 @endforeach
             </div>
 
             <!-- Navigation Arrows -->
             <button @click="prevSlide()" 
-                    class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all z-20">
+                    class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all z-20"
+                    aria-label="Previous recipe">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                 </svg>
@@ -74,7 +110,8 @@
             </button>
             
             <button @click="nextSlide()" 
-                    class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all z-20">
+                    class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all z-20"
+                    aria-label="Next recipe">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
@@ -82,54 +119,57 @@
             </button>
 
             <!-- Indicators -->
-            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20" role="tablist" aria-label="Recipe indicators">
                 @foreach($recipes as $index => $recipe)
                 <button @click="currentSlide = {{ $index }}" 
                         :class="currentSlide === {{ $index }} ? 'bg-white' : 'bg-white bg-opacity-50'"
-                        class="w-3 h-3 rounded-full transition-all hover:bg-opacity-75">
+                        class="w-3 h-3 rounded-full transition-all hover:bg-opacity-75"
+                        role="tab"
+                        aria-label="Show recipe {{ $index + 1 }}"
+                        :aria-selected="currentSlide === {{ $index }}">
                 </button>
                 @endforeach
             </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+</main>
 
 <!-- Content Sections with Better Spacing -->
-<section class="bg-gray-50 py-12">
+<section class="bg-gray-50 py-12" aria-label="About Claire's Recipes">
     <div class="max-w-7xl mx-auto py-5 px-8 lg:px-24">
             <x-breadcrumb/>
-        <div class="mb-8 text-center">
+        <header class="mb-8 text-center">
             <h2 class="text-4xl font-bold text-gray-800 mb-6" style="font-family: 'Pacifico', cursive;">
                 Hello and welcome to Claire's Recipes!
             </h2>
             <div class="max-w-4xl mx-auto space-y-4 text-lg text-gray-600 leading-relaxed">
                 <p>Thank you so much for stopping by the site! If you are new to Claire's Recipes,
                     the one thing you should know about us is that we are obsessed with creating
-                    scratch cooking recipes that you will love.</p>
+                    <strong>scratch cooking recipes</strong> that you will love.</p>
 
                 <p>There are two things we think about when deciding if a recipe is good enough to go on the site.</p>
 
                 <div class="grid md:grid-cols-2 gap-8 my-8">
-                    <div class="bg-white p-6 rounded-lg shadow-md">
+                    <article class="bg-white p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-bold text-teal-600 mb-3">Does it work?</h3>
                         <p>Does the dish make us smile inside and out? Do we want to eat the whole batch by ourselves?</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md">
+                    </article>
+                    <article class="bg-white p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-bold text-orange-500 mb-3">Is it worth the effort?</h3>
                         <p>If the dish tastes great, is it worth the effort? Do we want to make it again (and again and again)?</p>
-                    </div>
+                    </article>
                 </div>
 
-                <p class="font-semibold text-gray-800">This is what we strive for—recipes you can rely on to work every time and be worth your time, effort, and money to make!</p>
+                <p class="font-semibold text-gray-800">This is what we strive for—<em>recipes you can rely on to work every time</em> and be worth your time, effort, and money to make!</p>
 
                 <p>Our goal is to encourage people to cook at home, and to make the process of feeding your family and loved ones less intimidating and more enjoyable.
-                Our recipes are all tested in our own home kitchens, usually several times.</p>
+                Our recipes are all <strong>tested in our own home kitchens</strong>, usually several times.</p>
             </div>
-        </div>
+        </header>
         
         <!-- Decorative Divider -->
-        <div class="flex items-center justify-center my-12">
+        <div class="flex items-center justify-center my-12" role="separator" aria-hidden="true">
             <div class="flex-grow border-t border-gray-300"></div>
             <div class="px-6">
                 <svg class="w-8 h-8 text-teal-500" fill="currentColor" viewBox="0 0 20 20">
@@ -142,7 +182,7 @@
 	<x-season-comp />
         
         <!-- Another Decorative Divider -->
-        <div class="flex items-center justify-center my-12">
+        <div class="flex items-center justify-center my-12" role="separator" aria-hidden="true">
             <div class="flex-grow border-t border-gray-300"></div>
             <div class="px-6">
                 <svg class="w-8 h-8 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
@@ -152,14 +192,16 @@
             <div class="flex-grow border-t border-gray-300"></div>
         </div>
         
-        <div class="mt-8">
+        <section class="mt-8" aria-label="Featured Recipes">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-8" style="font-family: 'Pacifico', cursive;">Our Top 10 Favorites</h2>
-            <div class="mt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center gap-4">
+            <div class="mt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center gap-4" role="list">
                 @foreach($top10 as $recipe)
-                    <x-recipe-card :recipe="$recipe" />
+                    <div role="listitem">
+                        <x-recipe-card :recipe="$recipe" />
+                    </div>
                 @endforeach
             </div>
-        </div>
+        </section>
 
     <hr>
 

@@ -40,5 +40,6 @@
     @include('includes.footer')
     <script src="{{ mix('js/app.js') }}"></script>
 
+    @includes('includes.footer')
 </body>
 </html>

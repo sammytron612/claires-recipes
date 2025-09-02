@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\CuisineController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MethodController;
@@ -101,6 +102,14 @@ Route::get('/category/{choice}', [CategoryController::class, 'index'])->name('ca
 
 // Blog routes
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/post/{id}/{slug}', function ($id, $slug) {
+    $BlogArticle = BlogArticle::with(['postBody', 'articleAuthor'])->findOrFail($id);
+    $body = $BlogArticle->postBody;
+    $tmp = explode('/', $BlogArticle->main_image);
+    $image = end($tmp);
+    
+    return view('blog.show-post', ['body' => $body, 'image' => $image, 'BlogArticle' => $BlogArticle]);
+})->name('blog.show');
 Route::get('/blog/{BlogArticle}', function ($BlogArticle) {
     $BlogArticle = BlogArticle::findOrFail($BlogArticle);
     $body = $BlogArticle->postBody;
@@ -126,5 +135,19 @@ Route::middleware('auth')->group(function () {
         // Add other admin routes as needed
     });
 });
+
+// SEO and Sitemap routes
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
+Route::get('/sitemap/recipes.xml', [SitemapController::class, 'recipes'])->name('sitemap.recipes');
+Route::get('/sitemap/blog.xml', [SitemapController::class, 'blog'])->name('sitemap.blog');
+Route::get('/sitemap/pages.xml', function() {
+    $content = view('sitemap.pages')->render();
+    return response($content, 200)->header('Content-Type', 'text/xml');
+})->name('sitemap.pages');
+
+Route::get('/robots.txt', function() {
+    $content = view('robots')->render();
+    return response($content, 200)->header('Content-Type', 'text/plain');
+})->name('robots');
 
 require __DIR__.'/auth.php';

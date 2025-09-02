@@ -1,4 +1,93 @@
-@extends('layouts.app', ['noFollow' => true, 'image'=> $recipe->image, 'title' => $recipe->title . ' | Claires Recipes', 'description' => $recipe->description])
+@php
+    // Generate structured data for recipe
+    $ingredients = $recipe->ingredientList->map(function($ingredient) {
+        return $ingredient->ingredient->name ?? $ingredient->name;
+    })->filter()->values()->toArray();
+    
+    $instructions = [];
+    if ($recipe->recipeMethod && $recipe->recipeMethod->method) {
+        $methods = json_decode($recipe->recipeMethod->method, true);
+        if (is_array($methods)) {
+            foreach ($methods as $index => $method) {
+                $instructions[] = [
+                    "@type" => "HowToStep",
+                    "name" => "Step " . ($index + 1),
+                    "text" => strip_tags($method['method'] ?? $method)
+                ];
+            }
+        }
+    }
+    
+    $aggregateRating = null;
+    if ($recipe->commentRecipe && $recipe->commentRecipe->count() > 0) {
+        $avgRating = $recipe->commentRecipe->avg('rating');
+        $ratingCount = $recipe->commentRecipe->where('rating', '>', 0)->count();
+        
+        if ($ratingCount > 0) {
+            $aggregateRating = [
+                "@type" => "AggregateRating",
+                "ratingValue" => round($avgRating, 1),
+                "reviewCount" => $ratingCount,
+                "bestRating" => "5",
+                "worstRating" => "1"
+            ];
+        }
+    }
+    
+    $structuredData = [
+        "@context" => "https://schema.org/",
+        "@type" => "Recipe",
+        "name" => $recipe->title,
+        "description" => $recipe->description,
+        "image" => [asset('storage/' . $recipe->image)],
+        "author" => [
+            "@type" => "Person",
+            "name" => $recipe->User->name
+        ],
+        "datePublished" => $recipe->created_at->toISOString(),
+        "dateModified" => $recipe->updated_at->toISOString(),
+        "prepTime" => $recipe->cooking_time ? "PT" . $recipe->cooking_time . "M" : null,
+        "cookTime" => $recipe->cooking_time ? "PT" . $recipe->cooking_time . "M" : null,
+        "totalTime" => $recipe->cooking_time ? "PT" . $recipe->cooking_time . "M" : null,
+        "recipeCategory" => $recipe->Course ? $recipe->Course->name : "Main Course",
+        "recipeCuisine" => $recipe->Cuisine ? $recipe->Cuisine->name : "International",
+        "recipeYield" => "4 servings",
+        "nutrition" => [
+            "@type" => "NutritionInformation",
+            "calories" => "Varies"
+        ]
+    ];
+    
+    if (!empty($ingredients)) {
+        $structuredData["recipeIngredient"] = $ingredients;
+    }
+    
+    if (!empty($instructions)) {
+        $structuredData["recipeInstructions"] = $instructions;
+    }
+    
+    if ($aggregateRating) {
+        $structuredData["aggregateRating"] = $aggregateRating;
+    }
+    
+    $keywords = collect([
+        $recipe->title,
+        $recipe->Course?->name,
+        $recipe->Cuisine?->name,
+        'recipe',
+        'cooking',
+        'homemade'
+    ])->filter()->implode(', ');
+@endphp
+
+@extends('layouts.app', [
+    'image' => $recipe->image, 
+    'title' => $recipe->title . ' | Claire\'s Recipes', 
+    'description' => Str::limit($recipe->description, 155),
+    'keywords' => $keywords,
+    'ogType' => 'article',
+    'structuredData' => '<script type="application/ld+json">' . json_encode($structuredData, JSON_UNESCAPED_SLASHES) . '</script>'
+])
 
 @section('content')
 

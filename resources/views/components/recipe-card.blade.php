@@ -4,7 +4,8 @@
     <div class="relative">
         <img class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" 
              src="{{ asset('storage/' . $recipe->image) }}" 
-             alt="{{ $recipe->title }}">
+             alt="{{ $recipe->title }} - {{ Str::limit($recipe->description, 50) }}"
+             loading="lazy">
         <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
         
         <!-- Rating Badge -->

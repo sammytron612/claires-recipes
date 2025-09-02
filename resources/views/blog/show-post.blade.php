@@ -1,4 +1,48 @@
-@extends('layouts.app', ['image'=> "{$image}", 'title' => 'Blog | Claires Recipes', 'description' => "{$BlogArticle->title}"])
+@php
+    // Generate structured data for blog article
+    $structuredData = [
+        "@context" => "https://schema.org",
+        "@type" => "BlogPosting",
+        "headline" => $BlogArticle->title,
+        "description" => Str::limit(strip_tags($body->body), 155),
+        "image" => [$BlogArticle->main_image],
+        "author" => [
+            "@type" => "Person",
+            "name" => $BlogArticle->articleAuthor->name
+        ],
+        "publisher" => [
+            "@type" => "Organization",
+            "name" => "Claire's Recipes",
+            "logo" => [
+                "@type" => "ImageObject",
+                "url" => asset('storage/fb2e60213d4b9e175f23e08bbc8ed01f.jpg')
+            ]
+        ],
+        "datePublished" => $BlogArticle->created_at->toISOString(),
+        "dateModified" => $BlogArticle->updated_at->toISOString(),
+        "mainEntityOfPage" => [
+            "@type" => "WebPage",
+            "@id" => url()->current()
+        ]
+    ];
+    
+    $keywords = collect([
+        $BlogArticle->title,
+        'blog',
+        'cooking',
+        'recipes',
+        'food'
+    ])->filter()->implode(', ');
+@endphp
+
+@extends('layouts.app', [
+    'image' => $BlogArticle->main_image, 
+    'title' => $BlogArticle->title . ' | Claire\'s Recipes Blog', 
+    'description' => Str::limit(strip_tags($body->body), 155),
+    'keywords' => $keywords,
+    'ogType' => 'article',
+    'structuredData' => '<script type="application/ld+json">' . json_encode($structuredData, JSON_UNESCAPED_SLASHES) . '</script>'
+])
 
 @section('content')
 
