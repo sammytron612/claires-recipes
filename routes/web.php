@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IndexController;
@@ -133,7 +134,14 @@ Route::middleware('auth')->group(function () {
     // Admin routes
     Route::middleware('can:isAdmin')->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+        Route::get('/admin/new-recipe', [AdminController::class, 'newRecipe'])->name('admin.new-recipe');
+        Route::post('/admin/recipe/store', [AdminController::class, 'storeRecipe'])->name('recipe.store');
+        Route::get('/admin/recipes', [AdminController::class, 'recipeIndex'])->name('admin.recipe-index');
         Route::get('/admin/recipe/{id}/edit', [AdminController::class, 'editRecipe'])->name('admin.recipe-edit');
+        Route::get('/admin/new-article', [BlogController::class, 'newArticle'])->name('blog.new-article');
+        Route::post('/admin/post-article', [BlogController::class, 'postArticle'])->name('postArticle');
+        Route::post('/admin/image/upload', [ImageController::class, 'imageUpload'])->name('image.upload');
+        Route::get('/admin/new-hashtag', [AdminController::class, 'newHashtag'])->name('admin.new-hashtag');
         // Add other admin routes as needed
     });
 });

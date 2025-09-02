@@ -70,6 +70,11 @@ class BlogController extends Controller
         return view('blog.index', compact('articles'));
     }
 
+    public function newArticle()
+    {
+        return view('blog.new-article');
+    }
+
    
 }
 

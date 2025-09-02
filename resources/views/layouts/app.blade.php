@@ -62,7 +62,7 @@
 
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
-    @livewireStyles
+ 
     <style>
         .bg-custom {
             background: rgb(0,0,0);
@@ -186,7 +186,7 @@
                                     
                                     <a class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors" href="{{ route('profile.profile') }}" aria-label="Profile">
                                         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            ot reven                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                         </svg>
                                         <span>My Profile</span>
                                     </a>
@@ -298,10 +298,9 @@
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}"></script>
     
-    @livewireScripts
     
-    <!-- Alpine.js -->
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+
     
     <script>
         // Handle Alpine initialization after Livewire

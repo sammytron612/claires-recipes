@@ -1,33 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container bg-white py-5">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white py-8">
 
 <x-header title="New recipe"/>
 
 @if (session('status'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
+<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6" role="alert">
     <strong>Recipe added</strong>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
+    <button type="button" class="float-right text-green-700 hover:text-green-900" onclick="this.parentElement.style.display='none'" aria-label="Close">
+      <span>&times;</span>
     </button>
-  </div>
+</div>
 @endif
     <form id="newRecipe" method="post" enctype="multipart/form-data" action="{{ route('recipe.store') }}">
         @csrf
-        <div class="row">
-            <div class="col-6">
-                <label class="weight700">Ingredients</label>
-                <select id="ingredientTags"  style="width:100%;" name="wireIngredients[]" class="js-example-basic-multiple"  multiple="multiple">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Ingredients</label>
+                <select id="ingredientTags" style="width:100%;" name="wireIngredients[]" class="js-example-basic-multiple" multiple="multiple">
                     @foreach($ingredients as $ingredient)
                         <option value="{{ $ingredient->id }}">{{ $ingredient->title }}</option>
                     @endforeach
                 </select>
             </div>
 
-            <div class="col-6">
-                <label class="weight700">Cusines</label>
-                <select id="cuisineTags"  style="width:100%;" name="wireCuisines[]" class="js-example-basic-multiple"  multiple="multiple">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Cuisines</label>
+                <select id="cuisineTags" style="width:100%;" name="wireCuisines[]" class="js-example-basic-multiple" multiple="multiple">
                     @foreach($cuisines as $cuisine)
                         <option value="{{ $cuisine->id }}">{{ $cuisine->title }}</option>
                     @endforeach
@@ -35,19 +35,19 @@
             </div>
         </div>
 
-        <div class="row mt-2">
-            <div class="col-6">
-                <label class="weight700">Diets</label>
-                <select id="dietTags" style="width:100%;" name="wireDiets[]" class="js-example-basic-multiple"  multiple="multiple">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Diets</label>
+                <select id="dietTags" style="width:100%;" name="wireDiets[]" class="js-example-basic-multiple" multiple="multiple">
                     @foreach($diets as $diet)
                         <option value="{{ $diet->id }}">{{ $diet->title }}</option>
                     @endforeach
                 </select>
             </div>
 
-            <div class="col-6">
-                <label class="weight700">Courses</label>
-                <select id="courseTags"  style="width:100%;" name="wireCourses[]" class="js-example-basic-multiple"  multiple="multiple">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Courses</label>
+                <select id="courseTags" style="width:100%;" name="wireCourses[]" class="js-example-basic-multiple" multiple="multiple">
                     @foreach($courses as $course)
                         <option value="{{ $course->id }}">{{ $course->title }}</option>
                     @endforeach
@@ -55,10 +55,10 @@
             </div>
         </div>
 
-        <div  class="row mt-2">
-            <div class="col-6">
-                <label class="weight700">Methods</label>
-                <select id="methodTags" style="width:100%;" name="wireMethods[]" class="js-example-basic-multiple"  multiple="multiple">
+        <div class="mb-6">
+            <div class="md:w-1/2">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Methods</label>
+                <select id="methodTags" style="width:100%;" name="wireMethods[]" class="js-example-basic-multiple" multiple="multiple">
                     @foreach($methods as $method)
                         <option value="{{ $method->id }}">{{ $method->title }}</option>
                     @endforeach
@@ -66,66 +66,64 @@
             </div>
         </div>
 
-
-        <hr>
-        <div class="row">
-            <div x-data="{ shown: false }" class="col-12">
-
-                    <input class="custom-checkbox" @click="shown = !shown" name="check" type="checkbox"  autocomplete="off">
-                    <label class="h5">Manual Recipe</label>
-
-                <div x-show="shown">
-                    <textarea name="method" id="editor"></textarea>
-                </div>
-                @error('method') <span class="text-danger">{{ $message }}</span> @enderror
-
-                <div class="shadow col-12 col-md-6 pt-2 order-2 order-md-1">
-                        <label class="weight700">Image</label>
-                        <div class="custom-file">
-                            <input onchange="preview(this)" name="photo" type="file" required class="custom-file-input @error('photo') border border-danger @enderror w-100"  id="photo">
-                            <label class="custom-file-label" for="photo">Choose file</label>
-                            @error('photo') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-                        <div x-show="!shown">
-                            <label class="mt-2 weight700">Attachment</label>
-                            <div class="custom-file">
-                                <input  name="attachment" type="file" class="custom-file-input @error('attachment') border border-danger @enderror w-100" id="attachment">
-                                <label class="custom-file-label" for="attachment">Choose file</label>
-                                @error('attachment') <span class="text-danger">{{ $message }}</span> @enderror
-                            </div>
-                        </div>
-
-                        <div class="mt-2 form-group">
-                            <label class="weight700" for="title">Title</label>
-                            <input name="title" required class="form-control @error('title') border border-danger @enderror w-100" type="text" id="title">
-                            @error('title') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label class="weight700" for="desc">Description</label>
-                            <textarea name="description" required class="form-control @error('description') border border-danger @enderror w-100" rows="5" type="text" id="desc"></textarea>
-                            @error('description') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label class="weight700" for="desc">Cooking time(minutes)</label>
-                            <input type="number" required name="cooking_time" class="form-control @error('cooking_time') border border-danger @enderror w-100" id="cooking">
-                            @error('cooking_time') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div class="form-group mt-5">
-                            <button type="submit" class="btn btn-teal form-control">Save</button>
-                        </div>
-                </div>
-                <div class="shadow h-auto col-12 col-md-6 order-1 order-md-2 p-25">
-                    <img id="previewImg" class="img-fluid" src="/storage/stock.jpg" alt="Placeholder">
-                </div>
-
-
+        <hr class="my-6 border-gray-200">
+        
+        <div x-data="{ shown: false }" class="mb-6">
+            <div class="mb-4">
+                <input class="mr-2" @click="shown = !shown" name="check" type="checkbox" autocomplete="off">
+                <label class="text-lg font-medium text-gray-700">Manual Recipe</label>
             </div>
+
+            <div x-show="shown" class="mb-6">
+                <textarea name="method" id="editor"></textarea>
             </div>
-        </form>
+            @error('method') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white shadow-sm rounded-lg p-6 border border-gray-200 space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Image</label>
+                        <input onchange="preview(this)" name="photo" type="file" required class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('photo') border-red-500 @enderror" id="photo">
+                        @error('photo') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+                    </div>
+                    
+                    <div x-show="!shown">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Attachment</label>
+                        <input name="attachment" type="file" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('attachment') border-red-500 @enderror" id="attachment">
+                        @error('attachment') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2" for="title">Title</label>
+                        <input name="title" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('title') border-red-500 @enderror" type="text" id="title">
+                        <input name="title" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('title') border-red-500 @enderror" type="text" id="title">
+                        @error('title') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2" for="desc">Description</label>
+                        <textarea name="description" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('description') border-red-500 @enderror" rows="5" type="text" id="desc"></textarea>
+                        @error('description') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2" for="cooking">Cooking time (minutes)</label>
+                        <input type="number" required name="cooking_time" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('cooking_time') border-red-500 @enderror" id="cooking">
+                        @error('cooking_time') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-medium py-3 px-6 rounded-md transition-colors">Save Recipe</button>
+                    </div>
+                </div>
+                
+                <div class="bg-white shadow-sm rounded-lg p-6 border border-gray-200 flex items-center justify-center">
+                    <img id="previewImg" class="max-w-full h-auto border border-gray-300 rounded-md shadow-sm" src="/storage/stock.jpg" alt="Recipe Preview">
+                </div>
+            </div>
         </div>
+        </form>
+</div>
         @push('scripts')
         <script src="https://cdn.tiny.cloud/1/d3utf658spf5n1oft4rjl6x85g568jj7ourhvo2uhs578jt9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
         @endpush

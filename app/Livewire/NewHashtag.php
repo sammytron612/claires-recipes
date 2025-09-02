@@ -13,15 +13,57 @@ use App\Models\Diet;
 
 class NewHashtag extends Component
 {
-
     public $category;
     public $image;
     public $title;
     public $description;
 
-
-
     use WithFileUploads;
+
+    protected function rules()
+    {
+        return [
+            'title' => 'required|max:100',
+            'description' => 'required|max:250',
+            'image' => 'required|image|max:1024'
+        ];
+    }
+
+    protected $messages = [
+        'title.required' => 'The title field is required.',
+        'title.max' => 'The title may not be greater than 100 characters.',
+        'description.required' => 'The description field is required.',
+        'description.max' => 'The description may not be greater than 250 characters.',
+        'image.required' => 'Please select an image.',
+        'image.image' => 'The file must be an image.',
+        'image.max' => 'The image may not be greater than 1MB.'
+    ];
+
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
+
+    public function updatedTitle()
+    {
+        $this->validateOnly('title');
+    }
+
+    public function updatedDescription()
+    {
+        $this->validateOnly('description');
+    }
+
+    public function updatedImage()
+    {
+        $this->validateOnly('image');
+    }
+
+    public function resetForm()
+    {
+        $this->reset(['title', 'description', 'image', 'category']);
+        $this->resetErrorBag();
+    }
 
     public function render()
     {
@@ -30,56 +72,60 @@ class NewHashtag extends Component
 
     public function storeHashtag()
     {
+        $this->validate();
 
-        $this->validate([
-            'title' =>  'required|max:100',
-            'description' => 'required|max:250',
-            'image' => 'required|image|max:1024']);
+        $imageName = md5($this->image . microtime()).'.'.$this->image->extension();
+        
+        $data = [
+            'title' => $this->title,
+            'description' => $this->description,
+            'image' => $imageName
+        ];
 
-        $data =[
-                'title' =>  $this->title,
-                'description' => $this->description,
-                'image' => md5($this->image . microtime()).'.'.$this->image->extension()];
-
-        $slug = (str_replace(' ', '-', strtolower($this->title)));
-
-        if($this->category == "ingredient")
-        {
-            $id = Ingredient::create($data)->id;
-            Ingredient::where('id', $id)->update(['slug' => $slug . '-' . $id]);
+        $slug = str_replace(' ', '-', strtolower($this->title));
+        
+        $id = null;
+        
+        switch($this->category) {
+            case "ingredient":
+                $item = Ingredient::create($data);
+                $id = $item->id;
+                $item->update(['slug' => $slug . '-' . $id]);
+                break;
+                
+            case "cuisine":
+                $item = Cuisine::create($data);
+                $id = $item->id;
+                $item->update(['slug' => $slug . '-' . $id]);
+                break;
+                
+            case "course":
+                $item = Course::create($data);
+                $id = $item->id;
+                $item->update(['slug' => $slug . '-' . $id]);
+                break;
+                
+            case "diet":
+                $item = Diet::create($data);
+                $id = $item->id;
+                $item->update(['slug' => $slug . '-' . $id]);
+                break;
+                
+            case "method":
+                $item = Method::create($data);
+                $id = $item->id;
+                $item->update(['slug' => $slug . '-' . $id]);
+                break;
         }
 
-        if($this->category == "cuisine")
-        {
-            $id = Cuisine::create($data)->id;
-            Cuisine::where('id', $id)->update(['slug' => $slug . '-' . $id]);
-        }
-
-        if($this->category == "course")
-        {
-            Course::create($data);
-            Course::where('id', $id)->update(['slug' => $slug . '-' . $id]);
-
-        }
-
-        if($this->category == "diet")
-        {
-            Diet::create($data);
-            Diet::where('id', $id)->update(['slug' => $slug . '-' . $id]);
-        }
-
-        if($this->category == "method")
-        {
-            Method::create($data);
-            Method::where('id', $id)->update(['slug' => $slug . '-' . $id]);
-        }
-
-        $this->image->storeAs('public', $data['image']);
+        // Store the image
+        $this->image->storeAs('public', $imageName);
+        
+        // Reset form
         $this->reset(['title', 'description', 'image']);
+        
+        // Dispatch events
         $this->dispatch('hideModal');
-
-        $message = ['text' => 'Recipe added','type' => 'success'];
-        $this->dispatch('toast', $message);
-
+        $this->dispatch('toast', ['text' => 'Category added successfully', 'type' => 'success']);
     }
 }

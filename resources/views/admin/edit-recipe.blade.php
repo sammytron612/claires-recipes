@@ -1,33 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container bg-white py-5">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white py-8">
 
 <x-header title="Edit recipe"/>
 
 @if (session('status'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
+<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4" role="alert">
     <strong>Recipe updated</strong>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
+    <button type="button" class="float-right text-green-700 hover:text-green-900" onclick="this.parentElement.style.display='none'">
+      <span>&times;</span>
     </button>
-  </div>
+</div>
 @endif
-<form class="row" method="post" action="{{ route('admin.recipe-delete', $recipe->id) }}">
+<form class="flex justify-end mb-4" method="post" action="{{ route('admin.recipe-delete', $recipe->id) }}">
     @csrf
     @method('delete')
-    <div class="col-9">
-    </div>
-    <div class="form-group col-3 order-last mt-2 float-right">
-        <button id="delete-recipe" type="submit" class="btn btn-danger form-control">Delete</button>
-    </div>
+    <button id="delete-recipe" type="submit" class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-6 rounded-md transition-colors">Delete Recipe</button>
 </form>
-    <form class="clearfix" id="newRecipe" method="post" enctype="multipart/form-data" action="{{ route('admin.recipe-update') }}">
+    <form id="newRecipe" method="post" enctype="multipart/form-data" action="{{ route('admin.recipe-update') }}">
         @csrf
-        <div class="row">
-            <div class="col-6">
-                <label class="weight700">Ingredients</label>
-                <select id="ingredientTags"  style="width:100%;"  name="wireIngredients[]" class="js-example-basic-multiple"  multiple="multiple">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Ingredients</label>
+                <select id="ingredientTags" style="width:100%;" name="wireIngredients[]" class="js-example-basic-multiple" multiple="multiple">
                     @foreach($ingredients as $ingredient)
                         @if(count($hashIngredients))
                             @foreach($hashIngredients as $i)
@@ -44,9 +40,9 @@
                 </select>
             </div>
 
-            <div class="col-6">
-                <label class="weight700">Cusines</label>
-                <select id="cuisineTags"  style="width:100%;" name="wireCuisines[]" class="js-example-basic-multiple"  multiple="multiple">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Cuisines</label>
+                <select id="cuisineTags" style="width:100%;" name="wireCuisines[]" class="js-example-basic-multiple" multiple="multiple">
                     @foreach($cuisines as $cuisine)
                         @if(count($hashCuisines))
                             @foreach($hashCuisines as $c)
@@ -64,10 +60,10 @@
             </div>
         </div>
 
-        <div class="row mt-2">
-            <div class="col-6">
-                <label class="weight700">Diets</label>
-                <select id="dietTags" style="width:100%;" name="wireDiets[]" class="js-example-basic-multiple"  multiple="multiple">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Diets</label>
+                <select id="dietTags" style="width:100%;" name="wireDiets[]" class="js-example-basic-multiple" multiple="multiple">
                     @foreach($diets as $diet)
                         @if(count($hashDiets))
                             @foreach($hashDiets as $d)
@@ -84,9 +80,9 @@
                 </select>
             </div>
 
-            <div class="col-6">
-                <label class="weight700">Courses</label>
-                <select id="courseTags"  style="width:100%;" name="wireCourses[]" class="js-example-basic-multiple"  multiple="multiple">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Courses</label>
+                <select id="courseTags" style="width:100%;" name="wireCourses[]" class="js-example-basic-multiple" multiple="multiple">
                     @foreach($courses as $course)
                         @if(count($hashCourses))
                             @foreach($hashCourses as $c)
@@ -97,6 +93,7 @@
                                 @endif
                             @endforeach
                         @else
+                        @else
                             <option value="{{ $course->id }}">{{ $course->title }}</option>
                         @endif
                     @endforeach
@@ -104,10 +101,10 @@
             </div>
         </div>
 
-        <div  class="row mt-2">
-            <div class="col-6">
-                <label class="weight700">Methods</label>
-                <select id="methodTags" style="width:100%;" name="wireMethods[]" class="js-example-basic-multiple"  multiple="multiple">
+        <div class="mb-6">
+            <div class="md:w-1/2">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Methods</label>
+                <select id="methodTags" style="width:100%;" name="wireMethods[]" class="js-example-basic-multiple" multiple="multiple">
                     @foreach($methods as $method)
                         @if(count($hashMethods))
                             @foreach($hashMethods as $m)
@@ -125,72 +122,69 @@
             </div>
         </div>
 
-
-        <hr>
+        <hr class="my-6 border-gray-200">
         @php $var = $recipe->attachment ? 0 : 1;@endphp
 
-        <div x-data="{ shown: {{ $var }}, attachment: {{ ($var * -1) + 1}} }"  class="row">
-            <div class="col-12">
+        <div x-data="{ shown: {{ $var }}, attachment: {{ ($var * -1) + 1}} }" class="mb-6">
+            <div class="w-full">
                     <input type="hidden" name="recipeId" value="{{ $recipe->id }}">
                     @php $checked = $var == 1 ? 'checked' : ''; @endphp
-                    <input class="custom-checkbox" {{ $checked }} @click="shown = !shown; attachment = !attachment" name="check" type="checkbox"  autocomplete="off">
-                    <label class="h5">Manual Recipe</label>
+                    <input class="mr-2" {{ $checked }} @click="shown = !shown; attachment = !attachment" name="check" type="checkbox" autocomplete="off">
+                    <label class="text-lg font-medium text-gray-700">Manual Recipe</label>
 
-                <div x-show="shown">
+                <div x-show="shown" class="mt-4">
                     <textarea name="method" id="editor">@if(!$recipe->attachment) {{ $recipe->recipeMethod->description }} @endif</textarea>
                 </div>
-                @error('method') <span class="text-danger">{{ $message }}</span> @enderror
+                @error('method') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
             </div>
-                <div class="col-12 col-md-6 pt-2 order-2 order-md-1">
-                        <label class="weight700">Image</label>
-                        <div class="custom-file">
-                            <input onchange="preview(this)" name="photo" type="file"  class="custom-file-input @error('photo') border border-danger @enderror w-100"  id="photo">
-                            <label class="custom-file-label" for="photo">Choose file</label>
-                            @error('photo') <span class="text-danger">{{ $message }}</span> @enderror
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
+                <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Image</label>
+                            <input onchange="preview(this)" name="photo" type="file" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('photo') border-red-500 @enderror" id="photo">
+                            @error('photo') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                         </div>
+                        
                         <div x-show="attachment">
-                            <label class="mt-2 weight700">Attachment</label>
-                            <div class="custom-file">
-                                <input  name="attachment" type="file" class="custom-file-input @error('attachment') border border-danger @enderror w-100" id="attachment">
-                                <label class="custom-file-label" for="attachment">Choose file</label>
-                                @error('attachment') <span class="text-danger">{{ $message }}</span> @enderror
-                            </div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Attachment</label>
+                            <input name="attachment" type="file" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('attachment') border-red-500 @enderror" id="attachment">
+                            @error('attachment') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                             @if($recipe->attachment)
-                                <label class="text-info">Details attached</label>
+                                <p class="text-blue-600 text-sm mt-1">Details attached</p>
                             @endif
                         </div>
 
-                        <div class="mt-2 form-group">
-                            <label class="weight700" for="title">Title</label>
-                            <input name="title" required value="{{ $recipe->title }}" class="form-control @error('title') border border-danger @enderror w-100" type="text" id="title">
-                            @error('title') <span class="text-danger">{{ $message }}</span> @enderror
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2" for="title">Title</label>
+                            <input name="title" required value="{{ $recipe->title }}" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('title') border-red-500 @enderror" type="text" id="title">
+                            @error('title') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                         </div>
 
-                        <div class="form-group">
-                            <label class="weight700" for="desc">Description</label>
-                            <textarea name="description" required class="form-control @error('description') border border-danger @enderror w-100" rows="5" type="text" id="desc">{{ $recipe->description }}</textarea>
-                            @error('description') <span class="text-danger">{{ $message }}</span> @enderror
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2" for="desc">Description</label>
+                            <textarea name="description" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('description') border-red-500 @enderror" rows="5" type="text" id="desc">{{ $recipe->description }}</textarea>
+                            @error('description') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                         </div>
 
-                        <div class="form-group">
-                            <label class="weight700" for="desc">Cooking time(minutes)</label>
-                            <input type="number" required value="{{ $recipe->cooking_time }}" name="cooking_time" class="form-control @error('cooking_time') border border-danger @enderror w-100" id="cooking">
-                            @error('cooking_time') <span class="text-danger">{{ $message }}</span> @enderror
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2" for="cooking">Cooking time (minutes)</label>
+                            <input type="number" required value="{{ $recipe->cooking_time }}" name="cooking_time" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('cooking_time') border-red-500 @enderror" id="cooking">
+                            @error('cooking_time') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                         </div>
 
-                        <div class="form-group mt-5">
-                            <button type="submit" class="btn btn-teal form-control">Save</button>
+                        <div class="pt-4">
+                            <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-medium py-3 px-6 rounded-md transition-colors">Save Recipe</button>
                         </div>
-
                 </div>
-                <div class="d-flex align-items-center h-100 col-12 col-md-6 order-1 order-md-2 p-25">
-                    <img id="previewImg" class="img-fluid border" src="{{ asset('storage/' . $recipe->image ) }}" alt="Placeholder">
+                
+                <div class="flex items-center justify-center">
+                    <img id="previewImg" class="max-w-full h-auto border border-gray-300 rounded-md shadow-sm" src="{{ asset('storage/' . $recipe->image ) }}" alt="Recipe Preview">
                 </div>
-
-
+            </div>
         </div>
         </form>
-        </div>
+</div>
         @push('scripts')
         <script src="https://cdn.tiny.cloud/1/d3utf658spf5n1oft4rjl6x85g568jj7ourhvo2uhs578jt9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
         @endpush

@@ -4,36 +4,49 @@
 
     <x-header title="New Article" />
 
-    <div class="container bg-white py-2">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-white py-8">
         @if(session()->has('message'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>{{ session()->get('message') }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6" role="alert">
+                <div class="flex justify-between items-center">
+                    <strong>{{ session()->get('message') }}</strong>
+                    <button type="button" class="text-green-700 hover:text-green-900 focus:outline-none" onclick="this.parentElement.parentElement.style.display='none'" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
             </div>
         @endif
-        <form action="{{route('postArticle')}}" method="post" enctype="multipart/form-data">
+        
+        <form action="{{route('postArticle')}}" method="post" enctype="multipart/form-data" class="space-y-6">
             @csrf
-            <div class="form-group">
-                <label for="Title">Title</label>
-                <input type="text" name="title" class="form-control" value="{{old('title')}}" id="title">
-                @error('title')<small class="text-danger">{{$message}}</small>@enderror
+            
+            <div>
+                <label for="title" class="block text-sm font-semibold text-gray-700 mb-2">Title</label>
+                <input type="text" name="title" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('title') border-red-500 @enderror" value="{{old('title')}}" id="title" placeholder="Enter article title">
+                @error('title')<small class="text-red-600 text-sm block mt-1">{{$message}}</small>@enderror
             </div>
 
-            <div class="form-group">
-                <label for="lead">Lead Image</label>
-                <input type="file" name="image" class="form-control" id="lead">
-                @error('image')<small class="text-danger">{{$message}}</small>@enderror
+            <div>
+                <label for="lead" class="block text-sm font-semibold text-gray-700 mb-2">Lead Image</label>
+                <input type="file" name="image" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('image') border-red-500 @enderror" id="lead" accept="image/*">
+                @error('image')<small class="text-red-600 text-sm block mt-1">{{$message}}</small>@enderror
             </div>
         
-
-            @error('body')<small class="text-danger">{{$message}}</small>@enderror
-            <textarea id="editor"  name="body">
-                {{old('body')}}
-            </textarea>
-            <br>
-            <button type="submit" class="btn btn-primary btn-lg mb-3">Publish</button>
+            <div>
+                <label for="editor" class="block text-sm font-semibold text-gray-700 mb-2">Article Content</label>
+                @error('body')<small class="text-red-600 text-sm block mb-2">{{$message}}</small>@enderror
+                <div class="border border-gray-300 rounded-md overflow-hidden">
+                    <textarea id="editor" name="body" class="w-full">{{old('body')}}</textarea>
+                </div>
+            </div>
+            
+            <div class="pt-4">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-md transition-colors text-lg">
+                    <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                    </svg>
+                    Publish Article
+                </button>
+            </div>
         </form>
     </div>
 

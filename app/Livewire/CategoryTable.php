@@ -16,9 +16,7 @@ use Livewire\WithPagination;
 
 class CategoryTable extends Component
 {
-
-    public $selection = null;
-    protected $categories = null;
+    public $selection = '';
     public $editId;
     public $editTitle;
     public $editDescription;
@@ -27,250 +25,200 @@ class CategoryTable extends Component
     public $visible = false;
     public $limit = 20;
     public $searchTerm = "";
+    public $showEditModal = false;
 
     use WithPagination;
     use WithFileUploads;
 
-    protected $paginationTheme = 'bootstrap';
+    protected $paginationTheme = 'tailwind';
+
+    public function mount()
+    {
+        $this->selection = '';
+        $this->visible = false;
+        $this->searchTerm = '';
+        $this->showEditModal = false;
+    }
 
     public function render()
     {
-
-        if($this->selection)
-        {
-            if($this->selection == 1 )
-            {
-                $this->visible = True;
-                $this->categories = Ingredient::where('title','like','%'.$this->searchTerm.'%')->orderBy('title')->paginate(20);
+        $categories = collect(); // Start with empty collection
+        
+        if($this->selection === '1') {
+            $this->visible = true;
+            $query = Ingredient::query();
+            if($this->searchTerm) {
+                $query->where('title', 'like', '%' . $this->searchTerm . '%')
+                      ->orWhere('description', 'like', '%' . $this->searchTerm . '%');
             }
-
-            if($this->selection == 2 )
-            {
-
-                $this->visible = False;
-                $this->categories = Cuisine::orderBy('title')->paginate(20);;
-
+            $categories = $query->paginate(15);
+        } elseif($this->selection === '2') {
+            $this->visible = true;
+            $query = Cuisine::query();
+            if($this->searchTerm) {
+                $query->where('title', 'like', '%' . $this->searchTerm . '%')
+                      ->orWhere('description', 'like', '%' . $this->searchTerm . '%');
             }
-
-            if($this->selection == 3 )
-            {
-
-                $this->visible = False;
-                $this->categories = Diet::orderBy('title')->paginate(20);;
-
+            $categories = $query->paginate(15);
+        } elseif($this->selection === '3') {
+            $this->visible = true;
+            $query = Diet::query();
+            if($this->searchTerm) {
+                $query->where('title', 'like', '%' . $this->searchTerm . '%')
+                      ->orWhere('description', 'like', '%' . $this->searchTerm . '%');
             }
-
-            if($this->selection == 4 )
-            {
-                $this->visible = False;
-                $this->categories = Course::orderBy('title')->paginate(20);;
-
-
+            $categories = $query->paginate(15);
+        } elseif($this->selection === '4') {
+            $this->visible = true;
+            $query = Course::query();
+            if($this->searchTerm) {
+                $query->where('title', 'like', '%' . $this->searchTerm . '%')
+                      ->orWhere('description', 'like', '%' . $this->searchTerm . '%');
             }
-
-            if($this->selection == 5 )
-            {
-
-                $this->visible = False;
-                $this->categories = Method::orderBy('title')->paginate(20);;
-
+            $categories = $query->paginate(15);
+        } elseif($this->selection === '5') {
+            $this->visible = true;
+            $query = Method::query();
+            if($this->searchTerm) {
+                $query->where('title', 'like', '%' . $this->searchTerm . '%')
+                      ->orWhere('description', 'like', '%' . $this->searchTerm . '%');
             }
+            $categories = $query->paginate(15);
+        } else {
+            $this->visible = false;
         }
-        return view('livewire.category-table',(['categories' => $this->categories]));
+
+        return view('livewire.category-table', compact('categories'));
     }
 
-    public function updating()
+    public function updatedSelection()
+    {
+        $this->resetPage();
+        $this->searchTerm = '';
+    }
+
+    public function updatedSearchTerm()
     {
         $this->resetPage();
     }
 
     public function editHashtag($id)
     {
-        if($this->selection == 1 )
-            {
-                $ingredient= Ingredient::find($id);
-                $this->editTitle = $ingredient->title;
-                $this->editDescription = $ingredient->description;
-                $this->editImage = $ingredient->image;
-                $this->editId = $id;
-            }
-        if($this->selection == 2 )
-            {
-                $cuisine = Cuisine::find($id);
-                $this->editTitle = $cuisine->title;
-                $this->editDescription = $cuisine->description;
-                $this->editImage = $cuisine->image;
-                $this->editId = $id;
-            }
-        if($this->selection == 3 )
-            {
-                $diet = Diet::find($id);
-                $this->editTitle = $diet->title;
-                $this->editDescription = $diet->description;
-                $this->editImage = $diet->image;
-                $this->editId = $id;
-            }
-        if($this->selection == 4 )
-            {
-                $course = Course::find($id);
-                $this->editTitle = $course->title;
-                $this->editDescription = $course->description;
-                $this->editImage = $course->image;
-                $this->editId = $id;
-            }
-            if($this->selection == 5 )
-            {
-                $method = Method::find($id);
-                $this->editTitle = $method->title;
-                $this->editDescription = $method->description;
-                $this->editImage = $method->image;
-                $this->editId = $id;
-            }
+        $this->editId = $id;
+        
+        switch($this->selection) {
+            case '1':
+                $item = Ingredient::find($id);
+                break;
+            case '2':
+                $item = Cuisine::find($id);
+                break;
+            case '3':
+                $item = Diet::find($id);
+                break;
+            case '4':
+                $item = Course::find($id);
+                break;
+            case '5':
+                $item = Method::find($id);
+                break;
+            default:
+                return;
+        }
 
-
-
+        if ($item) {
+            $this->editTitle = $item->title;
+            $this->editDescription = $item->description;
+            $this->editImage = $item->image;
+            $this->showEditModal = true;
+        }
     }
 
 
 
     public function updateHashtag()
     {
-
         $this->validate([
             'editTitle' =>  'required|max:100',
             'editDescription' => 'required|max:250',
             'updatedImage' => 'nullable|image|max:1024'
-            ]);
+        ]);
 
-        if($this->selection == 1 )
-            {
-                $ingredient = Ingredient::find($this->editId);
-                $slug = (str_replace(' ', '-', strtolower($this->editTitle)));
-                $slug .= '-' . $this->editId;
-                $ingredient->title = $this->editTitle;
-                $ingredient->slug = $slug;
-                $ingredient->description = $this->editDescription;
-                if($this->updatedImage)
-                {
-                    $ingredient->image = md5($this->updatedImage . microtime()).'.'.$this->updatedImage->extension();
-                    $this->updatedImage->storeAs('public', $ingredient->image);
-                    Storage::delete($ingredient->image);
-                }
-                $ingredient->save();
-            }
+        $item = null;
+        
+        switch($this->selection) {
+            case '1':
+                $item = Ingredient::find($this->editId);
+                break;
+            case '2':
+                $item = Cuisine::find($this->editId);
+                break;
+            case '3':
+                $item = Diet::find($this->editId);
+                break;
+            case '4':
+                $item = Course::find($this->editId);
+                break;
+            case '5':
+                $item = Method::find($this->editId);
+                break;
+        }
 
-        if($this->selection == 2 )
-            {
-                $cuisine = Cuisine::find($this->editId);
-                $slug = (str_replace(' ', '-', strtolower($this->editTitle)));
-                $cuisine->title = $this->editTitle;
-                $slug .= '-' . $this->editId;
-                $cuisine->slug = $slug;
-                $cuisine->description = $this->editDescription;
-                if($this->updatedImage)
-                {
-                    Storage::delete($cuisine->image);
-                    $cuisine->image = md5($this->updatedImage . microtime()).'.'.$this->updatedImage->extension();
-                    $this->updatedImage->storeAs('public', $cuisine->image);
+        if ($item) {
+            $slug = str_replace(' ', '-', strtolower($this->editTitle)) . '-' . $this->editId;
+            
+            $item->title = $this->editTitle;
+            $item->slug = $slug;
+            $item->description = $this->editDescription;
+            
+            if($this->updatedImage) {
+                // Delete old image if exists
+                if($item->image) {
+                    Storage::delete('public/' . $item->image);
                 }
-                $cuisine->save();
+                
+                $item->image = md5($this->updatedImage . microtime()).'.'.$this->updatedImage->extension();
+                $this->updatedImage->storeAs('public', $item->image);
             }
-        if($this->selection == 3 )
-            {
-                $diet = Diet::find($this->editId);
-                $slug = (str_replace(' ', '-', strtolower($this->editTitle)));
-                $diet->title = $this->editTitle;
-                $slug .= '-' . $this->editId;
-                $diet->slug = $slug;
-                $diet->description = $this->editDescription;
-                if($this->updatedImage)
-                {
-                    Storage::delete($diet->image);
-                    $diet->image = md5($this->updatedImage . microtime()).'.'.$this->updatedImage->extension();
-                    $this->updatedImage->storeAs('public', $diet->image);
-                }
-                $diet->save();
-            }
-        if($this->selection == 4 )
-            {
-                $course = Course::find($this->editId);
-                $slug = (str_replace(' ', '-', strtolower($this->editTitle)));
-                $slug .= '-' . $this->editId;
-                $course->title = $this->editTitle;
-                $course->slug = $slug;
-                $course->description = $this->editDescription;
-                if($this->updatedImage)
-                {
-                    Storage::delete($course->image);
-                    $course->image = md5($this->updatedImage . microtime()).'.'.$this->updatedImage->extension();
-                    $this->updatedImage->storeAs('public', $course->image);
-                }
-                $course->save();
-            }
-        if($this->selection == 5 )
-            {
-                $method = Method::find($this->editId);
-                $slug = (str_replace(' ', '-', strtolower($this->editTitle)));
-                $slug .= '-' . $this->editId;
-                $method->title = $this->editTitle;
-                $method->slug = $slug;
-                $method->description = $this->editDescription;
-                if($this->updatedImage)
-                {
-                    Storage::delete($method->image);
-                    $method->image = md5($this->updatedImage . microtime()).'.'.$this->updatedImage->extension();
-                    $this->updatedImage->storeAs('public', $method->image);
-                }
-                $method->save();
-            }
+            
+            $item->save();
+        }
 
-
-        $this->dispatch('hideModalEdit');
-        $message = ['text' =>  'Updated','type' => 'success'];
         $this->reset(['editTitle','editDescription','editImage','updatedImage']);
-        $this->dispatch('toast', $message);
-
+        $this->showEditModal = false;
+        $this->dispatch('toast', ['text' => 'Category updated successfully', 'type' => 'success']);
     }
 
     public function destroyHashtag($id)
     {
-        if($this->selection == 1 )
-            {
-                $ingredient= Ingredient::find($id);
-                Storage::delete($ingredient->image);
-                $ingredient->delete();
-            }
+        $item = null;
+        
+        switch($this->selection) {
+            case '1':
+                $item = Ingredient::find($id);
+                break;
+            case '2':
+                $item = Cuisine::find($id);
+                break;
+            case '3':
+                $item = Diet::find($id);
+                break;
+            case '4':
+                $item = Course::find($id);
+                break;
+            case '5':
+                $item = Method::find($id);
+                break;
+        }
 
-        if($this->selection == 2 )
-            {
-                $cuisine= Cuisine::find($id);
-                Storage::delete($cuisine->image);
-                $cuisine->delete();
+        if ($item) {
+            if($item->image) {
+                Storage::delete('public/' . $item->image);
             }
+            $item->delete();
+        }
 
-        if($this->selection == 3 )
-            {
-                $diet = Diet::find($id);
-                Storage::delete($diet->image);
-                $diet->delete();
-            }
-
-        if($this->selection == 4 )
-            {
-                $course = Course::find($id);
-                Storage::delete($course->image);
-                $course->delete();
-            }
-        if($this->selection == 5 )
-            {
-                $method = Method::find($id);
-                Storage::delete($method->image);
-                $method->delete();
-            }
-
-        $message = ['text' => 'Deleted','type' => 'success'];
-        $this->dispatch('toast', $message);
-
+        $this->dispatch('toast', ['text' => 'Deleted', 'type' => 'success']);
     }
 
 
