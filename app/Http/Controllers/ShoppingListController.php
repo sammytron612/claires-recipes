@@ -10,7 +10,7 @@ class ShoppingListController extends Controller
     public function index()
     {
         // Get planner entries with recipe and ingredients relationships
-        $list = Planner::with(['recipe', 'recipe.hashIngredient', 'recipe.hashIngredient.ingredients'])
+        $list = Planner::with(['recipe', 'recipe.recipeIngredients'])
             ->where('user_id', auth()->id())
             ->where('day', '<>', 8)
             ->orderBy('day')
@@ -46,32 +46,29 @@ class ShoppingListController extends Controller
             $dayIngredients = collect();
             
             foreach ($plannerItems as $plannerItem) {
-                if ($plannerItem->recipe && $plannerItem->recipe->hashIngredient) {
-                    foreach ($plannerItem->recipe->hashIngredient as $hashIngredient) {
-                        if ($hashIngredient->ingredients) {
-                            $ingredient = $hashIngredient->ingredients;
-                            
-                            // Add ingredient with recipe context
-                            $dayIngredients->push([
-                                'ingredient' => $ingredient,
-                                'recipe' => $plannerItem->recipe,
-                                'slot' => $plannerItem->slot,
-                                'day' => $day
-                            ]);
-                            
-                            // Add to all ingredients collection
-                            $allIngredients->push($ingredient);
-                        }
+                if ($plannerItem->recipe && $plannerItem->recipe->recipeIngredients) {
+                    $ingredientsArray = $plannerItem->recipe->recipeIngredients->ingredients ?? [];
+                    foreach ($ingredientsArray as $ingredient) {
+                        // Add ingredient with recipe context
+                        $dayIngredients->push([
+                            'ingredient' => $ingredient,
+                            'recipe' => $plannerItem->recipe,
+                            'slot' => $plannerItem->slot,
+                            'day' => $day
+                        ]);
+                        
+                        // Add to all ingredients collection
+                        $allIngredients->push($ingredient);
                     }
                 }
             }
             
-            // Remove duplicate ingredients for the day (by ingredient ID)
-            $ingredientsByDay[$day] = $dayIngredients->unique('ingredient.id');
+            // Remove duplicate ingredients for the day (by ingredient name)
+            $ingredientsByDay[$day] = $dayIngredients->unique('ingredient');
         }
 
         // Get unique ingredients across all days for master shopping list
-        $uniqueIngredients = $allIngredients->unique('id')->sortBy('title');
+        $uniqueIngredients = $allIngredients->unique()->sort();
 
         return view('profile.shopping-list', compact(
             'list', 

@@ -98,6 +98,10 @@ class Recipe extends Model
         return $this->hasOne(IngredientList::class, 'id', 'recipe_id');
     }
 
+    public function recipeIngredients()
+    {
+        return $this->hasOne(RecipeIngredients::class, 'recipeid', 'id');
+    }
 
 
 }

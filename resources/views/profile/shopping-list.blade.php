@@ -133,11 +133,11 @@
                                             <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
                                                 <input type="checkbox" 
                                                        class="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
-                                                       id="ingredient-{{ $day }}-{{ $item['ingredient']->id }}">
-                                                <label for="ingredient-{{ $day }}-{{ $item['ingredient']->id }}" 
+                                                       id="ingredient-{{ $day }}-{{ md5($item['ingredient']) }}">
+                                                <label for="ingredient-{{ $day }}-{{ md5($item['ingredient']) }}" 
                                                        class="flex-1 cursor-pointer">
                                                     <div class="font-medium text-gray-900">
-                                                        {{ $item['ingredient']->title }}
+                                                        {{ $item['ingredient'] }}
                                                     </div>
                                                     <div class="text-sm text-gray-500">
                                                         For {{ $item['recipe']->title }} ({{ $slotNames[$item['slot']] }})
@@ -209,11 +209,11 @@
                             <div class="flex items-center space-x-3 py-2 print:py-3">
                                 <input type="checkbox" 
                                        class="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded no-print"
-                                       id="master-{{ $ingredient->id }}">
+                                       id="master-{{ md5($ingredient) }}">
                                 <div class="print-checkbox hidden print:inline-block"></div>
-                                <label for="master-{{ $ingredient->id }}" 
+                                <label for="master-{{ md5($ingredient) }}" 
                                        class="flex-1 text-sm text-gray-700 cursor-pointer hover:text-gray-900 print:text-base print:cursor-default">
-                                    {{ $ingredient->title }}
+                                    {{ $ingredient }}
                                 </label>
                             </div>
                         @endforeach

@@ -161,4 +161,6 @@ Route::get('/robots.txt', function() {
     return response($content, 200)->header('Content-Type', 'text/plain');
 })->name('robots');
 
+Route::get('/test', [App\Http\Controllers\TestController::class, 'index']);
+
 require __DIR__.'/auth.php';
