@@ -55,9 +55,10 @@
                         <div class="flex justify-between items-center mt-3">
                             <button class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-1 px-3 rounded text-sm">Go there</button>
                             @can('isAdmin')
-                            <a href='{{url("post/view/{$article->id}")}}' class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm relative z-10">Edit</a>
+                           
+                            <a href='{{route('blog.edit', $article->id)}}' class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm relative z-10">Edit</a>
                             @endcan
-                        </div>
+                        </div>  
                     </div>
                   </div>
             </div>

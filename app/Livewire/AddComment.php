@@ -14,13 +14,21 @@ class AddComment extends Component
 
     public function StoreComment()
     {
+        // Debug the rating value
+        \Log::info('Rating value being stored: ' . $this->rating);
+        
+        $this->validate([
+            'comment' => 'required|min:3',
+            'rating' => 'nullable|integer|min:0|max:5'
+        ]);
 
         $comment = new Comment;
         $comment->comment = $this->comment;
         $comment->user_id = Auth::user()->id;
-        $comment->rating =$this->rating;
+        $comment->rating = $this->rating;
         $comment->recipe_id = $this->recipe->id;
 
+        $comment->save();
 
         $message = ['text' => 'Comment added','type' => 'success'];
 
@@ -31,8 +39,7 @@ class AddComment extends Component
         //$this->emit('checkRating');
         $this->dispatch('IncreaseCommentCount');
 
-        $comment->save();
-        $this->reset('comment');
+        $this->reset('comment', 'rating');
 
     }
     public function render()

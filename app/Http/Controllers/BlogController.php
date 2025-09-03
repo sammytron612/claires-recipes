@@ -41,8 +41,16 @@ class BlogController extends Controller
         return redirect()->back()->with('message',"Success");
     }
 
-    public function update(request $request, BlogArticle $BlogArticle)
+    public function edit($id)
     {
+        $post = BlogArticle::findOrFail($id);
+       
+        return view('blog.edit', compact('post'));
+    }
+
+    public function update(request $request, $id)
+    {
+        $BlogArticle = BlogArticle::findOrFail($id);
         $BlogArticle->title = $request->title;
         $slug = Str::slug($request->title);
 

@@ -78,7 +78,6 @@
                 <textarea name="method" id="editor"></textarea>
             </div>
             @error('method') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
-
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div class="bg-white shadow-sm rounded-lg p-6 border border-gray-200 space-y-4">
                     <div>
@@ -96,7 +95,7 @@
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2" for="title">Title</label>
                         <input name="title" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('title') border-red-500 @enderror" type="text" id="title">
-                        <input name="title" required class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('title') border-red-500 @enderror" type="text" id="title">
+                        
                         @error('title') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                     </div>
 
@@ -116,10 +115,7 @@
                         <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-medium py-3 px-6 rounded-md transition-colors">Save Recipe</button>
                     </div>
                 </div>
-                
-                <div class="bg-white shadow-sm rounded-lg p-6 border border-gray-200 flex items-center justify-center">
-                    <img id="previewImg" class="max-w-full h-auto border border-gray-300 rounded-md shadow-sm" src="/storage/stock.jpg" alt="Recipe Preview">
-                </div>
+            
             </div>
         </div>
         </form>

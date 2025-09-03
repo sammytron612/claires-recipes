@@ -95,6 +95,20 @@
                      role="img"
                      aria-label="{{$recipe->title}}">
                     <img class="w-full h-full object-cover" src="{{ asset('storage/' . $recipe->image) }}" alt="{{$recipe->title}} - Featured Recipe">
+                    
+                    <!-- Recipe Title Overlay -->
+                    <div class="absolute bottom-0 left-0 right-0 p-8">
+                        <div class="max-w-7xl mx-auto flex items-center justify-center">
+                            <div class="bg-black bg-opacity-50 rounded-lg p-6 shadow-lg">
+                                <a href="{{ route('recipe', ['id' => $recipe->id, 'slug' => $recipe->slug]) }}" 
+                                   class="block">
+                                    <h2 class="text-3xl md:text-4xl font-bold text-white text-center hover:text-gray-200 transition-colors">
+                                        {{ $recipe->title }}
+                                    </h2>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 @endforeach
             </div>

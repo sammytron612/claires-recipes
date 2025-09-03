@@ -15,13 +15,30 @@ const Toast = Swal.mixin({
   showConfirmButton: false,
   timer: 3000,
   timerProgressBar: true,
-  onOpen: (toast) => {
+  didOpen: (toast) => {
     toast.addEventListener('mouseenter', Swal.stopTimer)
     toast.addEventListener('mouseleave', Swal.resumeTimer)
   }
 })
 
-Livewire.on('toast', message => {
-    Toast.fire(message.text,'', message.type);
+window.Toast = Toast;
 
+Livewire.on('toast', (event) => {
+    console.log('Toast event received:', event);
+    
+    // Handle both array format and direct object format
+    let data = event;
+    if (Array.isArray(event) && event.length > 0) {
+        data = event[0];
+    }
+    
+    Toast.fire({
+        text: data.text || 'Notification',
+        icon: data.type || 'info'
+    });
 })
+
+// Test function to verify SweetAlert is working
+window.testSweetAlert = function() {
+    Swal.fire('Test', 'SweetAlert is working!', 'success');
+};

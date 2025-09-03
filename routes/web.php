@@ -109,17 +109,11 @@ Route::get('/post/{id}/{slug}', function ($id, $slug) {
     $body = $BlogArticle->postBody;
     $tmp = explode('/', $BlogArticle->main_image);
     $image = end($tmp);
-    
+
     return view('blog.show-post', ['body' => $body, 'image' => $image, 'BlogArticle' => $BlogArticle]);
 })->name('blog.show');
-Route::get('/blog/{BlogArticle}', function ($BlogArticle) {
-    $BlogArticle = BlogArticle::findOrFail($BlogArticle);
-    $body = $BlogArticle->postBody;
-    $tmp = explode('/', $BlogArticle->main_image);
-    $image = end($tmp);
-    
-    return view('blog.show-post', ['body' => $body, 'image' => $image, 'BlogArticle' => $BlogArticle]);
-});
+
+
 
 // Protected routes
 Route::middleware('auth')->group(function () {
@@ -142,6 +136,8 @@ Route::middleware('auth')->group(function () {
         Route::put('/admin/recipe/update', [EditController::class, 'update'])->name('admin.recipe-update');
         Route::delete('/admin/recipe/{id}', [EditController::class, 'destroy'])->name('admin.recipe-delete');
         Route::get('/admin/new-article', [BlogController::class, 'newArticle'])->name('blog.new-article');
+        Route::get('/admin/blog/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
+        Route::post('/admin/blog/update/{id}', [BlogController::class, 'update'])->name('updateArticle');
         Route::post('/admin/post-article', [BlogController::class, 'postArticle'])->name('postArticle');
         Route::post('/admin/image/upload', [ImageController::class, 'imageUpload'])->name('image.upload');
         Route::get('/admin/new-hashtag', [AdminController::class, 'newHashtag'])->name('admin.new-hashtag');
