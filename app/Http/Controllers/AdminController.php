@@ -17,17 +17,7 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
-    public function editRecipe($id)
-    {
-        $recipe = Recipe::findOrFail($id);
-        $ingredients = Ingredient::all();
-        $methods = Method::all();
-        $diets = Diet::all();
-        $courses = Course::all();
-        $cuisines = Cuisine::all();
-
-        return view('admin.edit-recipe', compact('recipe', 'ingredients', 'cuisines', 'methods', 'diets', 'courses'));
-    }
+    
 
     public function newRecipe()
     {

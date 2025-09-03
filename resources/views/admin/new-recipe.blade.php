@@ -83,7 +83,7 @@
                 <div class="bg-white shadow-sm rounded-lg p-6 border border-gray-200 space-y-4">
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Image</label>
-                        <input onchange="preview(this)" name="photo" type="file" required class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('photo') border-red-500 @enderror" id="photo">
+                        <input name="photo" type="file" required class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('photo') border-red-500 @enderror" id="photo">
                         @error('photo') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                     </div>
                     
@@ -124,32 +124,12 @@
         </div>
         </form>
 </div>
-        @push('scripts')
         <script src="https://cdn.tiny.cloud/1/d3utf658spf5n1oft4rjl6x85g568jj7ourhvo2uhs578jt9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-        @endpush
+      
 <script>
 
-function preview(input){
-        var file = $('#photo').get(0).files[0];
 
-        if(file){
-            var reader = new FileReader();
-
-            reader.onload = function(){
-                $("#previewImg").attr("src", reader.result);
-            }
-
-            reader.readAsDataURL(file);
-        }
-    }
-
-document.addEventListener('DOMContentLoaded', function () {
-
-
-    $('.js-example-basic-multiple').select2({
-        tags: true,
-        placeholder: "Select a tag",
-                    })
+document.addEventListener('DOMContentLoaded', function () {   
 
     tinymce.init({
           selector: '#editor',

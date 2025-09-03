@@ -25,6 +25,11 @@ use App\Models\IngredientList;
 class EditController extends Controller
 {
 
+    public function recipeIndex()
+    {
+        
+        return view('admin.edit-index');
+    }
 
     public function edit($id)
     {

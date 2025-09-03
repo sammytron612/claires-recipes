@@ -93,7 +93,6 @@
                                 @endif
                             @endforeach
                         @else
-                        @else
                             <option value="{{ $course->id }}">{{ $course->title }}</option>
                         @endif
                     @endforeach
@@ -142,7 +141,7 @@
                 <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-2">Image</label>
-                            <input onchange="preview(this)" name="photo" type="file" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('photo') border-red-500 @enderror" id="photo">
+                            <input  name="photo" type="file" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('photo') border-red-500 @enderror" id="photo">
                             @error('photo') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                         </div>
                         
@@ -185,9 +184,9 @@
         </div>
         </form>
 </div>
-        @push('scripts')
+       
         <script src="https://cdn.tiny.cloud/1/d3utf658spf5n1oft4rjl6x85g568jj7ourhvo2uhs578jt9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-        @endpush
+       
 <script>
 
 function preview(input){
@@ -206,20 +205,7 @@ function preview(input){
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    $('#delete-recipe').click(function(e){
-        e.preventDefault() // Don't post the form, unless confirmed
-        if (confirm('Are you sure?')) {
-            // Post the form
-            $(e.target).closest('form').submit() // Post the surrounding form
-        }
-    });
-
-
-    $('.js-example-basic-multiple').select2({
-        tags: true,
-        searchInputPlaceholder: 'Search ingredient ...',
-        placeholder: "Select a tag",
-                    })
+    
 
     tinymce.init({
         selector: '#editor',
