@@ -147,7 +147,7 @@
         
         <!-- Recipes Grid -->
         @if($recipes)
-        <div class="mb-8">
+        <div class="mb-8 mt-4">
             <div class="text-center mb-8">
                 <h2 class="text-3xl font-bold text-gray-800 mb-3">
                     <i class="fas fa-magic text-orange-500 mr-2"></i>
