@@ -39,7 +39,7 @@
 
             <!-- Pagination -->
             <div class="flex justify-center">
-                {{ $recipes->appends(request()->query())->links('vendor.pagination.custom-tailwind') }}
+                {{ $recipes->appends(request()->query())->links() }}
             </div>
         </div>
     @endif
