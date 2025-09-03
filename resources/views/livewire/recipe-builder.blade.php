@@ -1,14 +1,13 @@
-<div class="min-h-screen bg-gradient-to-br from-orange-50 via-white to-teal-50">
+<div class="min-h-screen bg-gradient-to-br from-yellow-100 via-pink-100 to-teal-200">
     <!-- Simplified Header Section with Search -->
-    <div class="bg-white border-b border-gray-200">
+    <div class="bg-gradient-to-r from-orange-200 via-pink-100 to-teal-100 border-b-4 border-orange-300 shadow-lg relative">
+        <div class="absolute top-0 left-0 w-full h-full pointer-events-none" style="background: url('https://www.transparenttextures.com/patterns/food.png'); opacity:0.08;"></div>
         <div class="max-w-4xl mx-auto px-4 py-8">
             <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold text-gray-800 mb-2">
-                    Recipe Builder
+                <h1 class="text-4xl font-extrabold text-orange-500 drop-shadow mb-2 tracking-tight">
+                    <i class="fas fa-blender mr-2 text-pink-400"></i> Recipe Builder
                 </h1>
-                <p class="text-gray-500">
-                    Find recipes based on ingredients you have at home
-                </p>
+                <p class="text-lg text-teal-600 font-semibold">Find recipes based on ingredients you have at home</p>
             </div>
             
             <!-- Clean Search Section -->
@@ -76,15 +75,16 @@
         @if($ingredients)
         <div class="mb-12">
             <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">
-                    <i class="fas fa-shopping-basket text-orange-500 mr-2"></i>
+                <h2 class="text-3xl font-extrabold text-pink-500 mb-2 drop-shadow">
+                    <i class="fas fa-shopping-basket text-orange-400 mr-2"></i>
                     Your Selected Ingredients
                 </h2>
                 <p class="text-gray-600">Click on any ingredient to remove it from your selection</p>
             </div>
             
             <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-                <div class="flex flex-wrap justify-center gap-3">
+            <div class="bg-white rounded-2xl shadow-2xl border-4 border-orange-200 p-8">
+                <div class="flex flex-wrap justify-center gap-4">
                     @foreach($ingredients as $ingredient)
                         <button 
                             wire:click="removeIngredient({{ $ingredient['id'] }})" 
