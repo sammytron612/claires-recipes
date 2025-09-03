@@ -96,7 +96,8 @@ class RecipeBuilder extends Component
                 unset($this->ingredients[$k]);
             }
         }
-
+        // Reindex array to avoid gaps
+        $this->ingredients = array_values($this->ingredients);
 	$this->limit = 20;
 
         if(count($this->ingredients) < 1)
