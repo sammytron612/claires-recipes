@@ -84,9 +84,11 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
             </a>
+            @auth
             <div>
                 <livewire:favourite :recipe="$recipe->id"/>
             </div>
+            @endauth
         </div>
     </div>
 </div>
