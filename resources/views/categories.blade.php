@@ -32,8 +32,8 @@
             @endforeach
         </div>
         
-        <div class="flex justify-center mt-8">
-            <div class="pagination-container">
+        <div class="flex justify-center mt-8 px-4">
+            <div class="w-full max-w-4xl">
                 {{ $recipes->appends(request()->query())->links() }}
             </div>
         </div>
