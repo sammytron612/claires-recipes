@@ -6,7 +6,7 @@
                 <h1 class="text-3xl font-bold text-gray-800 mb-2">
                     Recipe Builder
                 </h1>
-                <p class="text-gray-600">
+                <p class="text-gray-500">
                     Find recipes based on ingredients you have at home
                 </p>
             </div>
