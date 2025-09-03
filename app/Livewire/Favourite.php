@@ -14,34 +14,24 @@ class Favourite extends Component
 
     public function render()
     {
-        // Only check favourites if user is authenticated
-        if (Auth::check()) {
-            $c = Favourites::where('user_id', Auth::user()->id)
-                            ->where('recipe_id',$this->recipe)->get();
-            if(count($c))
-            {
-                $this->fav = true;
-            }
-            else
-            {
-                $this->fav = false;
-            }
-        } else {
+
+        $c = Favourites::where('user_id', Auth::user()->id)
+                        ->where('recipe_id',$this->recipe)->get();
+        if(count($c))
+        {
+            $this->fav = true;
+        }
+        else
+        {
             $this->fav = false;
         }
+
 
         return view('livewire.favourite');
     }
 
     public function toggleFav()
     {
-        // Only allow favouriting if user is authenticated
-        if (!Auth::check()) {
-            $message = ['text' => 'Please log in to add favourites', 'type' => 'error'];
-            $this->dispatch('toast', $message);
-            return;
-        }
-
         if ($this->fav == false)
         {
             $this->fav = true;
