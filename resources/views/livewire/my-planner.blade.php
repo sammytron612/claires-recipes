@@ -12,10 +12,13 @@
     </style>
     <!-- Header Section -->
     <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col sm:flex-row items-center justify-between">
             <div>
                 <h1 class="text-2xl font-bold text-gray-800">My Weekly Meal Planner</h1>
                 <p class="text-gray-600 mt-1">Plan your meals for the week ahead</p>
+            </div>
+            <div>
+                <a href="{{ route('profile.shopping-list') }}" type="button" class="mt-4 bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 transition">view my shopping list</a>
             </div>
         </div>
     </div>

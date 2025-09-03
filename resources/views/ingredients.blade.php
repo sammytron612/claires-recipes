@@ -11,7 +11,7 @@
     </div>
 
     <div class="container mx-auto px-4 py-6 bg-white">
-        <x-breadcrumb/>
+    
 
         <div class="mt-6">
             @php

@@ -18,7 +18,6 @@
 
     <div class="container mx-auto px-3 py-3 bg-white">
 
-        <x-breadcrumb/>
 
         <div class="flex justify-center flex-wrap py-2 w-full gap-2">
             <a href="{{ route($url, ['slug' => $category->slug]) }} " rel="nofollow" class="inline-block mt-1 px-4 py-2 border border-teal-500 text-teal-500 rounded-full hover:bg-teal-50 transition-colors"><h5 class="pt-1">Reset</h5></a>

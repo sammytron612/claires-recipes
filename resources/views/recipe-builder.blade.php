@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="max-w-7xl mx-auto bg-white px-4">
-    <x-breadcrumb/>
+   
     <div class="mt-5">
     	@livewire('recipe-builder')
     </div>

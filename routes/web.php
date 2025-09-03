@@ -16,6 +16,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MethodController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\DietController;
+use App\Http\Controllers\ShoppingListController;
 use App\Models\Recipe;
 use App\Models\BlogArticle;
 
@@ -125,6 +126,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/planner', [HomeController::class, 'planner'])->name('profile.planner');
     Route::get('/profile/profile', [HomeController::class, 'userProfile'])->name('profile.profile');
     Route::get('/profile/favourites', [HomeController::class, 'favourites'])->name('profile.favourites');
+    Route::get('/profile/shopping-list', [\App\Http\Controllers\ShoppingListController::class, 'index'])->name('profile.shopping-list');
     
     // Admin routes
     Route::middleware('can:isAdmin')->group(function () {

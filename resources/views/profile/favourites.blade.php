@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="max-w-7xl mx-auto px-4">
-    <x-breadcrumb />
+    
     <div>
         
         @livewire('favourite-planner')
