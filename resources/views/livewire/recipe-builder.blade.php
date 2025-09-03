@@ -27,46 +27,44 @@
                     <div class="absolute inset-y-0 right-0 flex items-center pr-3">
                         <i class="fa fa-search text-gray-400"></i>
                     </div>
-                </div>
-                
-                <!-- Enhanced Dropdown -->
-                @if($isVisible)
-                <div 
-                    id="dropdown" 
-                    class="absolute z-50 top-full mt-3 bg-white rounded-xl shadow-2xl border border-gray-100 max-w-xl w-full left-1/2 transform -translate-x-1/2"
-                >
-                    @if($wireIngredients)
-                        <div class="p-4">
-                            <div class="text-orange-600 font-bold text-sm uppercase tracking-wide mb-3 flex items-center">
-                                <i class="fas fa-carrot mr-2"></i>
-                                Available Ingredients
-                            </div>
-                            <ul class="space-y-2">
-                                @foreach($wireIngredients as $wireIngredient)
-                                <li>
-                                    <button 
-                                        wire:click="addIngredient({{ $wireIngredient }})" 
-                                        class="flex items-center w-full p-3 hover:bg-gradient-to-r hover:from-orange-50 hover:to-pink-50 rounded-lg transition-all duration-200 group border border-transparent hover:border-orange-200"
-                                    >
-                                        <div class="relative">
-                                            <img 
-                                                class="w-16 h-16 object-cover rounded-lg border-2 border-gray-200 group-hover:border-orange-300 transition-colors" 
-                                                src="{{ asset('storage/' . $wireIngredient->image) }}" 
-                                                alt="{{ $wireIngredient->title }}"
-                                            >
-                                            <div class="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <i class="fas fa-plus text-white text-xs"></i>
+                    <!-- Enhanced Dropdown -->
+                    @if($isVisible)
+                    <div 
+                        id="dropdown" 
+                        class="absolute z-50 top-full mt-1 bg-white rounded-xl shadow-2xl border border-gray-100 w-full left-0"
+                    >
+                        @if($wireIngredients)
+                            <div class="p-4">
+                                <div class="text-orange-600 font-bold text-sm uppercase tracking-wide mb-3 flex items-center">
+                                    <i class="fas fa-carrot mr-2"></i>
+                                    Available Ingredients
+                                </div>
+                                <ul class="space-y-2">
+                                    @foreach($wireIngredients as $wireIngredient)
+                                    <li>
+                                        <button 
+                                            wire:click="addIngredient({{ $wireIngredient }})" 
+                                            class="flex items-center w-full p-3 hover:bg-gradient-to-r hover:from-orange-50 hover:to-pink-50 rounded-lg transition-all duration-200 group border border-transparent hover:border-orange-200"
+                                        >
+                                            <div class="relative">
+                                                <img 
+                                                    class="w-16 h-16 object-cover rounded-lg border-2 border-gray-200 group-hover:border-orange-300 transition-colors" 
+                                                    src="{{ asset('storage/' . $wireIngredient->image) }}" 
+                                                    alt="{{ $wireIngredient->title }}"
+                                                >
+                                                <div class="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    <i class="fas fa-plus text-white text-xs"></i>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <span class="ml-4 text-gray-800 font-medium group-hover:text-orange-700 transition-colors">{{ $wireIngredient->title }}</span>
-                                    </button>
-                                </li>
-                                @endforeach
-                            </ul>
-                        </div>
+                                            <span class="ml-4 text-gray-800 font-medium group-hover:text-orange-700 transition-colors">{{ $wireIngredient->title }}</span>
+                                        </button>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    </div>
                     @endif
-                </div>
-                @endif
             </div>
         </div>
     </div>
