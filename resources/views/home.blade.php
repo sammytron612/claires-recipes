@@ -182,6 +182,63 @@
             </div>
         </header>
         
+        <!-- Meal Planner Call-to-Action Section -->
+        <section class="bg-gradient-to-r from-teal-500 to-blue-600 text-white rounded-xl p-8 mb-12 shadow-lg" aria-label="Meal Planner Signup">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="mb-6">
+                    <svg class="w-16 h-16 mx-auto text-white/80" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <h3 class="text-3xl font-bold mb-4">Take the Stress Out of Meal Planning!</h3>
+                <p class="text-xl mb-6 text-white/90">
+                    Join Claire's Recipes community and get access to our exclusive meal planner. 
+                    Plan your weekly meals with tested recipes, generate shopping lists, and make home cooking effortless.
+                </p>
+                <div class="space-y-4">
+                    <div class="grid md:grid-cols-3 gap-4 text-sm mb-6">
+                        <div class="flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5 text-green-300" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Weekly meal plans</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5 text-green-300" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Auto shopping lists</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5 text-green-300" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Recipe favorites</span>
+                        </div>
+                    </div>
+                    @guest
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <a href="{{ route('register') }}" 
+                           class="bg-white text-teal-600 font-bold py-3 px-8 rounded-lg hover:bg-gray-50 transition-colors shadow-md">
+                            Sign Up Free
+                        </a>
+                        <a href="{{ route('login') }}" 
+                           class="text-white hover:text-gray-200 font-medium underline transition-colors">
+                            Already have an account? Sign in
+                        </a>
+                    </div>
+                    @else
+                    <div class="flex justify-center">
+                        <a href="{{ route('profile.planner') }}" 
+                           class="bg-white text-teal-600 font-bold py-3 px-8 rounded-lg hover:bg-gray-50 transition-colors shadow-md">
+                            Access Your Meal Planner
+                        </a>
+                    </div>
+                    @endguest
+                </div>
+            </div>
+        </section>
+        
         <!-- Decorative Divider -->
         <div class="flex items-center justify-center my-12" role="separator" aria-hidden="true">
             <div class="flex-grow border-t border-gray-300"></div>

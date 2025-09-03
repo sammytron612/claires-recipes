@@ -21,6 +21,10 @@ class Favourite extends Component
         {
             $this->fav = true;
         }
+        else
+        {
+            $this->fav = false;
+        }
 
 
         return view('livewire.favourite');
