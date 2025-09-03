@@ -151,6 +151,64 @@
                         </div>
                     </div>
                 @endforeach
+
+                <!-- Daily Shopping List for Selected Day -->
+                <div class="space-y-6">
+                    <h2 class="text-2xl font-bold text-gray-900">Daily Shopping List</h2>
+                    
+                    @foreach($plannerByDay as $day => $plannerItems)
+                        @if(isset($ingredientsByDay[$day]) && $ingredientsByDay[$day]->count() > 0)
+                            <div x-show="currentDayNumber === {{ $day }}" 
+                                 x-transition:enter="transition ease-out duration-300"
+                                 x-transition:enter-start="opacity-0 transform translate-y-4"
+                                 x-transition:enter-end="opacity-100 transform translate-y-0"
+                                 x-transition:leave="transition ease-in duration-200"
+                                 x-transition:leave-start="opacity-100 transform translate-y-0"
+                                 x-transition:leave-end="opacity-0 transform translate-y-4"
+                                 class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                                    <svg class="w-5 h-5 text-teal-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    {{ $dayNames[$day] }} Shopping List
+                                    <span class="ml-2 px-2 py-1 bg-teal-100 text-teal-800 text-xs font-medium rounded-full">
+                                        {{ $ingredientsByDay[$day]->count() }} items
+                                    </span>
+                                </h3>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    @foreach($ingredientsByDay[$day] as $item)
+                                        <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                                            <input type="checkbox" 
+                                                   class="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
+                                                   id="daily-{{ $day }}-{{ md5($item['ingredient']) }}">
+                                            <label for="daily-{{ $day }}-{{ md5($item['ingredient']) }}" 
+                                                   class="flex-1 cursor-pointer">
+                                                <div class="font-medium text-gray-900">
+                                                    {{ $item['ingredient'] }}
+                                                </div>
+                                                <div class="text-sm text-gray-500">
+                                                    For {{ $item['recipe']->title }} ({{ $slotNames[$item['slot']] }})
+                                                </div>
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                
+                                <!-- Print Button for Daily List -->
+                                <div class="mt-4 pt-4 border-t border-gray-200">
+                                    <button onclick="printDailyList('{{ $day }}')" 
+                                            class="inline-flex items-center px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded-md transition-colors">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                                        </svg>
+                                        Print {{ $dayNames[$day] }} List
+                                    </button>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
             @else
                 <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8 text-center">
                     <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -284,5 +342,47 @@ function dayNavigation() {
             }
         }
     }
+}
+
+function printDailyList(day) {
+    const dayNames = @json($dayNames);
+    // Convert the data properly - $ingredientsByDay is an array of collections
+    const ingredientsByDay = @json(collect($ingredientsByDay)->map(function($dayItems) {
+        return $dayItems->values();
+    }));
+    
+    if (!ingredientsByDay[day] || ingredientsByDay[day].length === 0) {
+        alert('No ingredients found for this day');
+        return;
+    }
+    
+    let printContent = `
+        <div style="padding: 20px; font-family: Arial, sans-serif;">
+            <h1 style="margin-bottom: 20px; color: #1f2937;">${dayNames[day]} Shopping List</h1>
+            <div style="border-bottom: 2px solid #e5e7eb; margin-bottom: 20px; padding-bottom: 10px;">
+                <p style="color: #6b7280; margin: 0;">${ingredientsByDay[day].length} items</p>
+            </div>
+            <div style="display: grid; gap: 10px;">`;
+    
+    ingredientsByDay[day].forEach(item => {
+        printContent += `
+            <div style="display: flex; align-items: center; padding: 10px; background: #f9fafb; border-radius: 8px;">
+                <div style="width: 15px; height: 15px; border: 2px solid #000; margin-right: 15px;"></div>
+                <div>
+                    <div style="font-weight: 600; color: #1f2937;">${item.ingredient}</div>
+                    <div style="font-size: 14px; color: #6b7280;">For ${item.recipe.title}</div>
+                </div>
+            </div>`;
+    });
+    
+    printContent += `
+            </div>
+        </div>`;
+    
+    const printWindow = window.open('', '', 'height=600,width=800');
+    printWindow.document.write(printContent);
+    printWindow.document.close();
+    printWindow.print();
+    printWindow.focus();
 }
 </script>
