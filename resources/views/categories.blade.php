@@ -34,7 +34,7 @@
         
         <div class="flex justify-center mt-8">
             <div class="pagination-container">
-                {{ $recipes->appends(request()->query())->links('pagination::custom-tailwind') }}
+                {{ $recipes->appends(request()->query())->links() }}
             </div>
         </div>
     </div>

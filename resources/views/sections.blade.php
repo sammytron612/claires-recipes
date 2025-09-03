@@ -14,8 +14,6 @@
 
     <div class="max-w-7xl mx-auto px-3 py-3 bg-white">
 
-        <x-breadcrumb/>
-
         <div class="mt-3 px-5 md:px-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 justify-items-center">
             @foreach($returns as $return)
                 <div class="shadow-md bg-white rounded-lg w-full max-w-xs relative overflow-hidden">
