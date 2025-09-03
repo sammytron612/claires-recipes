@@ -141,9 +141,6 @@
             </button>
             @endif
             
-            @auth
-            @livewire('favourite', ['recipe' => $recipe->id])
-            @endAuth
         </div>
     </div>
 
@@ -168,6 +165,9 @@
                         <span>{{ $recipe->cooking_time }} mins</span>
                     </div>
                     @endif
+                    @auth
+                    @livewire('favourite', ['recipe' => $recipe->id])
+                    @endAuth
                 </div>
             </div>
             
