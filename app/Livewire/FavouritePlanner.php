@@ -13,7 +13,7 @@ class FavouritePlanner extends Component
     use WithPagination;
 
 
-    protected $paginationTheme = 'bootstrap';
+    protected $paginationTheme = 'tailwind';
     protected $favourites;
     public $plannerEntries;
 
