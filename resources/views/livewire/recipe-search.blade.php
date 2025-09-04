@@ -216,41 +216,6 @@
                     </div>
                 @endif
 
-                @if(count($WireMethods) > 0)
-                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 px-4 py-3 border-b border-gray-100">
-                        <div class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            </svg>
-                            <h3 class="font-semibold text-blue-800 text-sm uppercase tracking-wide">Methods</h3>
-                            <span class="bg-blue-200 text-blue-800 text-xs font-medium px-2 py-1 rounded-full">{{ count($WireMethods) }}</span>
-                        </div>
-                    </div>
-                    <div class="p-2">
-                        @foreach($WireMethods as $WireMethod)
-                        <a href="{{ route('method',$WireMethod->slug) }}" 
-                           class="flex items-center p-3 hover:bg-gradient-to-r hover:from-blue-50 hover:to-teal-50 rounded-lg transition-all duration-200 group border-b border-gray-50 last:border-b-0">
-                            <div class="relative">
-                                <img class="w-14 h-14 object-cover rounded-lg shadow-md group-hover:shadow-lg transition-shadow duration-200" 
-                                     src="{{ asset('storage/' . $WireMethod->image) }}" 
-                                     alt="{{ $WireMethod->title }}">
-                                <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
-                            </div>
-                            <div class="ml-4 flex-1 min-w-0">
-                                <h4 class="text-gray-900 font-medium group-hover:text-blue-700 transition-colors duration-200 truncate">
-                                    {{ $WireMethod->title }}
-                                </h4>
-                                <p class="text-gray-500 text-sm">Method</p>
-                            </div>
-                            <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </a>
-                        @endforeach
-                    </div>
-                @endif
-
                 @if(count($WireDiets) > 0)
                     <div class="bg-gradient-to-r from-pink-50 to-pink-100 px-4 py-3 border-b border-gray-100">
                         <div class="flex items-center gap-2">
