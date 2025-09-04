@@ -2,6 +2,7 @@
 
 <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
     <div class="relative">
+        <a href="{{ route('recipe', ['id' => $recipe->id, 'slug' => $recipe->slug]) }}">
         <img class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" 
              src="{{ asset('storage/' . $recipe->image) }}" 
              alt="{{ $recipe->title }} - {{ Str::limit($recipe->description, 50) }}"
@@ -75,20 +76,11 @@
                 </div>
             @endif
         </div>
-        
-        <div class="flex justify-between">
-            <a href="{{ route('recipe', ['id' => $recipe->id, 'slug' => $recipe->slug]) }}" 
-            class="inline-flex items-center text-teal-600 hover:text-teal-700 font-medium text-sm">
-                View Recipe
-                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-            </a>
-            @auth
-            <div>
-                <livewire:favourite :recipe="$recipe->id"/>
-            </div>
-            @endauth
+        @auth
+        <div>
+            <livewire:favourite :recipe="$recipe->id"/>
         </div>
+        @endauth
+    </a>
     </div>
 </div>
