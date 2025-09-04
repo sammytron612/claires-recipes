@@ -124,7 +124,7 @@
                     </div>
 
                     <!-- Right side: User Menu -->
-                    <div class="flex items-center space-x-4">
+                    <div class="hidden md:block flex items-center space-x-4">
                         @guest
                             @if (Route::has('login'))
                                 <a class="text-gray-600 hover:text-gray-800 px-4 py-2 rounded-md hover:bg-gray-100 transition-all duration-200 font-medium" href="{{ route('login') }}" aria-label="Login">
