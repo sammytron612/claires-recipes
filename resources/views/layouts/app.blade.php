@@ -188,7 +188,7 @@
                                     
                                     <a class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors" href="{{ route('profile.profile') }}" aria-label="Profile">
                                         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                         </svg>
                                         <span>My Profile</span>
                                     </a>
@@ -211,17 +211,9 @@
                             
                             
                         @endguest
-
-                        <!-- Mobile menu button -->
-                        <button class="md:hidden text-gray-600 hover:text-gray-800 p-2 rounded-md hover:bg-gray-100 transition-colors" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                            </svg>
-                        </button>
                     </div>
                 </div>
 
-            
             </div>
         </nav>
 
@@ -247,11 +239,6 @@
 
     <!-- Mobile menu toggle script -->
     <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-
         // Navbar opacity on scroll
         window.addEventListener('scroll', function() {
             const nav = document.getElementById('navbar');
