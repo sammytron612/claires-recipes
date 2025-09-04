@@ -99,7 +99,7 @@
                     <!-- Recipe Title Overlay -->
                     <div class="absolute bottom-0 left-0 right-0 p-8">
                         <div class="max-w-7xl mx-auto flex items-center justify-center">
-                            <div class="bg-black bg-opacity-50 rounded-lg p-6 shadow-lg">
+                            <div class="bg-black bg-opacity-30 rounded-lg p-6 shadow-lg">
                                 <a href="{{ route('recipe', ['id' => $recipe->id, 'slug' => $recipe->slug]) }}" 
                                    class="block">
                                     <h2 class="text-3xl md:text-4xl font-bold text-white text-center hover:text-gray-200 transition-colors">
@@ -239,7 +239,7 @@
             </div>
         </section>
         
-        <!-- Decorative Divider -->
+        <!--Divider -->
         <div class="flex items-center justify-center my-12" role="separator" aria-hidden="true">
             <div class="flex-grow border-t border-gray-300"></div>
             <div class="px-6">
@@ -252,7 +252,7 @@
         
 	<x-season-comp />
         
-        <!-- Another Decorative Divider -->
+        <!-- Top 10 Recipes Section -->
         <div class="flex items-center justify-center my-12" role="separator" aria-hidden="true">
             <div class="flex-grow border-t border-gray-300"></div>
             <div class="px-6">
