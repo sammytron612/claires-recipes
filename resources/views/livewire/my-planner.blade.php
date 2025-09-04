@@ -18,7 +18,7 @@
                 <p class="text-gray-600 mt-1">Plan your meals for the week ahead</p>
             </div>
             <div>
-                <a href="{{ route('profile.shopping-list') }}" type="button" class="my-4 bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 transition">view my shopping list</a>
+                <a href="{{ route('profile.shopping-list') }}" type="button" class="my-4 sm:my-4 mb-6 sm:mb-4 bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 transition">view my shopping list</a>
             </div>
         </div>
     </div>
