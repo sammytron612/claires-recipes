@@ -137,7 +137,7 @@
                                 @endif
                             @endforeach
                             
-                            <div class="mt-3 flex items-center justify-between">
+                            <div class="mt-3 flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
                                 <div class="flex items-center space-x-2">
                                     @if($flag)
                                         <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
@@ -149,7 +149,7 @@
                                     @endif
                                 </div>
                                 
-                                <div class="flex items-center space-x-2">
+                                <div class="flex flex-col xs:flex-row items-stretch xs:items-center space-y-2 xs:space-y-0 xs:space-x-2">
                                     <button wire:click.debounce.500ms="destroy({{ $fav->fav_id }})" 
                                             class="inline-flex items-center px-3 py-1.5 bg-red-100 text-red-700 text-xs font-medium rounded-md hover:bg-red-200 transition-colors">
                                         <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
