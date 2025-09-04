@@ -152,7 +152,7 @@
 <!-- Content Sections with Better Spacing -->
 <section class="bg-gray-50 py-12" aria-label="About Claire's Recipes">
     <div class="max-w-7xl mx-auto py-5 px-8 lg:px-24">
-            <x-breadcrumb/>
+          
         <header class="mb-8 text-center">
             <h2 class="text-4xl font-bold text-gray-800 mb-6" style="font-family: 'Pacifico', cursive;">
                 Hello and welcome to Claire's Recipes!
