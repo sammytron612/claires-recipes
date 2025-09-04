@@ -188,7 +188,7 @@
                                     
                                     <a class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors" href="{{ route('profile.profile') }}" aria-label="Profile">
                                         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            ot reven                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                         </svg>
                                         <span>My Profile</span>
                                     </a>
@@ -221,73 +221,7 @@
                     </div>
                 </div>
 
-                <!-- Mobile menu -->
-                <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
-                    <div class="px-4 pt-4 pb-6 space-y-2">
-                        <!-- Mobile Navigation Links -->
-                        <div class="space-y-1">
-                            <a class="text-gray-600 hover:text-gray-800 hover:bg-gray-100 block px-4 py-3 rounded-md transition-all duration-200 font-medium {{ Request::is('home') ? 'bg-gray-100 text-gray-800' : '' }}" href="{{ url('/home') }}" aria-label="Home">
-                                Home
-                            </a>
-                            
-                            <a class="text-gray-600 hover:text-gray-800 hover:bg-gray-100 block px-4 py-3 rounded-md transition-all duration-200 font-medium {{ Request::is('recipe-builder') ? 'bg-gray-100 text-gray-800' : '' }}" href="{{ route('recipe-builder') }}" aria-label="Recipe Builder">
-                                Recipe Builder
-                            </a>
-                            
-                            <a class="text-gray-600 hover:text-gray-800 hover:bg-gray-100 block px-4 py-3 rounded-md transition-all duration-200 font-medium {{ Request::is('blog*') ? 'bg-gray-100 text-gray-800' : '' }}" href="{{route('blog.index')}}" aria-label="Blog">
-                                Blog
-                            </a>
-                        </div>
-                        
-                        @guest
-                            <div class="border-t border-gray-200 pt-4 mt-4 space-y-2">
-                                @if (Route::has('login'))
-                                    <a class="text-gray-600 hover:text-gray-800 hover:bg-gray-100 block px-4 py-3 rounded-md transition-all duration-200 font-medium" href="{{ route('login') }}" aria-label="Login">
-                                        Login
-                                    </a>
-                                @endif
-                                @if (Route::has('register'))
-                                    <a class="bg-gray-800 text-white block px-4 py-3 rounded-md transition-all duration-200 font-medium hover:bg-gray-700" href="{{ route('register') }}" aria-label="Register">
-                                        Sign Up
-                                    </a>
-                                @endif
-                            </div>
-                        @else
-                            <div class="border-t border-gray-200 pt-4 mt-4">
-                                <!-- User info -->
-                                <div class="flex items-center space-x-3 px-4 py-3">
-                                    <div class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center">
-                                        <span class="text-sm font-bold text-white">{{ substr(Auth::user()->name, 0, 1) }}</span>
-                                    </div>
-                                    <div>
-                                        <div class="font-medium text-gray-800">{{ Auth::user()->name }}</div>
-                                        <div class="text-gray-500 text-sm">{{ Auth::user()->email }}</div>
-                                    </div>
-                                </div>
-                                
-                                <div class="space-y-1 mt-3">
-                                    @can('isAdmin')
-                                        <a class="text-gray-600 hover:text-gray-800 hover:bg-gray-100 block px-4 py-3 rounded-md transition-all duration-200" href="{{ route('admin.index') }}">
-                                            Admin Panel
-                                        </a>
-                                    @endcan
-                                    
-                                    <a class="text-gray-600 hover:text-gray-800 hover:bg-gray-100 block px-4 py-3 rounded-md transition-all duration-200" href="{{ route('profile.planner') }}" aria-label="My Planner">
-                                        My Planner
-                                    </a>
-                                    
-                                    <a class="text-gray-600 hover:text-gray-800 hover:bg-gray-100 block px-4 py-3 rounded-md transition-all duration-200" href="{{ route('profile.profile') }}" aria-label="Profile">
-                                        My Profile
-                                    </a>
-                                    
-                                    <a class="text-red-600 hover:text-red-800 hover:bg-red-50 block px-4 py-3 rounded-md transition-all duration-200" href="{{ route('logout') }}" aria-label="Logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-                                </div>
-                            </div>
-                        @endguest
-                    </div>
-                </div>
+            
             </div>
         </nav>
 
