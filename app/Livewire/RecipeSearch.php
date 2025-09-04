@@ -38,7 +38,7 @@ class RecipeSearch extends Component
         $this->WireIngredients = collect();
         $this->WireDiets = collect();
         $this->WireCourses = collect();
-        $this->WireMethods = collect();
+       
 
         if (strlen($this->searchTerm) >= 3) {
             $searchTerm = '%' . $this->searchTerm . '%';
@@ -48,14 +48,13 @@ class RecipeSearch extends Component
             $this->WireIngredients = Ingredient::where('title', 'like', $searchTerm)->limit(4)->get();
             $this->WireDiets = Diet::where('title', 'like', $searchTerm)->limit(2)->get();
             $this->WireCourses = Course::where('title', 'like', $searchTerm)->limit(2)->get();
-            $this->WireMethods = Method::where('title', 'like', $searchTerm)->limit(2)->get();
+          
 
             $this->isVisible = $this->WireRecipes->isNotEmpty() || 
                              $this->WireCuisines->isNotEmpty() || 
                              $this->WireIngredients->isNotEmpty() || 
                              $this->WireDiets->isNotEmpty() || 
-                             $this->WireCourses->isNotEmpty() || 
-                             $this->WireMethods->isNotEmpty();
+                             $this->WireCourses->isNotEmpty();
         } else {
             $this->isVisible = false;
         }
@@ -66,7 +65,6 @@ class RecipeSearch extends Component
             'WireIngredients' => $this->WireIngredients,
             'WireDiets' => $this->WireDiets,
             'WireCourses' => $this->WireCourses,
-            'WireMethods' => $this->WireMethods,
             'searchTerm' => $this->searchTerm,
         ]);
     }
