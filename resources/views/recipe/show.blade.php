@@ -102,7 +102,7 @@
     <!-- Recipe Title Overlay -->
     <div class="absolute bottom-0 left-0 right-0 p-8">
         <div class="max-w-7xl mx-auto flex items-center justify-center">
-            <div class="bg-black bg-opacity-70 rounded-lg p-6 shadow-lg">
+            <div class="bg-black bg-opacity-20 rounded-lg p-6 shadow-lg">
                 <h1 class="text-4xl md:text-5xl font-bold text-white text-center">{{ $recipe->title }}</h1>
             </div>
         </div>
