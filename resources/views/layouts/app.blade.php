@@ -137,6 +137,7 @@
                                     Sign Up
                                 </a>
                             @endif
+                            </div>
                         @else
                             <!-- User Dropdown -->
                             <div class="relative" x-data="{ open: false }">
