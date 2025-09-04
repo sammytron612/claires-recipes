@@ -9,8 +9,8 @@
         "description" => "Discover delicious scratch cooking recipes tested in real home kitchens. Claire's Recipes offers tried and tested recipes you can rely on to work every time.",
         "potentialAction" => [
             "@type" => "SearchAction",
-            "target" => url('/') . "/search?q={search_term_string}",
-            "query-input" => "required name=search_term_string"
+            "target" => url('/') . "/search/{search_term_string}",
+            "query-input" => "required search_term_string"
         ],
         "publisher" => [
             "@type" => "Organization",

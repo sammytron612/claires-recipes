@@ -35,18 +35,8 @@ Route::get('/', function () {
     return redirect('/home');
 });
 
-Route::get('/home', function () {
-    $recipes = Recipe::where('featured', 1)->limit(6)->get();
-    $top10 = Recipe::orderBy('rating', 'desc')->limit(10)->get();
-    $favourites = [];
-    
-    // Get user favorites if authenticated
-    if (auth()->check()) {
-        $favourites = \App\Models\Favourites::where('user_id', auth()->id())->get();
-    }
-    
-    return view('home', compact('recipes', 'top10', 'favourites'));
-})->name('home');
+Route::get('/home', [HomeController::class, 'index']
+)->name('home');
 
 Route::get('/dashboard', function () {
     return redirect()->route('profile.profile');
@@ -64,7 +54,7 @@ Route::get('/recipes', [RecipeController::class, 'index'])->name('recipe.index')
 Route::get('/recipe/index', [IndexController::class, 'index'])->name('recipe.search.index');
 
 // Recipe search results route
-Route::get('recipe/search/{searchTerm}', [IndexController::class, 'search'])->name('recipe.search.results');
+Route::get('search/{searchTerm}', [IndexController::class, 'search'])->name('recipe.search.results');
 
 // Legacy recipe routes for compatibility with existing views
 Route::get('/recipe/{id}/{slug}', [RecipeController::class, 'show'])->where('id', '[0-9]+')->name('recipe');
