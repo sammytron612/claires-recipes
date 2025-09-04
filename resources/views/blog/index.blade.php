@@ -34,7 +34,7 @@
                 <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
                     Blog
                 </h1>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto font-bold">
                     Discover delicious recipes, cooking tips, and culinary inspiration from Claire's kitchen
                 </p>
             </div>
