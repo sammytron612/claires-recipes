@@ -64,7 +64,7 @@ Route::get('/recipes', [RecipeController::class, 'index'])->name('recipe.index')
 Route::get('/recipe/index', [IndexController::class, 'index'])->name('recipe.search.index');
 
 // Recipe search results route
-Route::get('/home/recipe/search/{searchTerm}', [IndexController::class, 'search'])->name('recipe.search.results');
+Route::get('recipe/search/{searchTerm}', [IndexController::class, 'search'])->name('recipe.search.results');
 
 // Legacy recipe routes for compatibility with existing views
 Route::get('/recipe/{id}/{slug}', [RecipeController::class, 'show'])->where('id', '[0-9]+')->name('recipe');
