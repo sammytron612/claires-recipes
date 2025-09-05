@@ -1,6 +1,6 @@
 <div class="min-h-screen bg-gradient-to-br from-yellow-100 via-pink-100 to-teal-200">
     <!-- Simplified Header Section with Search -->
-    <div class="bg-gradient-to-r from-white  to-teal-50 border-b-4 border-orange-300 shadow-lg relative">
+    <div class="bg-gradient-to-r from-teal-50  to-orange-50 border-b-4 border-orange-300 shadow-lg relative">
         <div class="absolute top-0 left-0 w-full h-full pointer-events-none" style="background: url('https://www.transparenttextures.com/patterns/food.png'); opacity:0.08;"></div>
         <div class="max-w-4xl mx-auto px-4 py-8">
             <div class="text-center mb-8">
