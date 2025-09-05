@@ -183,7 +183,9 @@
             <div class="bg-white rounded-lg shadow-sm p-6">
                 <h3 class="text-xl font-bold text-gray-800 mb-4">Recipe Tags</h3>
                 <div class="flex flex-wrap gap-2">
+                    
                     @foreach($recipe->HashIngredient as $h_ingredient)
+                       @if($h_ingredient->ingredients->slug)
                         <a href="{{ route('ingredient', $h_ingredient->ingredients->slug) }}" 
                            class="inline-flex items-center bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full hover:bg-green-200 transition-colors">
                             <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -191,9 +193,12 @@
                             </svg>
                             {{ $h_ingredient->ingredients->title }}
                         </a>
+                        @endif
                     @endforeach
+                    
 
                     @foreach($recipe->HashCuisine as $h_cuisine)
+                       @if($h_cuisine->CuisineTitle->slug)
                         <a href="{{ route('cuisine', $h_cuisine->CuisineTitle->slug) }}" 
                            class="inline-flex items-center bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full hover:bg-blue-200 transition-colors">
                             <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -201,9 +206,11 @@
                             </svg>
                             {{ $h_cuisine->CuisineTitle->title }}
                         </a>
+                        @endif
                     @endforeach
 
                     @foreach($recipe->HashDiet as $h_diet)
+                       @if($h_diet->DietTitle->slug)
                         <a href="{{ route('diet', $h_diet->DietTitle->slug) }}" 
                            class="inline-flex items-center bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full hover:bg-purple-200 transition-colors">
                             <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -211,9 +218,11 @@
                             </svg>
                             {{ $h_diet->DietTitle->title }}
                         </a>
+                        @endif
                     @endforeach
 
                     @foreach($recipe->HashCourse as $h_course)
+                       @if($h_course->CourseTitle->slug)
                         <a href="{{ route('course', $h_course->CourseTitle->slug) }}" 
                            class="inline-flex items-center bg-orange-100 text-orange-800 text-sm font-medium px-3 py-1 rounded-full hover:bg-orange-200 transition-colors">
                             <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -221,9 +230,11 @@
                             </svg>
                             {{ $h_course->CourseTitle->title }}
                         </a>
+                        @endif
                     @endforeach
 
                     @foreach($recipe->HashMethod as $h_method)
+                       @if($h_method->MethodTitle->slug)
                         <a href="{{ route('method', $h_method->MethodTitle->slug) }}" 
                            class="inline-flex items-center bg-red-100 text-red-800 text-sm font-medium px-3 py-1 rounded-full hover:bg-red-200 transition-colors">
                             <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
@@ -231,6 +242,7 @@
                             </svg>
                             {{ $h_method->MethodTitle->title }}
                         </a>
+                        @endif
                     @endforeach
                 </div>
             </div>
