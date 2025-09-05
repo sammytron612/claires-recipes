@@ -128,12 +128,12 @@
                      
                         @guest
                             @if (Route::has('login'))
-                               <a class="text-gray-600 hover:text-gray-800 px-4 py-2 rounded-md hover:bg-gray-100 transition-all duration-200 font-medium" href="{{ route('login') }}" aria-label="Login">
+                                <a class="text-gray-600 hover:text-gray-800 px-2 sm:px-4 py-2 rounded-md hover:bg-gray-100 transition-all duration-200 font-medium text-sm" href="{{ route('login') }}" aria-label="Login">
                                     Login
                                 </a>
                             @endif
                             @if (Route::has('register'))
-                                <a class="bg-gray-800 text-white px-4 py-2 rounded-md font-medium hover:bg-gray-700 transition-colors duration-200" href="{{ route('register') }}" aria-label="Register">
+                                <a class="bg-gray-800 text-white px-2 sm:px-4 py-2 rounded-md font-medium hover:bg-gray-700 transition-colors duration-200 text-sm whitespace-nowrap" href="{{ route('register') }}" aria-label="Register">
                                     Sign Up
                                 </a>
                             @endif
