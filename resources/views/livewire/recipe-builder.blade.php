@@ -1,11 +1,11 @@
 <div class="min-h-screen bg-gradient-to-br from-yellow-100 via-pink-100 to-teal-200">
     <!-- Simplified Header Section with Search -->
-    <div class="bg-gradient-to-r from-orange-200 via-pink-100 to-teal-100 border-b-4 border-orange-300 shadow-lg relative">
+    <div class="bg-gradient-to-r from-white  to-teal-50 border-b-4 border-orange-300 shadow-lg relative">
         <div class="absolute top-0 left-0 w-full h-full pointer-events-none" style="background: url('https://www.transparenttextures.com/patterns/food.png'); opacity:0.08;"></div>
         <div class="max-w-4xl mx-auto px-4 py-8">
             <div class="text-center mb-8">
-                <h1 class="text-4xl font-extrabold text-orange-500 drop-shadow mb-2 tracking-tight">
-                    <i class="fas fa-blender mr-2 text-pink-400"></i> Recipe Builder
+                <h1 class="text-3xl font-bold text-orange-500 drop-shadow mb-2 tracking-tight">
+                    <i class="fas fa-blender mr-2 text-teal-400"></i> Recipe Builder
                 </h1>
                 <p class="text-lg text-teal-600 font-semibold">Find recipes based on ingredients you have at home</p>
             </div>
@@ -75,7 +75,7 @@
         @if($ingredients)
         <div class="mb-12">
             <div class="text-center mb-6">
-                <h2 class="text-3xl font-extrabold text-pink-500 mb-2 drop-shadow">
+                <h2 class="text-2xl font-bold text-teal-500 mb-2 drop-shadow">
                     <i class="fas fa-shopping-basket text-orange-400 mr-2"></i>
                     Your Selected Ingredients
                 </h2>
@@ -83,7 +83,7 @@
             </div>
             
             <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-            <div class="bg-white rounded-2xl shadow-2xl border-4 border-orange-200 p-8">
+            <div class="bg-white rounded-2xl shadow-xl border-2 border-orange-200 p-8">
                 <div class="flex flex-wrap justify-center gap-4">
                     @foreach($ingredients as $ingredient)
                         <button 
@@ -113,7 +113,7 @@
                     </div>
                     <h3 class="text-2xl font-bold text-gray-800 mb-3">Let's Create Something Delicious!</h3>
                     <p class="text-lg text-gray-600 mb-2">Start by searching for ingredients you have at home</p>
-                    <p class="text-gray-500 italic">We'll find the perfect recipes for you ✨</p>
+                    <p class="text-gray-500 italic">We'll find the perfect recipes for you</p>
                 </div>
             </div>
             @endif
