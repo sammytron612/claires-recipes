@@ -1,4 +1,5 @@
 <div x-data="{shown: false}">
+    @if($ingredients)
     <h5>Nutritional Info(100g)&nbsp<button @click="shown = !shown" class="btn btn-small btn-teal" aria-label="Expand Nutrition Info">
         <i class="fas fa-plus"></i></i></button>
     </h5>
@@ -27,4 +28,5 @@
         @endforeach
         </ul>
     </div>
+    @endif
 </div>

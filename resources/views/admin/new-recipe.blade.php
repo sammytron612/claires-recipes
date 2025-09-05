@@ -16,14 +16,7 @@
     <form id="newRecipe" method="post" enctype="multipart/form-data" action="{{ route('recipe.store') }}">
         @csrf
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Ingredients</label>
-                <select id="ingredientTags" style="width:100%;" name="wireIngredients[]" class="js-example-basic-multiple" multiple="multiple">
-                    @foreach($ingredients as $ingredient)
-                        <option value="{{ $ingredient->id }}">{{ $ingredient->title }}</option>
-                    @endforeach
-                </select>
-            </div>
+            <livewire:select-ingredients :selected="[]" />
 
             <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-2">Cuisines</label>

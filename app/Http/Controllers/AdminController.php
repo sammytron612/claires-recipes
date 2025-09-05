@@ -54,9 +54,6 @@ class AdminController extends Controller
 
     public function storeRecipe(Request $request)
     {
-        
-
-        
         // Validation rules for recipe creation
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -66,13 +63,13 @@ class AdminController extends Controller
             'attachment' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
             'method' => 'nullable|string',
             'wireIngredients' => 'array',
-            'wireCuisines' => 'array',
-            'wireDiets' => 'array',
+            'wireCuisines' => 'nullable|array',
+            'wireDiets' => 'nullable|array',
             'wireCourses' => 'array',
-            'wireMethods' => 'array',
+            'wireMethods' => 'nullable|array',
         ]);
 
-    
+   
             // Handle file uploads
             $imagePath = null;
             if ($request->hasFile('photo')) {

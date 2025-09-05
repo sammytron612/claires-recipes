@@ -177,23 +177,49 @@ public function store($data, $ingredient)
             ])
         ]);
     }
-    dd('stop');
+    
 
     return;
 }
     public function getPluralForm($ingredient)
+    {
+        $ingredient = strtolower($ingredient);
+        
+        // Common pluralization rules
+        if (preg_match('/y$/', $ingredient)) {
+            return preg_replace('/y$/', 'ies', $ingredient); // berry -> berries
+        } elseif (preg_match('/f$/', $ingredient)) {
+            return preg_replace('/f$/', 'ves', $ingredient); // leaf -> leaves
+        } elseif (preg_match('/[sxz]$|[cs]h$/', $ingredient)) {
+            return $ingredient . 'es'; // tomato -> tomatoes
+        } else {
+            return $ingredient . 's'; // carrot -> carrots
+        }
+    }
+
+   
+public function getSingularForm($ingredient)
 {
     $ingredient = strtolower($ingredient);
     
-    // Common pluralization rules
-    if (preg_match('/y$/', $ingredient)) {
-        return preg_replace('/y$/', 'ies', $ingredient); // berry -> berries
-    } elseif (preg_match('/f$/', $ingredient)) {
-        return preg_replace('/f$/', 'ves', $ingredient); // leaf -> leaves
-    } elseif (preg_match('/[sxz]$|[cs]h$/', $ingredient)) {
-        return $ingredient . 'es'; // tomato -> tomatoes
-    } else {
-        return $ingredient . 's'; // carrot -> carrots
+    // Common pluralization rules (reverse)
+    $patterns = [
+        '/ies$/' => 'y',      // berries -> berry, cherries -> cherry
+        '/ves$/' => 'f',      // leaves -> leaf, knives -> knife
+        '/ses$/' => 's',      // glasses -> glass, buses -> bus
+        '/ches$/' => 'ch',    // matches -> match, benches -> bench
+        '/shes$/' => 'sh',    // dishes -> dish, brushes -> brush
+        '/xes$/' => 'x',      // boxes -> box, foxes -> fox
+        '/zes$/' => 'z',      // sizes -> size, prizes -> prize
+        '/s$/' => '',         // carrots -> carrot, tomatoes -> tomato
+    ];
+    
+    foreach ($patterns as $pattern => $replacement) {
+        if (preg_match($pattern, $ingredient)) {
+            return preg_replace($pattern, $replacement, $ingredient);
+        }
     }
+    
+    return $ingredient;
 }
 }

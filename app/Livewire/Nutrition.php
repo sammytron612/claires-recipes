@@ -18,9 +18,13 @@ class Nutrition extends Component
         
         $ingredients = RecipeIngredients::where('recipeid', $this->recipeId)->limit(1)->get();
  
-        $temp = ($ingredients[0]->ingredients);
-        $to_remove = array('');
-        $this->ingredients = array_unique(array_diff($temp, $to_remove));
+        if(count($ingredients))
+        {
+            $temp = ($ingredients[0]->ingredients);
+            $to_remove = array('');
+            $this->ingredients = array_unique(array_diff($temp, $to_remove));
+        }
+        else {$ingredients = [];}
 
         return view('livewire.nutrition',(['ingredients' => $this->ingredients]));
     }
