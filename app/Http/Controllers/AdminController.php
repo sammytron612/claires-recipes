@@ -3,12 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\HashIngredient;
 use App\Models\Ingredient;
+use App\Models\HashDiet;
 use App\Models\Diet;
+use App\Models\HashCourse;
 use App\Models\Course;
+use App\Models\HashCuisine;
 use App\Models\Cuisine;
+use App\Models\HashMethod;
 use App\Models\Method;
 use App\Models\Recipe;
+use App\Models\RecipeIngredient;
+use App\Http\Services\IngredientService;
+use App\Http\Helpers\CheckIngredients;
 
 class AdminController extends Controller
 {
@@ -16,8 +24,6 @@ class AdminController extends Controller
     {
         return view('admin.index');
     }
-
-    
 
     public function newRecipe()
     {
@@ -27,6 +33,7 @@ class AdminController extends Controller
         $courses = Course::all();
         $cuisines = Cuisine::all();
         $methods = Method::all();
+   
 
         return view('admin.new-recipe', compact(['ingredients','cuisines', 'methods','diets','courses','methods']));
     }
@@ -47,6 +54,9 @@ class AdminController extends Controller
 
     public function storeRecipe(Request $request)
     {
+        
+
+        
         // Validation rules for recipe creation
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -62,16 +72,17 @@ class AdminController extends Controller
             'wireMethods' => 'array',
         ]);
 
-        // Handle file uploads
-        $imagePath = null;
-        if ($request->hasFile('photo')) {
-            $imagePath = $request->file('photo')->store('recipes', 'public');
-        }
+    
+            // Handle file uploads
+            $imagePath = null;
+            if ($request->hasFile('photo')) {
+                $imagePath = $request->file('photo')->store('recipes', 'public');
+            }
 
-        $attachmentPath = null;
-        if ($request->hasFile('attachment')) {
-            $attachmentPath = $request->file('attachment')->store('attachments', 'public');
-        }
+            $attachmentPath = null;
+            if ($request->hasFile('attachment')) {
+                $attachmentPath = $request->file('attachment')->store('attachments', 'public');
+            }
 
         // Create the recipe
         $recipe = Recipe::create([
@@ -83,30 +94,55 @@ class AdminController extends Controller
             'author' => auth()->id(),
             'slug' => \Str::slug($validated['title']),
         ]);
+        
 
         // Handle manual recipe method
         if ($request->has('check') && $validated['method']) {
             $recipe->recipeMethod()->create([
                 'description' => $validated['method']
             ]);
+            $ingredients = [];
+            $ingredientService = new IngredientService();
+            $ingredients = $ingredientService->extract($request->input('method'));
+            $checkIngredients = new CheckIngredients();
+            $checkIngredients->check($ingredients);
         }
 
         // Attach relationships
         if (!empty($validated['wireIngredients'])) {
-            $recipe->ingredients()->attach($validated['wireIngredients']);
+            foreach ($validated['wireIngredients'] as $ingredientId) {
+                
+                HashIngredient::create(['recipe_id' => $recipe->id, 'ingredient' => $ingredientId]);
+                
+            }
         }
         if (!empty($validated['wireCuisines'])) {
-            $recipe->cuisines()->attach($validated['wireCuisines']);
+            foreach ($validated['wireCuisines'] as $cuisineId) {
+                HashCuisine::create(['recipe_id' => $recipe->id, 'cuisine' => $cuisineId]);
+            }
         }
         if (!empty($validated['wireDiets'])) {
-            $recipe->diets()->attach($validated['wireDiets']);
+            foreach ($validated['wireDiets'] as $dietId) {
+                HashDiet::create(['recipe_id' => $recipe->id, 'diet' => $dietId]);
+            }
         }
         if (!empty($validated['wireCourses'])) {
-            $recipe->courses()->attach($validated['wireCourses']);
+            foreach ($validated['wireCourses'] as $courseId) {
+                HashCourse::create(['recipe_id' => $recipe->id, 'course' => $courseId]);
+            }
         }
         if (!empty($validated['wireMethods'])) {
-            $recipe->methods()->attach($validated['wireMethods']);
+            foreach ($validated['wireMethods'] as $methodId) {
+                HashMethod::create(['recipe_id' => $recipe->id, 'method' => $methodId]);
+            }
         }
+        if (!empty($ingredients)) {
+            $recipe->recipeIngredients()->create([
+                'recipeid' => $recipe->id,
+                'ingredients' => $ingredients
+            ]);
+        }
+
 
         return redirect()->route('admin.new-recipe')->with('status', 'Recipe created successfully!');
     }

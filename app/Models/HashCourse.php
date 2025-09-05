@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class HashCourse extends Model
 {
-
+    protected $fillable = ['recipe_id', 'course'];
 
     public $timestamps = false;
 

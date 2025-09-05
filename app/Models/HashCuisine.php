@@ -13,6 +13,8 @@ class HashCuisine extends Model
 
     protected $table = 'hash_cuisines';
 
+    protected $fillable = ['recipe_id', 'cuisine'];
+
     public function CuisineTitle()
     {
         return $this->hasOne(Cuisine::class,'id','cuisine');

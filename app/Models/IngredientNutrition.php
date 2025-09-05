@@ -13,6 +13,6 @@ class IngredientNutrition extends Model
 
     public function ingredient()
     {
-        return $this->belongsTo(ngredient::class);
+        return $this->belongsTo(Ingredient::class);
     }
 }

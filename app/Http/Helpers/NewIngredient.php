@@ -8,57 +8,26 @@ use Illuminate\Support\Facades\Storage;
 
 class NewIngredient
 {
-    private function addtoDB($json, $id)
+    public function add($missingIngredients)
     {
-
-        if(isset($json[0]['food']['image']))
+        foreach($missingIngredients as $ingredient)
         {
-            //dd($json);
-            $image = $json[0]['food']['image'];
-            $ext = explode('.',$image);
-            $name = md5($image . microtime()) . '.' . end($ext);
+            
+        
+            $data = $this->getDescription($ingredient);
+           
 
-            $content = file_get_contents($image);
-
-           Storage::disk('public')->put($name, $content);
+            $this->store($data, $ingredient);
 
         }
-        else {$name = "stock.jpg";}
 
-
-        if(isset($json[0]['food']['nutrients']))
-        {
-            $nutrition = json_encode($json[0]['food']['nutrients']);
-            $data = ['ingredient' => $id,
-                    'nutrition' => $nutrition];
-            IngredientNutrition::create($data);
-        }
-
-        return $name;
-
+        return;
     }
 
-
-    private function getDescription($ingredient)
+    public function getDescription($ingredient)
     {
 
-        $temp = explode(' ',$ingredient);
-
-        if(count($temp) == 1)
-        {
-            $query = $temp[0];
-
-        }
-        else
-        {
-            $query = "";
-            for($i=0;$i<count($temp);$i++)
-            {
-                $query .= $temp[$i] . '%20';
-            }
-            $query = substr($query, 0, -3);
-
-        }
+        $query = str_replace(' ', '%20', $ingredient);
 
         $curl = curl_init();
 
@@ -88,41 +57,110 @@ class NewIngredient
             $text = (json_decode($response, true));
         }
 
-
-        return $text['parsed'];
-
-
+        return $text;
     }
 
-    public function Add($ingredients)
-    {
 
+public function downloadImage($imageUrl, $ingredient)
+{
+    if (!$imageUrl) {
+        return null;
+    }
 
-        foreach($ingredients as $ingredient)
-        {
-            if(!$ingredient) {break;}
-
-            $exists = Ingredient::where('title','like',$ingredient.'%')->exists();
-
-            if(!$exists && $ingredient)
-            {
-                $data = ['title' => ucfirst($ingredient)];
-                $slug = (str_replace(' ', '-', strtolower($ingredient)));
-                $id = Ingredient::create($data)->id;
-
-                $array = $this->getDescription($ingredient);
-
-                $imageName = $this->addtoDB($array, $id);
-                Ingredient::where('id', $id)->update(['slug' => $slug . '-' . $id, 'image' => $imageName]);
-
-
-            }
-
-
+    try {
+        // Create a filename based on the ingredient name
+        $filename = strtolower(str_replace(' ', '-', $ingredient)) . '.jpg';
+        
+        // Download the image using cURL
+        $curl = curl_init();
+        
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $imageUrl,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        ]);
+        
+        $imageData = curl_exec($curl);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        
+        // Check if download was successful
+        if ($httpCode === 200 && $imageData !== false) {
+            // Store the image in the storage/app/public/ingredients directory
+            $path = time() . $filename;
+            Storage::disk('public')->put($path, $imageData);
+            
+            return $path;
         }
+        
+        return null;
+        
+    } catch (Exception $e) {
+        // Log the error or handle it as needed
+        return null;
+    }
+}
 
-
+public function store($data, $ingredient)
+{
+    $ingredient_lower = strtolower($ingredient);
+    $foodData = null;
+   
+    // Search through hints to find the best match
+    foreach($data['hints'] as $hint) {
+        if (isset($hint['food'])) {
+            $label_lower = strtolower($hint['food']['label']);
+            $knownAs_lower = strtolower($hint['food']['knownAs'] ?? '');
+            
+            // Check if ingredient contains label, label contains ingredient, or knownAs matches
+            if (strpos($ingredient_lower, $label_lower) !== false || 
+                strpos($label_lower, $ingredient_lower) !== false ||
+                strpos($ingredient_lower, $knownAs_lower) !== false ||
+                strpos($knownAs_lower, $ingredient_lower) !== false) {
+                
+                $foodData = $hint['food'];
+                break;
+            }
+        }
+    }
+    
+    // If no match found, use the first hint as fallback
+    if (!$foodData && isset($data['hints'][0]['food'])) {
+        $foodData = $data['hints'][0]['food'];
+    }
+    
+    // Download the image if available
+    $imagePath = null;
+    if (isset($foodData['image'])) {
+        $imagePath = $this->downloadImage($foodData['image'], $ingredient);
     }
 
+    // Create the ingredient record
+    $ingredients = Ingredient::create([
+        'title' => ucfirst($ingredient),
+        'slug' => strtolower(str_replace(' ', '-', $ingredient)),
+        'description' => $foodData['label'] ?? null,
+        'image' => $imagePath, // Store the local path instead of the URL
+    ]);
 
+    // Extract and save nutrients if available
+    if (isset($foodData['nutrients'])) {
+        $nutrients = $foodData['nutrients'];
+        
+        IngredientNutrition::create([
+            'ingredient' => $ingredients->id,
+            'nutrition' => json_encode([
+                'ENERC_KCAL' => $nutrients['ENERC_KCAL'] ?? 0,
+                'PROCNT' => $nutrients['PROCNT'] ?? 0,
+                'FAT' => $nutrients['FAT'] ?? 0,
+                'CHOCDF' => $nutrients['CHOCDF'] ?? 0,
+                'FIBTG' => $nutrients['FIBTG'] ?? 0,
+            ])
+        ]);
+    }
+
+    return;
+}
 }

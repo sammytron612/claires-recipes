@@ -11,6 +11,8 @@ class HashDiet extends Model
 
     public $timestamps = false;
 
+    protected $fillable = ['recipe_id', 'diet'];
+
     public function DietTitle()
     {
         return $this->hasOne(Diet::class,'id','diet');

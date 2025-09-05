@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\IngredientList;
+use App\Models\RecipeIngredients;
 use App\Models\Ingredient;
 use App\Models\IngredientNutrition;
 
@@ -15,14 +15,12 @@ class Nutrition extends Component
 
     public function render()
     {
-        $ingredients = IngredientList::select('list')->where('recipe_id', $this->recipeId)->limit(1)->get();
-
-        $temp = (json_decode($ingredients[0]->list));
-
+        
+        $ingredients = RecipeIngredients::where('recipeid', $this->recipeId)->limit(1)->get();
+ 
+        $temp = ($ingredients[0]->ingredients);
         $to_remove = array('');
-        $this->ingredients = array_diff($temp, $to_remove);
-
-
+        $this->ingredients = array_unique(array_diff($temp, $to_remove));
 
         return view('livewire.nutrition',(['ingredients' => $this->ingredients]));
     }
