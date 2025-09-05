@@ -341,51 +341,39 @@
 
 </div>
 
-<script>
+<script wire:ignore>
 
 function CreatePDFfromHTML() {
-    $('#title').removeClass('hidden').addClass('block')
-    var HTML_Width = $("#method").width();
-    var HTML_Height = $("#method").height() * 1.3;
-    var top_left_margin = 15;
-    var PDF_Width = HTML_Width + (top_left_margin * 1);
-    var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-    var canvas_image_width = HTML_Width;
-    var canvas_image_height = HTML_Height;
-
-    var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
-
-    html2canvas($("#method")[0]).then(function (canvas) {
-        var imgData = canvas.toDataURL("image/jpeg", 1.0);
-        var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
-        pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
-        for (var i = 1; i <= totalPDFPages; i++) {
-            pdf.addPage(PDF_Width, PDF_Height);
-            pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
-        }
-        $('#title').removeClass('d-block')
-        pdf.save("{{ $recipe->title }}");
-
-    });
+    // Simple print function
+    const printContent = document.getElementById('method').innerHTML;
+    const printWindow = window.open('', '_blank');
+    
+    printWindow.document.write(`
+        <html>
+        <head>
+            <title>{{ $recipe->title }} - Recipe</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+                h1, h2 { color: #333; }
+                @media print {
+                    body { margin: 0; }
+                }
+            </style>
+        </head>
+        <div>
+            <h1>{{ $recipe->title }}</h1>
+            <p><strong>By:</strong> {{ $recipe->User->name }}</p>
+            @if($recipe->cooking_time)
+            <p><strong>Cooking Time:</strong> {{ $recipe->cooking_time }} minutes</p>
+            @endif
+            <div>${printContent}</div>
+        </div>
+        </html>
+    `);
+    
+    printWindow.document.close();
+    printWindow.print();
 }
-
-
-document.addEventListener('DOMContentLoaded', function () {
-
-
-    $(function () {
-        $(".txt").focus(function () {
-            $('#starRating').removeClass('invisible')
-            $('.txt').animate({
-                height: '6rem',
-                },
-               "slow"
-            )
-        });
-    });
-});
-
-
 
 </script>
 @endsection
