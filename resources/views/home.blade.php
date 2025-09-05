@@ -223,7 +223,7 @@
                             Sign Up Free
                         </a>
                         <a href="{{ route('login') }}" 
-                           class="text-white hover:text-gray-200 font-medium underline transition-colors">
+                           class="text-gray-800 hover:text-gray-200 font-medium underline transition-colors">
                             Already have an account? Sign in
                         </a>
                     </div>
