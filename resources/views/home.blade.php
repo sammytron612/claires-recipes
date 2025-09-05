@@ -154,7 +154,7 @@
     <div class="max-w-7xl mx-auto py-5 px-8 lg:px-24">
           
         <header class="mb-8 text-center">
-            <h2 class="text-4xl font-bold text-gray-800 mb-6" style="font-family: 'Pacifico', cursive;">
+            <h2 class="text-4xl font-bold text-gray-800 mb-6">
                 Hello and welcome to Claire's Recipes!
             </h2>
             <div class="max-w-4xl mx-auto space-y-4 text-lg text-gray-600 leading-relaxed">
@@ -183,37 +183,37 @@
         </header>
         
         <!-- Meal Planner Call-to-Action Section -->
-        <section class="bg-gradient-to-r from-teal-500 to-blue-600 text-white rounded-xl p-8 mb-12 shadow-lg" aria-label="Meal Planner Signup">
+        <section class="bg-gradient-to-r from-teal-100 to-orange-100 text-white rounded-xl p-8 mb-12 shadow-lg" aria-label="Meal Planner Signup">
             <div class="max-w-4xl mx-auto text-center">
                 <div class="mb-6">
-                    <svg class="w-16 h-16 mx-auto text-white/80" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="w-16 h-16 mx-auto text-teal-300/80" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
                     </svg>
                 </div>
-                <h3 class="text-3xl font-bold mb-4">Take the Stress Out of Meal Planning!</h3>
-                <p class="text-xl mb-6 text-white/90">
+                <h3 class="text-3xl font-bold mb-4 text-black">Take the Stress Out of Meal Planning!</h3>
+                <p class="text-xl mb-6 text-black/90">
                     Join Claire's Recipes community and get access to our exclusive meal planner. 
                     Plan your weekly meals with tested recipes, generate shopping lists, and make home cooking effortless.
                 </p>
                 <div class="space-y-4">
                     <div class="grid md:grid-cols-3 gap-4 text-sm mb-6">
                         <div class="flex items-center justify-center space-x-2">
-                            <svg class="w-5 h-5 text-green-300" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-5 h-5 text-black/90" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Weekly meal plans</span>
+                            <span class="text-black/90">Weekly meal plans</span>
                         </div>
                         <div class="flex items-center justify-center space-x-2">
-                            <svg class="w-5 h-5 text-green-300" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-5 h-5 text-black/90" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Auto shopping lists</span>
+                            <span class="text-black/90">Auto shopping lists</span>
                         </div>
                         <div class="flex items-center justify-center space-x-2">
-                            <svg class="w-5 h-5 text-green-300" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-5 h-5 text-black/90" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                             </svg>
-                            <span>Recipe favorites</span>
+                            <span class="text-black/90">Recipe favorites</span>
                         </div>
                     </div>
                     @guest
@@ -264,7 +264,7 @@
         </div>
         
         <section class="mt-8" aria-label="Featured Recipes">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8" style="font-family: 'Pacifico', cursive;">Our Top 10 Favorites</h2>
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Our Highest Rated Recipes</h2>
             <div class="mt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center gap-4" role="list">
                 @foreach($top10 as $recipe)
                     <div role="listitem">

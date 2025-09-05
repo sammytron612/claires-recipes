@@ -1,6 +1,6 @@
 <div class="relative text-center mb-8">
     <!-- Enhanced Search Container -->
-    <div class="bg-gradient-to-r from-teal-50 to-orange-50 rounded-xl p-6 shadow-lg border border-gray-100">
+    <div class="bg-gradient-to-r from-teal-50 to-orange-50 rounded-xl p-6 shadow-md border border-gray-100">
         <div class="flex flex-col md:flex-row items-center justify-center gap-4">
             <!-- Enhanced Label -->
             <div class="flex items-center gap-2">

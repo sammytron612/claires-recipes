@@ -93,15 +93,15 @@
                     <div class="flex items-center space-x-3">
                         <a href="{{ url('/home') }}" class="flex items-center space-x-3 group" aria-label="Claire's Recipes Home">
                             <!-- Simple Logo -->
-                            <div class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center group-hover:bg-gray-700 transition-colors duration-200">
-                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <div class="w-10 h-10  rounded-lg flex items-center justify-center group-hover:bg-gray-700 transition-colors duration-200">
+                                <svg class="w-8 h-8 text-teal-500" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.20-1.10-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41-6.88-6.88 1.37-1.37z"/>
                                 </svg>
                             </div>
                             
                             <!-- Brand Text -->
                             <div>
-                                <h1 class="text-xl font-bold text-gray-800 group-hover:text-gray-600 transition-colors duration-200">
+                                <h1 class="text-xl font-bold text-teal-700 group-hover:text-gray-600 transition-colors duration-200">
                                     Claire's Recipes
                                 </h1>
                             </div>
@@ -142,8 +142,8 @@
                             <!-- User Dropdown -->
                             <div class="relative" x-data="{ open: false }">
                                 <button @click="open = !open" class="flex items-center space-x-3 text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md hover:bg-gray-100 transition-all duration-200" aria-label="User menu">
-                                    <div class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center">
-                                        <span class="text-sm font-bold text-white">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                                    <div class="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center">
+                                        <span class="text-sm font-bold text-black">{{ substr(Auth::user()->name, 0, 1) }}</span>
                                     </div>
                                     <span class="hidden md:block font-medium">{{ Auth::user()->name }}</span>
                                     <svg class="w-4 h-4 transition-transform duration-200" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
