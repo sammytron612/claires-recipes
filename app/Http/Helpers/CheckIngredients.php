@@ -18,7 +18,7 @@ class CheckIngredients
             
             if (!empty($cleanIngredient)) {
                 // Check if the ingredient exists in the Ingredient model
-                $exists = Ingredient::where('title', ucfirst($cleanIngredient))->exists();
+                $exists = Ingredient::where('title', 'like', '%' . ucfirst($cleanIngredient) .'%')->exists();
                 
                 // If it doesn't exist, add it to the missing ingredients array
                 if (!$exists) {

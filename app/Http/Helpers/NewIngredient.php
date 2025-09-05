@@ -105,7 +105,10 @@ public function downloadImage($imageUrl, $ingredient)
 
 public function store($data, $ingredient)
 {
+   
     $ingredient_lower = strtolower($ingredient);
+    $singular_form = $this->getSingularForm($ingredient);
+    $plural_form = $this->getPluralForm($ingredient);
     $foodData = null;
    
     // Search through hints to find the best match
@@ -118,7 +121,17 @@ public function store($data, $ingredient)
             if (strpos($ingredient_lower, $label_lower) !== false || 
                 strpos($label_lower, $ingredient_lower) !== false ||
                 strpos($ingredient_lower, $knownAs_lower) !== false ||
-                strpos($knownAs_lower, $ingredient_lower) !== false) {
+                strpos($knownAs_lower, $ingredient_lower) !== false ||
+                // Check singular form matches
+                strpos($singular_form, $label_lower) !== false ||
+                strpos($label_lower, $singular_form) !== false ||
+                strpos($singular_form, $knownAs_lower) !== false ||
+                strpos($knownAs_lower, $singular_form) !== false ||
+                // Check plural form matches
+                strpos($plural_form, $label_lower) !== false ||
+                strpos($label_lower, $plural_form) !== false ||
+                strpos($plural_form, $knownAs_lower) !== false ||
+                strpos($knownAs_lower, $plural_form) !== false) {
                 
                 $foodData = $hint['food'];
                 break;
@@ -126,6 +139,7 @@ public function store($data, $ingredient)
         }
     }
     
+  
     // If no match found, use the first hint as fallback
     if (!$foodData && isset($data['hints'][0]['food'])) {
         $foodData = $data['hints'][0]['food'];
@@ -142,9 +156,12 @@ public function store($data, $ingredient)
         'title' => ucfirst($ingredient),
         'slug' => strtolower(str_replace(' ', '-', $ingredient)),
         'description' => $foodData['label'] ?? null,
-        'image' => $imagePath, // Store the local path instead of the URL
+        'image' => $imagePath ?? "stock.jpg" // Store the local path instead of the URL
     ]);
 
+    $ingredients->update(['slug' => (strtolower(str_replace(' ', '-', $ingredient)) . '-' . $ingredients->id)]);
+
+    
     // Extract and save nutrients if available
     if (isset($foodData['nutrients'])) {
         $nutrients = $foodData['nutrients'];
@@ -160,7 +177,23 @@ public function store($data, $ingredient)
             ])
         ]);
     }
+    dd('stop');
 
     return;
+}
+    public function getPluralForm($ingredient)
+{
+    $ingredient = strtolower($ingredient);
+    
+    // Common pluralization rules
+    if (preg_match('/y$/', $ingredient)) {
+        return preg_replace('/y$/', 'ies', $ingredient); // berry -> berries
+    } elseif (preg_match('/f$/', $ingredient)) {
+        return preg_replace('/f$/', 'ves', $ingredient); // leaf -> leaves
+    } elseif (preg_match('/[sxz]$|[cs]h$/', $ingredient)) {
+        return $ingredient . 'es'; // tomato -> tomatoes
+    } else {
+        return $ingredient . 's'; // carrot -> carrots
+    }
 }
 }
