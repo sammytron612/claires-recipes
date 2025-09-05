@@ -118,38 +118,13 @@
 
 <!-- Main Content -->
 <div class="max-w-7xl mx-auto px-4 py-8">
-    <!-- Recipe Header Actions -->
-    <div class="flex flex-wrap items-center justify-between bg-white rounded-lg shadow-sm p-6 mb-8">
-        <div class="flex items-center space-x-4">
-            <div id="stars">
-                @livewire('rating-component',['recipe' => $recipe])
-            </div>
-            <div class="text-gray-600">
-                @livewire('comment-counter',['recipe' => $recipe])
-            </div>
-        </div>
-        
-        <div class="flex items-center space-x-3 mt-4 md:mt-0">
-            @if($recipe->attachment)
-                @livewire('download-recipe',['recipe' => $recipe->id])
-            @else
-            <button onclick="CreatePDFfromHTML()" class="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                </svg>
-                <span>Save PDF</span>
-            </button>
-            @endif
-            
-        </div>
-    </div>
 
     <!-- Recipe Content Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         <!-- Main Content (Left Column) -->
         <div class="lg:col-span-2 space-y-8">
-            
+
             <!-- Recipe Info Card -->
             <div class="bg-white rounded-lg shadow-sm p-6">
                 <div class="flex items-center space-x-6 text-gray-700">
@@ -170,11 +145,38 @@
                     @endAuth
                 </div>
             </div>
-            
+
+             
             <!-- Description Card -->
             <div class="bg-white rounded-lg shadow-sm p-6">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">About This Recipe</h2>
                 <p class="text-gray-600 leading-relaxed text-lg">{{ $recipe->description }}</p>
+            </div>
+
+            <!-- Recipe Header Actions -->
+            <div class="flex flex-wrap items-center justify-between bg-white rounded-lg shadow-sm p-6 mb-8">
+                <div class="flex items-center space-x-4">
+                    <div id="stars">
+                        @livewire('rating-component',['recipe' => $recipe])
+                    </div>
+                    <div class="text-gray-600">
+                        @livewire('comment-counter',['recipe' => $recipe])
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-3 mt-4 md:mt-0">
+                    @if($recipe->attachment)
+                        @livewire('download-recipe',['recipe' => $recipe->id])
+                    @else
+                    <button onclick="CreatePDFfromHTML()" class="flex items-center space-x-1 bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 text-sm rounded transition-colors">
+                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Save PDF</span>
+                    </button>
+                    @endif
+                    
+                </div>
             </div>
 
             <!-- Tags Section -->
