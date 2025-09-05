@@ -27,7 +27,7 @@ class SeasonComp extends Component
     {
         $seasonal = Seasonal::with(['recipe.user', 'recipe.commentRecipe'])
             ->inRandomOrder()
-            ->limit(4)
+            ->limit(6)
             ->get();
         return view('components.season-comp',compact(['seasonal']));
     }
