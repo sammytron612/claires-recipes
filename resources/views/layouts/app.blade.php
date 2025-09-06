@@ -299,7 +299,7 @@
                             </a>
                         @endif
                         @if (Route::has('register'))
-                            <a class="bg-teal-600 text-white hover:text-teal-800 px-2 sm:px-4 py-2 rounded-md font-medium hover:bg-white transition-colors duration-200 text-sm whitespace-nowrap" href="{{ route('register') }}" aria-label="Register" wire:navigate>
+                            <a class="bg-teal-600 text-white hover:text-teal-800 px-2 sm:px-4 py-2 rounded-md font-medium border-teal-700 border-white border hover:bg-teal-50 hover:border-teal-200 transition-colors duration-200 text-sm whitespace-nowrap" href="{{ route('register') }}" aria-label="Register" wire:navigate>
                                 Sign Up
                             </a>
                         @endif
