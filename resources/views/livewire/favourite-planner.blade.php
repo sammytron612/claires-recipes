@@ -6,7 +6,7 @@
             </svg>
             <h2 class="text-2xl font-bold text-gray-800 mb-2">No Favorite Recipes Yet</h2>
             <p class="text-gray-600 mb-6">Start adding recipes to your favorites to see them here!</p>
-            <a href="{{ route('recipe.index') }}" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+            <a href="{{ route('home') }}" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
                 Browse Recipes
             </a>
         </div>
