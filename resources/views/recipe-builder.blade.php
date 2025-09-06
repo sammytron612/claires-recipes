@@ -1,4 +1,4 @@
-@extends('layouts.app', ['noFollow' => false, 'title' => 'Recipe Builder | Claires Recipes', 'description' => "Search for Recipes on the ingredients you have."])
+@extends('layouts.app', ['noFollow' => false, 'title' => 'Claires Recipes - Recipe Builder', 'description' => "Search for Recipes on the ingredients you have."])
 
 @section('content')
 

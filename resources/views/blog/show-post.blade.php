@@ -37,7 +37,7 @@
 
 @extends('layouts.app', [
     'image' => $BlogArticle->main_image, 
-    'title' => $BlogArticle->title . ' | Claire\'s Recipes Blog', 
+    'title' => 'Claire\'s Recipes Blog - ' . $BlogArticle->title, 
     'description' => Str::limit(strip_tags($body->body), 155),
     'keywords' => $keywords,
     'ogType' => 'article',

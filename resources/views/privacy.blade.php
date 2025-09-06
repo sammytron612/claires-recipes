@@ -1,5 +1,5 @@
 
-@extends('layouts.app', ['title' => 'Privacy | Claires Recipes', 'description' => 'Privacy'])
+@extends('layouts.app', ['title' => 'Claires Recipes - Privacy', 'description' => 'Privacy'])
 
 
 @section('content')

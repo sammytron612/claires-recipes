@@ -85,7 +85,7 @@
 
 @extends('layouts.app', [
     'image' => $recipe->image, 
-    'title' => $recipe->title . ' | Claire\'s Recipes', 
+    'title' => 'Claire\'s Recipes - ' . $recipe->title, 
     'description' => Str::limit($recipe->description, 155),
     'keywords' => $keywords,
     'ogType' => 'article',
