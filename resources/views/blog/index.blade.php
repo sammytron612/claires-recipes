@@ -46,7 +46,7 @@
             @foreach($articles as $article)
             <div x-data class="">
                 <div class="shadow-lg bg-white rounded-lg overflow-hidden mt-3 w-full p-0 relative">
-                    <img style="height:220px !important" class="w-full object-cover" src="{{$article->main_image}}" alt="Card image cap">
+                    <img style="height:220px !important" class="w-full object-cover" src="{{url($article->main_image)}}" alt="Card image cap">
                     <div class="p-4">
                         <p class="text-gray-900 font-medium mb-2">{{$article->title}}</p>
                         <small class="text-gray-700">By <span class="text-teal-600">{{$article->articleAuthor->name}}</span></small>
