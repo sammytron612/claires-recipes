@@ -230,7 +230,7 @@ For support, email support@clairesrecipes.com or create an issue in this reposit
 
 ## 🔗 Links
 
-- [Live Demo](https://clairesrecipes.com)
+- [Live Demo](https://claires-recipes.uk)
 - [Documentation](https://github.com/sammytron612/claires-recipes/wiki)
 - [Issues](https://github.com/sammytron612/claires-recipes/issues)
 - [Releases](https://github.com/sammytron612/claires-recipes/releases)
