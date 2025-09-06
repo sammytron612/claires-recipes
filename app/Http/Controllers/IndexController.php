@@ -113,40 +113,38 @@ class IndexController extends Controller
     {
         // Decode URL encoded search term
         $searchTerm = urldecode($searchTerm);
-        
+
         // Search for recipes
+        $searchTerm = '%' . $searchTerm . '%';
+
         $recipes = Recipe::with(['user', 'commentRecipe', 'recipeIngredients'])
                         ->where(function($query) use ($searchTerm) {
-                            $query->where('title', 'LIKE', '%' . $searchTerm . '%')
+                            $query->where('title', 'LIKE', $searchTerm)
                                   ->orWhereHas('recipeIngredients', function($q) use ($searchTerm) {
-                                      $q->where('ingredients', 'LIKE', '%' . $searchTerm . '%');
+                                      $q->where('ingredients', 'LIKE', $searchTerm);
                                   });
                         })
                         ->paginate(12);
 
         // Search for cuisines
-        $cuisines = Cuisine::where('title', 'LIKE', '%' . $searchTerm . '%')
-                          ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
+        $cuisines = Cuisine::where('title', 'LIKE', $searchTerm)
                           ->get();
 
         // Search for ingredients
-        $ingredients = Ingredient::where('title', 'LIKE', '%' . $searchTerm . '%')
-                                ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
+        $ingredients = Ingredient::where('title', 'LIKE', $searchTerm)
                                 ->get();
 
         // Search for courses
-        $courses = Course::where('title', 'LIKE', '%' . $searchTerm . '%')
-                        ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
+        $courses = Course::where('title', 'LIKE', $searchTerm)
                         ->get();
 
         // Search for methods
-        $methods = Method::where('title', 'LIKE', '%' . $searchTerm . '%')
-                        ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
+        $methods = Method::where('title', 'LIKE', $searchTerm)
                         ->get();
+                        
 
         // Search for diets
-        $diets = Diet::where('title', 'LIKE', '%' . $searchTerm . '%')
-                    ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
+        $diets = Diet::where('title', 'LIKE', $searchTerm)
                     ->get();
 
         return view('recipe.search-results', compact([
