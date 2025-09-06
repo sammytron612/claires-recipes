@@ -115,15 +115,15 @@
 
                     <!-- Desktop Navigation Links -->
                     <div class="hidden md:flex items-center space-x-1">
-                        <a class="text-gray-600 hover:text-gray-800 hover:bg-gray-100 px-4 py-2 rounded-md transition-all duration-200 font-medium {{ Request::is('home') ? 'bg-gray-100 text-gray-800' : '' }}" href="{{ url('/home') }}" aria-label="Home">
+                        <a class="text-teal-800 hover:text-teal-700 hover:bg-gray-100 px-4 py-2 rounded-md transition-all duration-200 font-medium {{ Request::is('home') ? 'bg-gray-100 text-gray-800' : '' }}" href="{{ url('/home') }}" aria-label="Home">
                             Home
                         </a>
                         
-                        <a class="text-gray-600 hover:text-gray-800 hover:bg-gray-100 px-4 py-2 rounded-md transition-all duration-200 font-medium {{ Request::is('recipe-builder') ? 'bg-gray-100 text-gray-800' : '' }}" href="{{ route('recipe-builder') }}" aria-label="Recipe Builder">
+                        <a class="text-teal-800 hover:text-teal-700 hover:bg-gray-100 px-4 py-2 rounded-md transition-all duration-200 font-medium {{ Request::is('recipe-builder') ? 'bg-gray-100 text-gray-800' : '' }}" href="{{ route('recipe-builder') }}" aria-label="Recipe Builder">
                             Recipe Builder
                         </a>
                         
-                        <a class="text-gray-600 hover:text-gray-800 hover:bg-gray-100 px-4 py-2 rounded-md transition-all duration-200 font-medium {{ Request::is('blog*') ? 'bg-gray-100 text-gray-800' : '' }}" href="{{route('blog.index')}}" aria-label="Blog">
+                        <a class="text-teal-800 hover:text-teal-700 hover:bg-gray-100 px-4 py-2 rounded-md transition-all duration-200 font-medium {{ Request::is('blog*') ? 'bg-gray-100 text-gray-800' : '' }}" href="{{route('blog.index')}}" aria-label="Blog">
                             Blog
                         </a>
                     </div>
@@ -133,12 +133,12 @@
                      
                         @guest
                             @if (Route::has('login'))
-                                <a class="text-gray-600 hover:text-gray-800 px-2 sm:px-4 py-2 rounded-md hover:bg-gray-100 transition-all duration-200 font-medium text-sm" href="{{ route('login') }}" aria-label="Login">
+                                <a class="text-teal-700 text-teal-800 hover:text-white px-2 sm:px-4 py-2 rounded-md hover:bg-teal-600 transition-all duration-200 font-medium text-sm" href="{{ route('login') }}" aria-label="Login">
                                     Login
                                 </a>
                             @endif
                             @if (Route::has('register'))
-                                <a class="bg-gray-800 text-white px-2 sm:px-4 py-2 rounded-md font-medium hover:bg-gray-700 transition-colors duration-200 text-sm whitespace-nowrap" href="{{ route('register') }}" aria-label="Register">
+                                <a class="bg-teal-600 text-white hover:text-teal-800 px-2 sm:px-4 py-2 rounded-md font-medium hover:bg-white transition-colors duration-200 text-sm whitespace-nowrap" href="{{ route('register') }}" aria-label="Register">
                                     Sign Up
                                 </a>
                             @endif
