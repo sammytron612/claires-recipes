@@ -85,7 +85,7 @@ class CategoryController extends Controller
                 case 'ingredient':
                     $category = Ingredient::where('slug', $slug)->firstOrFail();
                     
-                    // Get recipes with this ingredient using a simpler approach
+                    // Get recipes with this ingredient
                     $hashIngredients = HashIngredient::where('ingredient', $category->id)->get();
                     $recipeIds = $hashIngredients->pluck('recipe_id');
                     $recipeData = \App\Models\Recipe::whereIn('id', $recipeIds)
