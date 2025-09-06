@@ -48,18 +48,6 @@
     <!-- Hero Header with Gradient Background -->
 <div class="bg-gradient-to-r from-teal-600 to-teal-700 text-white">
     <div class="max-w-7xl mx-auto px-4 py-12">
-        <nav class="flex items-center space-x-2 text-teal-100 mb-6">
-            <a href="{{ route('home') }}" class="hover:text-white transition-colors">Home</a>
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-            </svg>
-            <a href="{{ route('blog.index') }}" class="hover:text-white transition-colors">Blog</a>
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-            </svg>
-            <span class="text-white font-medium">{{ Str::limit($BlogArticle->title, 50) }}</span>
-        </nav>
-        
         <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
             {{ $BlogArticle->title }}
         </h1>
@@ -101,7 +89,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-6 gap-8">
         
         <!-- Main Content - Now spans 5 columns out of 6 -->
-        <div class="lg:col-span-5">
+        <div class="lg:col-span-4">
             <!-- Featured Image -->
             <div class="mb-8">
                 <div class="relative overflow-hidden rounded-xl shadow-lg">
@@ -170,7 +158,7 @@
         </div>
 
         <!-- Sidebar - Spans 1 column out of 6 -->
-        <div class="lg:col-span-1 space-y-6">
+        <div class="lg:col-span-2 space-y-6">
             
             <!-- Author Card -->
             <div class="bg-white rounded-lg shadow-sm p-4">
@@ -192,7 +180,7 @@
             </div>
 
             <!-- Quick Recipe Link -->
-            <div class="bg-gradient-to-br from-teal-50 to-teal-100 rounded-lg p-4 border border-teal-200">
+            <div class="bg-gradient-to-br from-teal-50 to-teal-100 rounded-lg p-4 border border-teal-200 mb-4">
                 <div class="text-center">
                     <div class="w-10 h-10 bg-teal-500 rounded-full flex items-center justify-center mx-auto mb-3">
                         <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -209,13 +197,13 @@
             </div>
 
             <!-- Newsletter Signup -->
-            <div class="bg-white rounded-lg shadow-sm p-4">
+            <div class="bg-white rounded-lg shadow-sm p-4 mt-4">
                 <h3 class="text-base font-bold text-gray-800 mb-2">Stay Updated</h3>
                 <p class="text-gray-600 text-xs mb-3">Get latest recipes delivered</p>
                 <form class="space-y-2">
                     <input type="email" 
                            placeholder="Email" 
-                           class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent">
+                           class="w-full px-3 mb-4 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent">
                     <button type="submit" 
                             class="w-full bg-teal-600 text-white py-1.5 rounded-lg hover:bg-teal-700 transition-colors text-sm font-medium">
                         Subscribe
