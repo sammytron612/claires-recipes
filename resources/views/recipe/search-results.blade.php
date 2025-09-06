@@ -1,7 +1,7 @@
 @extends('layouts.app', [
     'image' => "fb2e60213d4b9e175f23e08bbc8ed01f.jpg", 
-    'title' => 'Search Results for "' . $searchTerm . '" | Claires Recipes', 
-    'description' => "Search results for " . $searchTerm . " - Find recipes, cuisines, ingredients and more at Claires Recipes"
+    'title' => 'Search Results for "' . $exactSearch . '" | Claires Recipes', 
+    'description' => "Search results for " . $exactSearch . " - Find recipes, cuisines, ingredients and more at Claires Recipes"
 ])
 
 @section('content')
