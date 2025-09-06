@@ -113,6 +113,7 @@ class IndexController extends Controller
     {
         // Decode URL encoded search term
         $searchTerm = urldecode($searchTerm);
+        $exactSearch = $searchTerm;
 
         // Search for recipes
         $searchTerm = '%' . $searchTerm . '%';
@@ -147,8 +148,10 @@ class IndexController extends Controller
         $diets = Diet::where('title', 'LIKE', $searchTerm)
                     ->get();
 
+        
+
         return view('recipe.search-results', compact([
-            'searchTerm', 
+            'exactSearch', 
             'recipes', 
             'cuisines', 
             'ingredients', 

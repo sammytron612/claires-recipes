@@ -13,18 +13,18 @@
     </div>
 
     <div class="max-w-7xl mx-auto px-3 py-3 bg-white">
-        <h5 class="text-center py-2 text-lg">Recipes based on your search term '{{ $searchTerm }}'</h5>
+        <h5 class="text-center py-2 text-lg">Recipes based on your search term '{{ $exactSearch }}'</h5>
         <div class="flex justify-center flex-wrap gap-2 py-2">
-            <a href="{{ url($url . $searchTerm) }}" class="px-4 py-2 border border-teal-600 text-teal-600 rounded-full hover:bg-teal-50 transition-colors">
+            <a href="{{ url($url . $exactSearch) }}" class="px-4 py-2 border border-teal-600 text-teal-600 rounded-full hover:bg-teal-50 transition-colors">
                 <h5 class="text-base font-medium">Reset</h5>
             </a>
-            <a href="{{ url($url . $searchTerm. '/created_at') }}" class="px-4 py-2 border border-teal-600 rounded-full transition-colors @if(str_contains(url()->current(), '/created_at')) bg-teal-600 text-white @else text-teal-600 hover:bg-teal-50 @endif">
+            <a href="{{ url($url . $exactSearch . '/created_at') }}" class="px-4 py-2 border border-teal-600 rounded-full transition-colors @if(str_contains(url()->current(), '/created_at')) bg-teal-600 text-white @else text-teal-600 hover:bg-teal-50 @endif">
                 <h5 class="text-base font-medium">Recent</h5>
             </a>
-            <a href="{{ url($url . $searchTerm . '/rating') }}" class="px-4 py-2 border border-teal-600 rounded-full transition-colors @if(str_contains(url()->current(), '/rating')) bg-teal-600 text-white @else text-teal-600 hover:bg-teal-50 @endif">
+            <a href="{{ url($url . $exactSearch . '/rating') }}" class="px-4 py-2 border border-teal-600 rounded-full transition-colors @if(str_contains(url()->current(), '/rating')) bg-teal-600 text-white @else text-teal-600 hover:bg-teal-50 @endif">
                 <h5 class="text-base font-medium">Highest rated</h5>
             </a>
-            <a href="{{ url($url . $searchTerm . '/views') }}" class="px-4 py-2 border border-teal-600 rounded-full transition-colors @if(str_contains(url()->current(), '/views')) bg-teal-600 text-white @else text-teal-600 hover:bg-teal-50 @endif">
+            <a href="{{ url($url . $exactSearch . '/views') }}" class="px-4 py-2 border border-teal-600 rounded-full transition-colors @if(str_contains(url()->current(), '/views')) bg-teal-600 text-white @else text-teal-600 hover:bg-teal-50 @endif">
                 <h5 class="text-base font-medium">Most viewed</h5>
             </a>
         </div>
