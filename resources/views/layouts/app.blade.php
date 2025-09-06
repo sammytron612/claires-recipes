@@ -294,7 +294,7 @@
                 @guest
                     <div class="hidden md:flex items-center space-x-4">
                         @if (Route::has('login'))
-                            <a class="text-teal-700 text-teal-800 hover:text-white px-2 sm:px-4 py-2 rounded-md hover:bg-teal-600 transition-all duration-200 font-medium text-sm" href="{{ route('login') }}" aria-label="Login" wire:navigate>
+                            <a class="text-teal-700 text-teal-800  px-2 sm:px-4 py-2 rounded-md border-teal-700 border-white border hover:bg-teal-50 hover:border-teal-200 transition-colors duration-200 font-medium text-sm" href="{{ route('login') }}" aria-label="Login" wire:navigate>
                                 Login
                             </a>
                         @endif
