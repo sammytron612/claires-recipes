@@ -12,7 +12,7 @@
     <div class="mb-8">
         <div class="bg-gradient-to-r from-teal-50 to-orange-50 rounded-xl p-6 shadow-lg border border-gray-100">
             <h1 class="text-3xl font-bold text-gray-800 mb-2">
-                Search Results for "<span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-orange-500">{{ $searchTerm }}</span>"
+                Search Results for "<span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-orange-500">{{ $exactSearch }}</span>"
             </h1>
             <p class="text-gray-600">
                 Found {{ $recipes->total() }} recipes and {{ $cuisines->count() + $ingredients->count() + $courses->count() + $methods->count() + $diets->count() }} other results
@@ -190,7 +190,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
             </svg>
             <h2 class="text-2xl font-bold text-gray-600 mb-2">No Results Found</h2>
-            <p class="text-gray-500 mb-6">We couldn't find anything matching "{{ $searchTerm }}"</p>
+            <p class="text-gray-500 mb-6">We couldn't find anything matching "{{ $exactSearch }}"</p>
             <a href="{{ route('home') }}" 
                class="inline-flex items-center bg-gradient-to-r from-teal-600 to-orange-500 text-white font-semibold px-6 py-3 rounded-full hover:from-teal-700 hover:to-orange-600 transition-all duration-200">
                 Back to Home
