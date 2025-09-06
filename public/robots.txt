@@ -1,4 +1,14 @@
 User-agent: *
-Disallow:
+Allow:
 
-Sitemap: https://www.claires-recipes.uk/sitemap.xml
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: {{ url('/sitemap.xml') }}
+
+# Disallow admin and sensitive areas
+Disallow: /admin/
+Disallow: /login
+Disallow: /register
+Disallow: /password/

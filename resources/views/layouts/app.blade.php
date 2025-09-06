@@ -7,7 +7,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- sitemap -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ route('sitemap.index') }}">
     <!-- SEO Meta Tags -->
+
     <title>{{ $title ?? config('app.name', 'Claires Recipes') }}</title>
     <meta name="description" content="{{ $description ?? 'Discover delicious scratch cooking recipes tested in real home kitchens. Claire\'s Recipes offers tried and tested recipes for every occasion.' }}">
     <meta name="keywords" content="recipes, cooking, food, homemade, scratch cooking, kitchen, baking, {{ $keywords ?? 'dinner recipes, healthy cooking' }}">
