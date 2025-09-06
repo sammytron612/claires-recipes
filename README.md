@@ -1,62 +1,237 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Claire's Recipes 🍳
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern, feature-rich recipe management and sharing platform built with Laravel 11, Livewire, and Tailwind CSS.
 
-## About Laravel
+![Laravel](https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel)
+![PHP](https://img.shields.io/badge/PHP-8.2%7C8.3-777BB4?style=for-the-badge&logo=php)
+![Livewire](https://img.shields.io/badge/Livewire-3.x-4E56A6?style=for-the-badge&logo=livewire)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-38B2AC?style=for-the-badge&logo=tailwind-css)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ✨ Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 🍽️ Recipe Management
+- **Smart Recipe Creation**: Automated ingredient extraction and processing
+- **Rich Media Support**: High-quality recipe images with optimization
+- **Categorization**: Organize recipes by cuisine, diet, course, and seasonal preferences
+- **Nutritional Information**: Detailed nutritional breakdown with interactive display
+- **Rating & Reviews**: Community-driven recipe ratings and feedback
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 📱 User Experience
+- **Responsive Design**: Mobile-first approach with optimized layouts
+- **Advanced Search**: Full-text search with Algolia Scout integration
+- **Interactive Components**: Dynamic Livewire components for seamless UX
+- **Social Sharing**: Share recipes on Facebook, Twitter/X, and Pinterest
+- **Meal Planning**: Weekly meal planner with shopping list generation
 
-## Learning Laravel
+### 🔧 Smart Features
+- **Ingredient Intelligence**: API-powered ingredient recognition and nutrition lookup
+- **Shopping Lists**: Auto-generated shopping lists from meal plans
+- **Favorites System**: Save and organize favorite recipes
+- **Print-Friendly**: Optimized recipe printing functionality
+- **SEO Optimized**: Meta tags and structured data for search engines
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 👥 Admin Features
+- **Recipe Management**: Comprehensive admin panel for content management
+- **User Management**: User roles and permissions
+- **Analytics**: Recipe views and engagement tracking
+- **Content Moderation**: Review and moderate user-submitted content
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🚀 Quick Start
 
-## Laravel Sponsors
+### Prerequisites
+- PHP 8.2 or higher
+- Composer
+- Node.js & NPM
+- MySQL/PostgreSQL database
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Installation
 
-### Premium Partners
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/sammytron612/claires-recipes.git
+   cd claires-recipes
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+2. **Install PHP dependencies**
+   ```bash
+   composer install
+   ```
 
-## Contributing
+3. **Install Node.js dependencies**
+   ```bash
+   npm install
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. **Environment setup**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-## Code of Conduct
+5. **Configure your `.env` file**
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=claires_recipes
+   DB_USERNAME=your_username
+   DB_PASSWORD=your_password
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   # Algolia Search (optional)
+   SCOUT_DRIVER=algolia
+   ALGOLIA_APP_ID=your_app_id
+   ALGOLIA_SECRET=your_secret
 
-## Security Vulnerabilities
+   # Edamam API for ingredient data
+   EDAMAM_APP_ID=your_edamam_app_id
+   EDAMAM_APP_KEY=your_edamam_key
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+6. **Run migrations and seed database**
+   ```bash
+   php artisan migrate --seed
+   ```
 
-## License
+7. **Build assets**
+   ```bash
+   npm run dev
+   # or for production
+   npm run production
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+8. **Start the development server**
+   ```bash
+   php artisan serve
+   ```
+
+Visit `http://localhost:8000` to see your application!
+
+## 🏗️ Architecture
+
+### Tech Stack
+- **Backend**: Laravel 11.x with PHP 8.2+
+- **Frontend**: Blade templates with Livewire 3.x
+- **Styling**: Tailwind CSS with custom components
+- **Database**: MySQL with Eloquent ORM
+- **Search**: Laravel Scout with Algolia
+- **Build Tools**: Laravel Mix with Webpack
+
+### Key Components
+
+#### Models
+- `Recipe` - Core recipe management
+- `Ingredient` - Ingredient database with nutrition data
+- `RecipeIngredient` - Recipe-ingredient relationships with quantities
+- `User` - User management and authentication
+- `Category` - Recipe categorization (Cuisine, Diet, Course, etc.)
+
+#### Livewire Components
+- `SelectIngredients` - Dynamic ingredient selection
+- `Nutrition` - Interactive nutritional information display
+- `RecipeCard` - Reusable recipe display component
+
+#### Services
+- `IngredientService` - HTML parsing and ingredient extraction
+- `NewIngredient` - API integration for ingredient data
+- `CheckIngredients` - Ingredient validation and matching
+
+## 📁 Project Structure
+
+```
+app/
+├── Http/
+│   ├── Controllers/     # Route controllers
+│   ├── Livewire/       # Livewire components
+│   └── Helpers/        # Helper classes and services
+├── Models/             # Eloquent models
+└── View/Components/    # Blade components
+
+resources/
+├── views/
+│   ├── components/     # Blade components
+│   ├── livewire/      # Livewire component views
+│   ├── recipe/        # Recipe-related views
+│   └── layouts/       # Layout templates
+├── css/               # Tailwind CSS files
+└── js/                # JavaScript assets
+
+database/
+├── migrations/        # Database migrations
+└── seeders/          # Database seeders
+```
+
+## 🔧 Configuration
+
+### Database Setup
+The application uses several key tables:
+- `recipes` - Main recipe data
+- `ingredients` - Ingredient master data
+- `recipe_ingredients` - Recipe-ingredient relationships
+- `users` - User accounts
+- `categories` - Recipe categorization
+
+### API Integration
+Configure the Edamam Food Database API for automatic ingredient nutrition lookup:
+1. Sign up at [Edamam Developer Portal](https://developer.edamam.com/)
+2. Get your APP_ID and APP_KEY
+3. Add to your `.env` file
+
+## 🚀 Deployment
+
+### Production Checklist
+- [ ] Set `APP_ENV=production` in `.env`
+- [ ] Configure production database
+- [ ] Set up file storage (local/S3)
+- [ ] Configure mail settings
+- [ ] Set up SSL certificate
+- [ ] Configure caching (Redis recommended)
+- [ ] Set up queue workers
+- [ ] Configure search indexing
+
+### Recommended Hosting
+- **Shared Hosting**: Compatible with most PHP hosting providers
+- **VPS/Cloud**: DigitalOcean, Linode, AWS EC2
+- **Platform-as-a-Service**: Laravel Forge, Vapor
+
+## 🤝 Contributing
+
+We welcome contributions! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Development Guidelines
+- Follow PSR-12 coding standards
+- Write descriptive commit messages
+- Add tests for new features
+- Update documentation as needed
+
+## 📝 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## 🙏 Acknowledgments
+
+- **Laravel Framework** - The web artisans framework
+- **Livewire** - For making Laravel dynamic
+- **Tailwind CSS** - For beautiful, responsive design
+- **Algolia** - For powerful search capabilities
+- **Edamam API** - For comprehensive food and nutrition data
+
+## 📞 Support
+
+For support, email support@clairesrecipes.com or create an issue in this repository.
+
+## 🔗 Links
+
+- [Live Demo](https://clairesrecipes.com)
+- [Documentation](https://github.com/sammytron612/claires-recipes/wiki)
+- [Issues](https://github.com/sammytron612/claires-recipes/issues)
+- [Releases](https://github.com/sammytron612/claires-recipes/releases)
+
+---
+
+Made with ❤️ by [Claire](https://github.com/sammytron612)
