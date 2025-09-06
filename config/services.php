@@ -30,6 +30,15 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'rapidapi' => [
+        'key' => env('RAPIDAPI_KEY'),
+    ],
+
+    'edamam' => [
+        'app_id' => env('EDAMAM_APP_ID'),
+        'app_key' => env('EDAMAM_APP_KEY'),
+    ],
+
     'facebook' => [
         'client_id' => '1118728875311723',
         'client_secret' => '4bc7c89cb29a7dfd636da93889152d0b',

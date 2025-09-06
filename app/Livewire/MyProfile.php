@@ -36,9 +36,13 @@ class MyProfile extends Component
 
     public function uploadAvatar(User $user)
     {
+        // Security: Ensure user can only upload their own avatar
+        if ($user->id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
 
         $this->validate([
-            'avatar' => 'required|image|max:1024']);
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:1024']);
 
         $avatar = md5($this->avatar . microtime()).'.'.$this->avatar->extension();
         $this->avatar->storeAs('public', $avatar);
@@ -48,7 +52,6 @@ class MyProfile extends Component
 
         $message = ['text' =>  'Avatar uploaded','type' => 'success'];
         $this->dispatch('toast', $message);
-
     }
 
     public function destroy()

@@ -42,7 +42,7 @@ class NewIngredient
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => [
                 "x-rapidapi-host: edamam-food-and-grocery-database.p.rapidapi.com",
-                "x-rapidapi-key: 02d05d32b1msh511374242b84889p14d840jsn0663553b41bd"
+                "x-rapidapi-key: " . config('services.rapidapi.key')
             ],
         ]);
 
