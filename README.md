@@ -77,6 +77,10 @@ A modern, feature-rich recipe management and sharing platform built with Laravel
    DB_USERNAME=your_username
    DB_PASSWORD=your_password
 
+   FACEBOOK_APP_ID=
+   FACEBOOK_APP_SECRET=
+   FACEBOOK_REDIRECT=https://claires-recipes.uk/auth/facebook/callback
+   
    SCOUT_DRIVER=meilisearch
    MEILISEARCH_HOST=http://127.0.0.1:7700
    MEILISEARCH_KEY=
