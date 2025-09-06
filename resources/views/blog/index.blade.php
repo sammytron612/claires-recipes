@@ -31,7 +31,7 @@
     <div class="bg-gradient-to-r from-gray-50 to-gray-100 py-12 mb-8">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center">
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                <h1 class="text-4xl md:text-5xl font-bold text-teal-800 mb-4">
                     Blog
                 </h1>
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto font-bold">
