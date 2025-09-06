@@ -9,7 +9,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.2|^8.3",
-        "algolia/algoliasearch-client-php": "^3.3",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^11.0",
         "laravel/scout": "^10.0",
@@ -31,7 +30,10 @@
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
-        "platform-check": false
+        "platform-check": false,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     },
     "extra": {
         "laravel": {

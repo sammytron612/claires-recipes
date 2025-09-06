@@ -44,15 +44,16 @@ class RecipeSearch extends Component
         if (strlen($this->searchTerm) >= 3) {
             $searchTerm = '%' . $this->searchTerm . '%';
             
-            $this->WireRecipes = Recipe::with('recipeMethod')
+            $this->WireRecipes = Recipe::with('recipeIngredients')
                 ->where(function($query) use ($searchTerm) {
                     $query->where('title', 'like', $searchTerm)
-                          ->orWhereHas('recipeMethod', function($q) use ($searchTerm) {
-                              $q->where('description', 'like', $searchTerm);
+                          ->orWhereHas('recipeIngredients', function($q) use ($searchTerm) {
+                              $q->where('ingredients', 'like', $searchTerm);
                           });
                 })
                 ->limit(5)
                 ->get();
+                
             $this->WireCuisines = Cuisine::where('title', 'like', $searchTerm)->limit(2)->get();
             $this->WireIngredients = Ingredient::where('title', 'like', $searchTerm)->limit(4)->get();
             $this->WireDiets = Diet::where('title', 'like', $searchTerm)->limit(2)->get();

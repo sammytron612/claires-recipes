@@ -115,11 +115,11 @@ class IndexController extends Controller
         $searchTerm = urldecode($searchTerm);
         
         // Search for recipes
-        $recipes = Recipe::with(['user', 'commentRecipe', 'recipeMethod'])
+        $recipes = Recipe::with(['user', 'commentRecipe', 'recipeIngredients'])
                         ->where(function($query) use ($searchTerm) {
                             $query->where('title', 'LIKE', '%' . $searchTerm . '%')
-                                  ->orWhereHas('recipeMethod', function($q) use ($searchTerm) {
-                                      $q->where('description', 'LIKE', '%' . $searchTerm . '%');
+                                  ->orWhereHas('recipeIngredients', function($q) use ($searchTerm) {
+                                      $q->where('ingredients', 'LIKE', '%' . $searchTerm . '%');
                                   });
                         })
                         ->paginate(12);
