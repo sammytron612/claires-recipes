@@ -27,9 +27,9 @@ class HomeController extends Controller
 
         $r = rand(0,1);
         if($r)
-        {$top10 = Recipe::orderBy('views','desc')->limit(10)->get();}
+        {$top10 = Recipe::orderBy('views','desc')->limit(12)->get();}
         else
-        {$top10 = Recipe::orderBy('rating', 'desc')->limit(10)->get();}
+        {$top10 = Recipe::orderBy('rating', 'desc')->limit(12)->get();}
 
         $url = "/home";
         return view('home', compact('recipes','top10', 'url','favourites'));
