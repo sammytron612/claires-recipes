@@ -63,6 +63,9 @@
                 selector: '#editor',
                 height: 400,
                 width: '100%',
+                relative_urls: false,
+                remove_script_host: false,
+                document_base_url: '{{ url('/') }}',
                 resize: true,
                 plugins: 'autoresize advlist lists link image fullscreen code table media searchreplace paste wordcount',
                 toolbar: isMobile ?
