@@ -147,8 +147,8 @@
                             <!-- User Dropdown -->
                             <div class="relative" x-data="{ open: false }">
                                 <button @click="open = !open" class="flex items-center space-x-3 text-gray-600 hover:text-gray-800 px-3 py-2 rounded-md hover:bg-gray-100 transition-all duration-200" aria-label="User menu">
-                                    <div class="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center">
-                                        <span class="text-sm font-bold text-black">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                                    <div class="w-8 h-8 bg-teal-700 rounded-full flex items-center justify-center">
+                                        <span class="text-sm font-bold text-white">{{ substr(Auth::user()->name, 0, 1) }}</span>
                                     </div>
                                     <span class="hidden md:block font-medium">{{ Auth::user()->name }}</span>
                                     <svg class="w-4 h-4 transition-transform duration-200" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
