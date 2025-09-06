@@ -9,6 +9,7 @@ use App\Models\Method;
 use App\Models\Diet;
 use App\Models\Course;
 use App\Models\Cuisine;
+use App\Models\RecipeMethod;
 
 
 class RecipeSearch extends Component
@@ -43,7 +44,15 @@ class RecipeSearch extends Component
         if (strlen($this->searchTerm) >= 3) {
             $searchTerm = '%' . $this->searchTerm . '%';
             
-            $this->WireRecipes = Recipe::where('title', 'like', $searchTerm)->limit(5)->get();
+            $this->WireRecipes = Recipe::with('recipeMethod')
+                ->where(function($query) use ($searchTerm) {
+                    $query->where('title', 'like', $searchTerm)
+                          ->orWhereHas('recipeMethod', function($q) use ($searchTerm) {
+                              $q->where('description', 'like', $searchTerm);
+                          });
+                })
+                ->limit(5)
+                ->get();
             $this->WireCuisines = Cuisine::where('title', 'like', $searchTerm)->limit(2)->get();
             $this->WireIngredients = Ingredient::where('title', 'like', $searchTerm)->limit(4)->get();
             $this->WireDiets = Diet::where('title', 'like', $searchTerm)->limit(2)->get();
