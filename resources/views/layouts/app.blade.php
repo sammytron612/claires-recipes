@@ -95,8 +95,8 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-16">
                     <!-- Logo and Brand -->
-                    <div class="flex items-center space-x-3">
-                        <a href="{{ url('/home') }}" class="flex items-center space-x-3 group" aria-label="Claire's Recipes Home" wire:navigate>
+                    <div class="flex items-center space-x-3 group">
+                        <a href="{{ url('/home') }}" class="flex items-center space-x-3 " aria-label="Claire's Recipes Home" wire:navigate>
                             <!-- Simple Logo -->
                             <div class="w-10 h-10  rounded-lg flex items-center justify-center group-hover:text-teal-700 transition-colors duration-200">
                                 <svg class="w-8 h-8 text-teal-500 hover:text-teal-700" fill="currentColor" viewBox="0 0 24 24">
