@@ -5,8 +5,14 @@
 
     <div class="relative mt-4">
         <img class="w-full h-96 object-cover" src="{{ asset('storage/ingredients1232.jfif') }}" alt="Ingredients">
-        <div class="absolute inset-0 flex items-center justify-center">
-            <h3 class="text-4xl font-bold text-dark bg-gray-200 bg-opacity-80 p-4 border border-gray-800 rounded" style="font-family: 'Pacifico', cursive;">{{ $caption }}</h3>
+        <div class="absolute bottom-0 left-0 right-0 p-8">
+            <div class="max-w-7xl mx-auto flex items-center justify-center">
+                <div class="rounded-lg p-6 shadow-lg" style="background: rgba(0,0,0,0.40);">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white text-center hover:text-gray-200 transition-colors">
+                        {{ $caption }}
+                    </h2>
+                </div>
+            </div>
         </div>
     </div>
 

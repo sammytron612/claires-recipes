@@ -7,8 +7,14 @@
         <div class="relative">
             <img style="width:100vw; object-fit: cover; height:45vh"  src="{{ asset('storage/' . $image) }}" alt="{{$caption}}">
         </div>
-        <div class="absolute flex h-full items-center justify-center">
-            <h3 style="font-family: 'Pacifico', cursive;background: rgba(204, 204, 204, 0.8);" class="capitalize border border-gray-800 text-gray-800 p-3">{{ $caption }}</h3>
+        <div class="absolute bottom-0 left-0 right-0 p-8">
+            <div class="max-w-7xl mx-auto flex items-center justify-center">
+                <div class="rounded-lg p-6 shadow-lg" style="background: rgba(0,0,0,0.40);">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white text-center hover:text-gray-200 transition-colors">
+                        {{ $caption }}
+                    </h2>
+                </div>
+            </div>
         </div>
     </div>
 
