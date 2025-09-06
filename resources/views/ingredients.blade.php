@@ -51,7 +51,7 @@
                                                class="block text-lg text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded transition-colors duration-200"
                                                data-toggle="tooltip" 
                                                data-placement="right"
-                                               title="View recipes with {{ $ingredient->title }}">
+                                               title="View recipes with {{ $ingredient->title }}" wire:navigate>
                                                 {{ $ingredient->title }}
                                             </a>
                                         @endforeach

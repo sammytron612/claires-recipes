@@ -23,7 +23,7 @@
         <div class="mt-3 px-5 md:px-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 justify-items-center">
             @foreach($returns as $return)
                 <div class="shadow-md bg-white rounded-lg w-full max-w-xs relative overflow-hidden">
-                    <a href="{{ route($route,$return->slug) }}" class="absolute inset-0 z-10" aria-label="{{ $return->title }}"></a>
+                    <a href="{{ route($route,$return->slug) }}" class="absolute inset-0 z-10" aria-label="{{ $return->title }}" wire:navigate></a>
                     <div class="flex flex-col h-full">
                         <div class="flex flex-col h-auto text-lg px-2 pt-3">
                             <div class="text-center text-teal-600 font-semibold">{{ $return->title }}</div>

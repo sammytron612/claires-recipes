@@ -96,7 +96,7 @@
                 <div class="flex justify-between items-center h-16">
                     <!-- Logo and Brand -->
                     <div class="flex items-center space-x-3">
-                        <a href="{{ url('/home') }}" class="flex items-center space-x-3 group" aria-label="Claire's Recipes Home">
+                        <a href="{{ url('/home') }}" class="flex items-center space-x-3 group" aria-label="Claire's Recipes Home" wire:navigate>
                             <!-- Simple Logo -->
                             <div class="w-10 h-10  rounded-lg flex items-center justify-center group-hover:bg-gray-700 transition-colors duration-200">
                                 <svg class="w-8 h-8 text-teal-500" fill="currentColor" viewBox="0 0 24 24">
@@ -115,15 +115,15 @@
 
                     <!-- Desktop Navigation Links -->
                     <div class="hidden md:flex items-center space-x-1">
-                        <a class="text-teal-800 hover:text-teal-700 hover:bg-gray-100 px-4 py-2 rounded-md transition-all duration-200 font-medium {{ Request::is('home') ? 'bg-gray-100 text-gray-800' : '' }}" href="{{ url('/home') }}" aria-label="Home">
+                        <a class="text-teal-800 hover:text-teal-700 hover:bg-gray-100 px-4 py-2 rounded-md transition-all duration-200 font-medium {{ Request::is('home') ? 'bg-gray-100 text-gray-800' : '' }}" href="{{ url('/home') }}" aria-label="Home" wire:navigate>
                             Home
                         </a>
                         
-                        <a class="text-teal-800 hover:text-teal-700 hover:bg-gray-100 px-4 py-2 rounded-md transition-all duration-200 font-medium {{ Request::is('recipe-builder') ? 'bg-gray-100 text-gray-800' : '' }}" href="{{ route('recipe-builder') }}" aria-label="Recipe Builder">
+                        <a class="text-teal-800 hover:text-teal-700 hover:bg-gray-100 px-4 py-2 rounded-md transition-all duration-200 font-medium {{ Request::is('recipe-builder') ? 'bg-gray-100 text-gray-800' : '' }}" href="{{ route('recipe-builder') }}" aria-label="Recipe Builder" wire:navigate>
                             Recipe Builder
                         </a>
                         
-                        <a class="text-teal-800 hover:text-teal-700 hover:bg-gray-100 px-4 py-2 rounded-md transition-all duration-200 font-medium {{ Request::is('blog*') ? 'bg-gray-100 text-gray-800' : '' }}" href="{{route('blog.index')}}" aria-label="Blog">
+                        <a class="text-teal-800 hover:text-teal-700 hover:bg-gray-100 px-4 py-2 rounded-md transition-all duration-200 font-medium {{ Request::is('blog*') ? 'bg-gray-100 text-gray-800' : '' }}" href="{{route('blog.index')}}" aria-label="Blog" wire:navigate>
                             Blog
                         </a>
                     </div>
