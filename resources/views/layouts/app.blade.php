@@ -106,7 +106,7 @@
                             
                             <!-- Brand Text -->
                             <div>
-                                <h1 class="text-xl font-bold text-teal-700 group-hover:text-teal-700 transition-colors duration-200">
+                                <h1 class="text-xl font-bold text-teal-500 group-hover:text-teal-700 transition-colors duration-200">
                                     Claire's Recipes
                                 </h1>
                             </div>
