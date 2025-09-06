@@ -14,6 +14,11 @@
     <meta name="author" content="Claire's Recipes">
     <meta name="robots" content="{{ isset($noFollow) && $noFollow ? 'noindex, nofollow' : 'index, follow' }}">
     <link rel="canonical" href="{{ url()->current() }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ asset('favicon.svg') }}">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="{{ $ogType ?? 'website' }}">
