@@ -99,7 +99,7 @@
                         <a href="{{ url('/home') }}" class="flex items-center space-x-3 group" aria-label="Claire's Recipes Home" wire:navigate>
                             <!-- Simple Logo -->
                             <div class="w-10 h-10  rounded-lg flex items-center justify-center group-hover:text-teal-700 transition-colors duration-200">
-                                <svg class="w-8 h-8 text-teal-500" fill="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-8 h-8 text-teal-500 hover:text-teal-700" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.20-1.10-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41-6.88-6.88 1.37-1.37z"/>
                                 </svg>
                             </div>
