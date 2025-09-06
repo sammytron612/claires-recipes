@@ -77,10 +77,13 @@ A modern, feature-rich recipe management and sharing platform built with Laravel
    DB_USERNAME=your_username
    DB_PASSWORD=your_password
 
-   # Algolia Search (optional)
-   SCOUT_DRIVER=algolia
-   ALGOLIA_APP_ID=your_app_id
-   ALGOLIA_SECRET=your_secret
+   FACEBOOK_APP_ID=
+   FACEBOOK_APP_SECRET=
+   FACEBOOK_REDIRECT=https://claires-recipes.uk/auth/facebook/callback
+   
+   SCOUT_DRIVER=meilisearch
+   MEILISEARCH_HOST=http://127.0.0.1:7700
+   MEILISEARCH_KEY=
 
    # Edamam API for ingredient data
    EDAMAM_APP_ID=your_edamam_app_id
@@ -113,7 +116,7 @@ Visit `http://localhost:8000` to see your application!
 - **Frontend**: Blade templates with Livewire 3.x
 - **Styling**: Tailwind CSS with custom components
 - **Database**: MySQL with Eloquent ORM
-- **Search**: Laravel Scout with Algolia
+- **Search**: Laravel Scout with meilisearch
 - **Build Tools**: Laravel Mix with Webpack
 
 ### Key Components
@@ -227,7 +230,7 @@ For support, email support@clairesrecipes.com or create an issue in this reposit
 
 ## 🔗 Links
 
-- [Live Demo](https://clairesrecipes.com)
+- [Live Demo](https://claires-recipes.uk)
 - [Documentation](https://github.com/sammytron612/claires-recipes/wiki)
 - [Issues](https://github.com/sammytron612/claires-recipes/issues)
 - [Releases](https://github.com/sammytron612/claires-recipes/releases)
