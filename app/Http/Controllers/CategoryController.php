@@ -41,7 +41,7 @@ class CategoryController extends Controller
         {
             $returns = Cuisine::orderBy('title')->paginate(20);
             $route = "cuisine";
-            $caption = "Cusines";
+            $caption = "Cuisines";
             $image = "cuisine1232.jpg";
         }
 
