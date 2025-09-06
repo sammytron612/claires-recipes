@@ -48,54 +48,115 @@
     </div>
 
 
-<script src="https://cdn.tiny.cloud/1/d3utf658spf5n1oft4rjl6x85g568jj7ourhvo2uhs578jt9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<script>
+<script src="https://cdn.tiny.cloud/1/{{ config('services.tinymce.api_key') }}/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        let isInitialized = false;
+        let resizeTimer = null;
 
-    tinymce.init({
-      height : "600",
-      selector: '#editor',
-      plugins: 'template autoresize autolink image fullscreen imagetools emoticons link lists hr paste media table',
-      toolbar: 'insert undo redo fullscreen fontsizeselect alignleft aligncenter alignright alignjustify h1 h2 bold italic numlist bullist image link emoticons hr paste table',
-      contextmenu: "link image table paste",
-      relative_urls : false,
-      content_style: 'textarea { padding: 20px; }',
-      templates: [
-    {title: 'Some title 1', description: 'Some desc 1', content: 'My content'},
-    {title: 'Some title 2', description: 'Some desc 2', url: 'development.html'},
-  ],
-      autoresize_bottom_margin: 50,
-      images_upload_handler: function (blobInfo, success, failure) {
-           var xhr, formData;
-           xhr = new XMLHttpRequest();
-           xhr.withCredentials = false;
-           xhr.open('POST', '{{ route("image.upload") }}');
-           var token = '{{ csrf_token() }}';
-           xhr.setRequestHeader("X-CSRF-Token", token);
-           xhr.onload = function() {
-               var json;
-               if (xhr.status != 200) {
-                   failure('HTTP Error: ' + xhr.status);
-                   return;
-               }
-               json = JSON.parse(xhr.responseText);
-               if (!json || typeof json.location != 'string') {
-                   failure('Invalid JSON: ' + xhr.responseText);
-                   return;
-               }
-                var image = $("#images").val()
-               image += (json.location);
-               image += "~";
-               $('#images').val(image)
-               success(json.location);
-           };
-           formData = new FormData();
-           formData.append('file', blobInfo.blob(), blobInfo.filename());
-           xhr.send(formData);
-       }
-    });
- 
- 
-</script>
+        function initTinyMCE() {
+            if (isInitialized) return;
+
+            const isMobile = window.innerWidth <= 768;
+
+            tinymce.init({
+                licence_key: '{{ config('services.tinymce.api_key') }}',
+                selector: '#editor',
+                height: 400,
+                width: '100%',
+                resize: true,
+                plugins: 'autoresize advlist lists link image fullscreen code table media searchreplace paste wordcount',
+                toolbar: isMobile ?
+                    'undo redo | bold italic | bullist numlist | link' :
+                    'undo redo | styleselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image table | code fullscreen',
+                toolbar_mode: 'sliding',
+                menubar: false,
+                branding: false,
+                autoresize_bottom_margin: 50,
+                content_style: 'body { font-family: system-ui, sans-serif; font-size: 14px; line-height: 1.6; margin: 1rem; } img { max-width: 100%; height: auto; }',
+
+                setup: function(editor) {
+                    editor.on('init', function() {
+                        isInitialized = true;
+                        console.log('TinyMCE initialized');
+
+                        // Ensure proper sizing
+                        setTimeout(() => {
+                            const container = editor.getContainer();
+                            if (container) {
+                                container.style.width = '100%';
+                            }
+                        }, 100);
+                    });
+                },
+
+                images_upload_handler: function (blobInfo, success, failure) {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('POST', '{{ route("image.upload") }}');
+                    xhr.setRequestHeader("X-CSRF-Token", '{{ csrf_token() }}');
+
+                    xhr.onload = function () {
+                        if (xhr.status !== 200) {
+                            failure('HTTP Error: ' + xhr.status);
+                            return;
+                        }
+
+                        let json;
+                        try {
+                            json = JSON.parse(xhr.responseText);
+                        } catch(e) {
+                            failure('Invalid JSON');
+                            return;
+                        }
+
+                        if (!json.location) {
+                            failure('No location in response');
+                            return;
+                        }
+
+                        success(json.location);
+                    };
+
+                    const formData = new FormData();
+                    formData.append('file', blobInfo.blob(), blobInfo.filename());
+                    xhr.send(formData);
+                }
+            });
+        }
+
+        function handleResize() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                const editor = tinymce.get('editor');
+                if (editor) {
+                    // Just repaint, don't destroy
+                    editor.execCommand('mceRepaint');
+
+                    // Ensure container width
+                    const container = editor.getContainer();
+                    if (container) {
+                        container.style.width = '100%';
+                    }
+                }
+            }, 250);
+        }
+
+        // Initialize when ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait a bit for layout to settle
+            setTimeout(initTinyMCE, 100);
+        });
+
+        // Handle resize without destroying
+        window.addEventListener('resize', handleResize);
+
+        // Handle visibility changes (for sidebar)
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                handleResize();
+            }
+        });
+    </script>
+
 
     
 
