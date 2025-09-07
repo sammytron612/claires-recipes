@@ -47,7 +47,7 @@
 
 @section('content')
     <!-- Hero Header with Gradient Background -->
-<div class="bg-gradient-to-r from-teal-800 to-teal-600 text-white">
+<div class="bg-gradient-to-r from-teal-700 to-teal-500 text-white">
     <div class="max-w-7xl mx-auto px-4 py-12">
         <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
             {{ $BlogArticle->title }}

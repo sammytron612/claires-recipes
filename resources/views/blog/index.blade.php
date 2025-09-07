@@ -28,7 +28,7 @@
 @section('content')
 
     <!-- Title Section -->
-    <div class="bg-gradient-to-r from-teal-800 to-teal-600 text-white py-12 mb-8">
+    <div class="bg-gradient-to-r from-teal-700 to-teal-500 text-white py-12 mb-8">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center">
                 <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
