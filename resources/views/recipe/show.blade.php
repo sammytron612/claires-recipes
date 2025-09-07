@@ -96,7 +96,7 @@
 
 <!-- Hero Section with Recipe Image -->
 <div class="relative h-96 overflow-hidden">
-    <img class="w-full h-full object-cover" src="{{ asset('storage/'. $recipe->image) }}" alt="{{$recipe->title}}">
+    <img class="w-full h-full object-cover" src="{{ asset('storage/'. $recipe->image) }}" alt="{{$recipe->title}}" loading="lazy">
     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
     
     <!-- Recipe Title Overlay -->
