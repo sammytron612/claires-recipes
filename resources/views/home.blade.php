@@ -101,7 +101,7 @@
                         <div class="max-w-7xl mx-auto flex items-center justify-center">
                             <div class="rounded-lg p-6 shadow-lg" style="background: rgba(0,0,0,0.40);">
                                 <a href="{{ route('recipe', ['id' => $recipe->id, 'slug' => $recipe->slug]) }}" 
-                                   class="block">
+                                   class="block" aria-label="view recipe {{$recipe->title}}">
                                     <h2 class="text-3xl md:text-4xl font-bold text-white text-center hover:text-gray-200 transition-colors">
                                         {{ $recipe->title }}
                                     </h2>

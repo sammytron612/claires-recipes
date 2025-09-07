@@ -2,7 +2,7 @@
 
 <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
     <div class="relative">
-        <a href="{{ route('recipe', ['id' => $recipe->id, 'slug' => $recipe->slug]) }}" wire:navigate>
+        <a href="{{ route('recipe', ['id' => $recipe->id, 'slug' => $recipe->slug]) }}" aria-label="view recipe {{$recipe->title}}" wire:navigate>
         <img class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" 
              src="{{ asset('storage/' . $recipe->image) }}" 
              alt="{{ $recipe->title }} - {{ Str::limit($recipe->description, 50) }}"
