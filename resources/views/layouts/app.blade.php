@@ -68,7 +68,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" rel=preconnect>
 
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet" rel="preload">
 
  
     <style>
@@ -109,9 +109,9 @@
                     
                     <!-- Brand Text -->
                     <div>
-                        <h1 class="text-xl font-bold text-teal-600 group-hover:text-teal-700 transition-colors duration-200">
+                        <span class="text-xl font-bold text-teal-600 group-hover:text-teal-700 transition-colors duration-200">
                             Claire's Recipes
-                        </h1>
+                        </span>
                     </div>
                 </a>
             </div>
