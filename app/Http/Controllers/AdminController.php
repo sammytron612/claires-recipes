@@ -21,11 +21,7 @@ use App\Http\Helpers\CheckIngredients;
 
 class AdminController extends Controller
 {
-    public function __construct(Request $request)
-    {
-
-        dd(auth()->user());
-    }
+   
     public function index()
     {
         return view('admin.index');
