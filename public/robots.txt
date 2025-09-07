@@ -1,11 +1,8 @@
 User-agent: *
 Allow:
 
-User-agent: *
-Allow: /
-
 # Sitemap
-Sitemap: {{ url('/sitemap.xml') }}
+Sitemap: https://claires-recipes.uk/sitemap.xml
 
 # Disallow admin and sensitive areas
 Disallow: /admin/
