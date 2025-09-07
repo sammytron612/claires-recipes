@@ -66,7 +66,6 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" rel="preload">
 
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" rel="preload">
 
