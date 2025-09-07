@@ -11,7 +11,7 @@
     <!-- Search Header -->
     <div class="mb-8">
         <div class="bg-gradient-to-r from-teal-50 to-orange-50 rounded-xl p-6 shadow-lg border border-gray-100">
-            <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
+            <h1 class="text-center text-2xl md:text-3xl font-bold text-gray-800 mb-2">
                 Search Results for "<span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-orange-500">{{ $exactSearch }}</span>"
             </h1>
             <p class="text-gray-600">
