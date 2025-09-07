@@ -24,6 +24,9 @@
     @if($recipes->count() > 0)
         <div class="mb-12">
             <div class="flex items-center gap-3 mb-6">
+                <svg class="w-8 h-8 text-teal-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.20-1.10-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41-6.88-6.88 1.37-1.37z"/>
+                </svg>
                 <h2 class="text-2xl font-bold text-gray-800">Recipes</h2>
                 <span class="bg-teal-100 text-teal-800 text-sm font-medium px-3 py-1 rounded-full">{{ $recipes->total() }}</span>
             </div>
@@ -74,8 +77,8 @@
         @if($ingredients->count() > 0)
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <div class="flex items-center gap-3 mb-4">
-                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                    <svg class="w-8 h-8 text-teal-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.20-1.10-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41-6.88-6.88 1.37-1.37z"/>
                     </svg>
                     <h3 class="text-xl font-bold text-gray-800">Ingredients</h3>
                     <span class="bg-green-100 text-green-800 text-sm font-medium px-2 py-1 rounded-full">{{ $ingredients->count() }}</span>
@@ -101,8 +104,8 @@
         @if($courses->count() > 0)
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <div class="flex items-center gap-3 mb-4">
-                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    <svg class="w-8 h-8 text-teal-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.20-1.10-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41-6.88-6.88 1.37-1.37z"/>
                     </svg>
                     <h3 class="text-xl font-bold text-gray-800">Courses</h3>
                     <span class="bg-purple-100 text-purple-800 text-sm font-medium px-2 py-1 rounded-full">{{ $courses->count() }}</span>
@@ -128,9 +131,8 @@
         @if($methods->count() > 0)
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <div class="flex items-center gap-3 mb-4">
-                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    <svg class="w-8 h-8 text-teal-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.20-1.10-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41-6.88-6.88 1.37-1.37z"/>
                     </svg>
                     <h3 class="text-xl font-bold text-gray-800">Methods</h3>
                     <span class="bg-blue-100 text-blue-800 text-sm font-medium px-2 py-1 rounded-full">{{ $methods->count() }}</span>
@@ -156,8 +158,8 @@
         @if($diets->count() > 0)
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <div class="flex items-center gap-3 mb-4">
-                    <svg class="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    <svg class="w-8 h-8 text-teal-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.20-1.10-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41-6.88-6.88 1.37-1.37z"/>
                     </svg>
                     <h3 class="text-xl font-bold text-gray-800">Diets</h3>
                     <span class="bg-pink-100 text-pink-800 text-sm font-medium px-2 py-1 rounded-full">{{ $diets->count() }}</span>
