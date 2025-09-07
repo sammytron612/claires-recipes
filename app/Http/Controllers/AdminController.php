@@ -24,9 +24,7 @@ class AdminController extends Controller
     public function __construct(Request $request)
     {
 
-        if($request->user()->role != 'admin') {
-            abort(403, 'Unauthorized action.');
-        }
+        dd(auth());
     }
     public function index()
     {
