@@ -24,7 +24,7 @@ class AdminController extends Controller
     public function __construct(Request $request)
     {
 
-        dd(auth());
+        dd(auth()->user());
     }
     public function index()
     {
