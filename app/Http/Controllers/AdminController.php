@@ -17,14 +17,14 @@ use App\Models\Recipe;
 use App\Models\RecipeIngredient;
 use App\Http\Services\IngredientService;
 use App\Http\Helpers\CheckIngredients;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
     public function __construct()
     {
-       dd(auth()->user());
-        if(auth()->user()->role != 'admin') {
+
+        if(Auth::user()->role != 'admin') {
             abort(403, 'Unauthorized action.');
         }
     }
