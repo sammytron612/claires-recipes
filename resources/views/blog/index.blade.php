@@ -19,8 +19,8 @@
 
 @extends('layouts.app', [
     'image' => "fb2e60213d4b9e175f23e08bbc8ed01f.jpg", 
-    'title' => 'Claire\'s RecipesBlog - Cooking Tips & Recipe Inspiration', 
-    'description' => "Discover cooking tips, recipe inspiration, and culinary insights from Claire's kitchen. Learn new techniques and get inspired to cook delicious homemade meals.",
+    'title' => 'Claire\'s Recipes Blog - Our world food journey', 
+    'description' => "Our world food journey. discovering the sites and tastes of the world.",
     'keywords' => 'cooking blog, recipe tips, cooking techniques, food blog, culinary inspiration, kitchen tips, cooking advice',
     'structuredData' => '<script type="application/ld+json">' . json_encode($structuredData, JSON_UNESCAPED_SLASHES) . '</script>'
 ])
