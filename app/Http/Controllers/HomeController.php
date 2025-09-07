@@ -26,11 +26,19 @@ class HomeController extends Controller
         if(Auth::check()){$favourites = Favourites::where('user_id', Auth::user()->id)->get();}
         else {$favourites = null;}
 
-        $r = rand(0,1);
-        if($r)
-        {$top10 = Recipe::orderBy('views','desc')->limit(12)->get();}
-        else
-        {$top10 = Recipe::orderBy('rating', 'desc')->limit(12)->get();}
+        if(!Cache::has('cacheTop10')){
+            $r = rand(0,1);
+            if($r) {
+                $top10 = Recipe::orderBy('views','desc')->limit(12)->get();
+            } else {
+                $top10 = Recipe::orderBy('rating', 'desc')->limit(12)->get();
+            }
+            
+            Cache::put('cacheTop10', $top10, 26400);
+        } else {
+            // Get from cache if it exists
+            $top10 = Cache::get('cacheTop10');
+        }
 
         
 
