@@ -114,7 +114,7 @@ Route::middleware('auth')->group(function () {
     
     // User profile routes
     Route::get('/profile/planner', [HomeController::class, 'planner'])->name('profile.planner');
-    Route::get('/profile/profile', [HomeController::class, 'userProfile'])->name('profile.profile');
+    Route::get('/profile/index', [HomeController::class, 'userProfile'])->name('profile.profile');
     Route::get('/profile/favourites', [HomeController::class, 'favourites'])->name('profile.favourites');
     Route::get('/profile/shopping-list', [\App\Http\Controllers\ShoppingListController::class, 'index'])->name('profile.shopping-list');
     
