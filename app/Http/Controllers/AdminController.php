@@ -23,7 +23,7 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-       
+       dd(auth()->user());
         if(auth()->user()->role != 'admin') {
             abort(403, 'Unauthorized action.');
         }
