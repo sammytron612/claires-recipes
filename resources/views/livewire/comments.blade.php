@@ -7,7 +7,7 @@
     </div>
     
     <div class="mt-4 flex items-center bg-gray-50 p-4 rounded-lg">
-        <img class="h-16 w-16 object-cover rounded-md border border-gray-200 mr-4" src="{{ asset('storage/'. $recipe->image) }}" alt="{{$recipe->title}}">
+        <img class="h-16 w-16 object-cover rounded-md border border-gray-200 mr-4" src="{{ asset('storage/'. $recipe->image) }}" alt="{{$recipe->title}}" loading="lazy">
         <span class="font-bold text-gray-800">{{ $recipe->title }}</span>
     </div>
     

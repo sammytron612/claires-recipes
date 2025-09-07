@@ -129,7 +129,7 @@
             <div class="bg-white rounded-lg shadow-sm p-6">
                 <div class="flex items-center space-x-6 text-gray-700">
                     <div class="flex items-center space-x-2">
-                        <img class="w-10 h-10 rounded-full border-2 border-gray-200" src="{{ asset('storage/' . $recipe->User->avatar) }}" alt="{{$recipe->User->name}}">
+                        <img class="w-10 h-10 rounded-full border-2 border-gray-200" src="{{ asset('storage/' . $recipe->User->avatar) }}" alt="{{$recipe->User->name}}" loading="lazy">
                         <span class="font-medium">By {{ $recipe->User->name }}</span>
                     </div>
                     @if($recipe->cooking_time)
@@ -319,7 +319,7 @@
                     <div class="relative">
                         <img class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" 
                              src="{{ asset('storage/'. $similarRecipe->image) }}" 
-                             alt="{{ $similarRecipe->title }}">
+                             alt="{{ $similarRecipe->title }}" loading="lazy">
                         <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                     </div>
                     <div class="p-4">
