@@ -4,7 +4,7 @@
     @include('includes.search')
 
     <div class="relative mt-4">
-        <img class="w-full h-96 object-cover" src="{{ asset('storage/ingredients-min.jpg') }}" alt="Ingredients">
+        <img class="w-full h-96 object-cover" src="{{ asset('storage/ingredients1232.jfif') }}" alt="Ingredients">
         <div class="absolute bottom-0 left-0 right-0 p-8">
             <div class="max-w-7xl mx-auto flex items-center justify-center">
                 <div class="rounded-lg p-6 shadow-lg" style="background: rgba(0,0,0,0.40);">
