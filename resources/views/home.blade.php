@@ -94,7 +94,7 @@
                      class="absolute inset-0 w-full h-full"
                      role="img"
                      aria-label="{{$recipe->title}}">
-                    <img class="w-full h-full object-cover" src="{{ asset('storage/' . $recipe->image) }}" alt="{{$recipe->title}} - Featured Recipe">
+                    <img class="w-full h-full object-cover" src="{{ asset('storage/' . $recipe->image) }}" alt="{{$recipe->title}} - Featured Recipe" loading="lazy">
 
                     <!-- Recipe Title Overlay -->
                     <div class="absolute bottom-0 left-0 right-0 p-8">
