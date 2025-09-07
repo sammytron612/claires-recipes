@@ -102,7 +102,7 @@
             </div>
 
             <!-- Article Content -->
-            <article class="bg-white rounded-lg shadow-sm p-10">
+            <article class="bg-white rounded-md shadow-sm p-10">
                 <div class="prose prose-xl max-w-none w-full
                             prose-headings:text-gray-800 prose-headings:font-bold
                             prose-p:text-gray-600 prose-p:leading-relaxed prose-p:text-lg prose-p:max-w-none

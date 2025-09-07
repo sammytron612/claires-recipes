@@ -4,7 +4,7 @@
         "@context" => "https://schema.org",
         "@type" => "Blog",
         "name" => "Claire's Recipes Blog",
-        "description" => "Discover cooking tips, recipe inspiration, and culinary insights from Claire's kitchen. Learn new techniques and get inspired to cook at home.",
+        "description" => "Our world food journey. discovering the sites and tastes of the world.",
         "url" => url()->current(),
         "publisher" => [
             "@type" => "Organization",
