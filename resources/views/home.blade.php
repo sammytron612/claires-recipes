@@ -94,7 +94,7 @@
                      class="absolute inset-0 w-full h-full"
                      role="img"
                      aria-label="{{$recipe->title}}">
-                    <img class="w-full h-full object-cover" src="{{ asset('storage/' . $recipe->image) }}" alt="{{$recipe->title}} - Featured Recipe" loading="lazy">
+                    <img class="w-full h-full object-cover" src="{{ asset('storage/' . $recipe->image) }}" alt="{{$recipe->title}} - Featured Recipe">
 
                     <!-- Recipe Title Overlay -->
                     <div class="absolute bottom-0 left-0 right-0 p-8">
@@ -149,7 +149,7 @@
     </section>
 </main>
 
-<!-- Content Sections with Better Spacing -->
+<!-- Content Sections-->
 <section class="bg-gray-50 py-12" aria-label="About Claire's Recipes">
     <div class="max-w-7xl mx-auto py-5 px-8 lg:px-24">
           
