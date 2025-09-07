@@ -116,38 +116,6 @@
                                     @endforeach
                                 </div>
                             </div>
-
-                            <!-- Ingredients for this day -->
-                            @if(isset($ingredientsByDay[$day]) && $ingredientsByDay[$day]->count() > 0)
-                                <div>
-                                    <div class="bg-gradient-to-r from-orange-500 to-red-600 rounded-lg p-4 mb-4">
-                                        <h3 class="text-lg font-medium text-white mb-0 flex items-center">
-                                            <svg class="w-5 h-5 text-white mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h2m0 0h2m-2 0v2a2 2 0 002 2h2a2 2 0 002-2v-2m0 0V9a2 2 0 00-2-2H9"></path>
-                                            </svg>
-                                            Ingredients Needed
-                                        </h3>
-                                    </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                        @foreach($ingredientsByDay[$day] as $item)
-                                            <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                                                <input type="checkbox" 
-                                                       class="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
-                                                       id="ingredient-{{ $day }}-{{ md5($item['ingredient']) }}">
-                                                <label for="ingredient-{{ $day }}-{{ md5($item['ingredient']) }}" 
-                                                       class="flex-1 cursor-pointer">
-                                                    <div class="font-medium text-gray-900">
-                                                        {{ $item['ingredient'] }}
-                                                    </div>
-                                                    <div class="text-sm text-gray-500">
-                                                        For {{ $item['recipe']->title }} ({{ $slotNames[$item['slot']] }})
-                                                    </div>
-                                                </label>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endif
                         </div>
                     </div>
                 @endforeach
