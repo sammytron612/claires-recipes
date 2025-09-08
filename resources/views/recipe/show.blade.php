@@ -85,6 +85,8 @@
 
 @extends('layouts.app', [
     'image' => $recipe->image, 
+    'index' => true,
+    'noFollow' => true,
     'title' => 'Claire\'s Recipes - ' . $recipe->title, 
     'description' => Str::limit($recipe->description, 155),
     'keywords' => $keywords,

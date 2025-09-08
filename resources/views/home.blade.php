@@ -24,7 +24,7 @@
 @endphp
 
 @extends('layouts.app', [
-    'noFollow' => true,
+    'noFollow' => false,
     'index' => true,
     'image' => "fb2e60213d4b9e175f23e08bbc8ed01f.jpg", 
     'title' => 'Claire\'s Recipes - Tested Scratch Cooking Recipes You Can Trust', 
@@ -220,11 +220,11 @@
                     </div>
                     @guest
                     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                        <a href="{{ route('register') }}" 
+                        <a href="{{ route('register') }} relf="nofollow" 
                            class="bg-white text-teal-600 font-bold py-3 px-8 rounded-lg hover:bg-gray-50 transition-colors shadow-md">
                             Sign Up Free
                         </a>
-                        <a href="{{ route('login') }}" 
+                        <a href="{{ route('login') }}" rel="nofollow" 
                            class="text-gray-800 hover:text-gray-600 font-medium underline transition-colors">
                             Already have an account? Sign in
                         </a>
@@ -279,6 +279,4 @@
     <hr>
 
 </section>
-
-
 @endsection
