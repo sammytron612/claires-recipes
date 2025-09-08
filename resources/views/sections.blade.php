@@ -1,4 +1,4 @@
-@extends('layouts.app', ['noFollow' => false, 'title' => $caption . ' | Claires Recipes', 'description' => "Claires Recipes, tasty recipes tried and tested for everyone"])
+@extends('layouts.app', ['noFollow' => true, 'index' => false, 'title' => $caption . ' | Claires Recipes', 'description' => "Claires Recipes, tasty recipes tried and tested for everyone"])
 
 @section('content')
     @include('includes.search')

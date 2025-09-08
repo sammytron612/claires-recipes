@@ -10,12 +10,12 @@
     <!-- sitemap -->
     <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ route('sitemap.index') }}">
     <!-- SEO Meta Tags -->
-
+    
     <title>{{ $title ?? config('app.name', 'Claires Recipes') }}</title>
     <meta name="description" content="{{ $description ?? 'Discover delicious scratch cooking recipes tested in real home kitchens. Claire\'s Recipes offers tried and tested recipes for every occasion.' }}">
     <meta name="keywords" content="recipes, cooking, food, homemade, scratch cooking, kitchen, baking, {{ $keywords ?? 'dinner recipes, healthy cooking' }}">
     <meta name="author" content="Claire's Recipes">
-    <meta name="robots" content="{{ isset($noFollow) && $noFollow ? 'noindex, nofollow' : 'index, follow' }}">
+    <meta name="robots" content="{{ isset($index) && $index ? 'index, ' : 'noindex, ' }}{{ isset($noFollow) && $noFollow ? 'nofollow' : 'follow' }}">
     <link rel="canonical" href="{{ url()->current() }}">
     
     <!-- Favicon -->

@@ -24,6 +24,8 @@
 @endphp
 
 @extends('layouts.app', [
+    'noFollow' => true,
+    'index' => true,
     'image' => "fb2e60213d4b9e175f23e08bbc8ed01f.jpg", 
     'title' => 'Claire\'s Recipes - Tested Scratch Cooking Recipes You Can Trust', 
     'description' => "Discover delicious scratch cooking recipes tested in real home kitchens. Every recipe is tried multiple times to ensure it works perfectly and is worth your time and effort.",

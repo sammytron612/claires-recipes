@@ -19,6 +19,8 @@
 
 @extends('layouts.app', [
     'image' => "fb2e60213d4b9e175f23e08bbc8ed01f.jpg", 
+    'index' => true,
+    'noFollow' => false,
     'title' => 'Claire\'s Recipes Blog - Our world food journey', 
     'description' => "Our world food journey. discovering the sites and tastes of the world.",
     'keywords' => 'cooking blog, recipe tips, cooking techniques, food blog, culinary inspiration, kitchen tips, cooking advice',

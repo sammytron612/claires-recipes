@@ -37,6 +37,8 @@
 @endphp
 
 @extends('layouts.app', [
+    'index' => true,
+    'noFollow' => true,
     'image' => $BlogArticle->main_image, 
     'title' => 'Claire\'s Recipes Blog - ' . $BlogArticle->title, 
     'description' => Str::limit(strip_tags($body->body), 155),
