@@ -98,7 +98,7 @@ class EditController extends Controller
        
         if($request->has('photo'))
         {
-            $pic = md5($request->photo . microtime()).'.'.$request->photo->extension();
+            $pic = "kevinwilson".$request->photo->extension();
 
             try {
                 Storage::delete($recipe->image);
