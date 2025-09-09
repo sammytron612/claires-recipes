@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Ingredient;
 use App\Models\Cuisine;
 use App\Models\Method;
@@ -74,7 +75,16 @@ class NewHashtag extends Component
     {
         $this->validate();
 
-        $imageName = md5($this->image . microtime()).'.'.$this->image->extension();
+        // Generate unique filename first
+        $imageName = 'hashtag_' . time() . '_' . uniqid() . '.' . $this->image->extension();
+        
+        // Store the image first
+        try {
+            $this->image->storeAs('public', $imageName);
+        } catch (\Exception $e) {
+            
+            return;
+        }
         
         $data = [
             'title' => $this->title,
@@ -86,46 +96,53 @@ class NewHashtag extends Component
         
         $id = null;
         
-        switch($this->category) {
-            case "ingredient":
-                $item = Ingredient::create($data);
-                $id = $item->id;
-                $item->update(['slug' => $slug . '-' . $id]);
-                break;
-                
-            case "cuisine":
-                $item = Cuisine::create($data);
-                $id = $item->id;
-                $item->update(['slug' => $slug . '-' . $id]);
-                break;
-                
-            case "course":
-                $item = Course::create($data);
-                $id = $item->id;
-                $item->update(['slug' => $slug . '-' . $id]);
-                break;
-                
-            case "diet":
-                $item = Diet::create($data);
-                $id = $item->id;
-                $item->update(['slug' => $slug . '-' . $id]);
-                break;
-                
-            case "method":
-                $item = Method::create($data);
-                $id = $item->id;
-                $item->update(['slug' => $slug . '-' . $id]);
-                break;
+        try {
+            switch($this->category) {
+                case "ingredient":
+                    $item = Ingredient::create($data);
+                    $id = $item->id;
+                    $item->update(['slug' => $slug . '-' . $id]);
+                    break;
+                    
+                case "cuisine":
+                    $item = Cuisine::create($data);
+                    $id = $item->id;
+                    $item->update(['slug' => $slug . '-' . $id]);
+                    break;
+                    
+                case "course":
+                    $item = Course::create($data);
+                    $id = $item->id;
+                    $item->update(['slug' => $slug . '-' . $id]);
+                    break;
+                    
+                case "diet":
+                    $item = Diet::create($data);
+                    $id = $item->id;
+                    $item->update(['slug' => $slug . '-' . $id]);
+                    break;
+                    
+                case "method":
+                    $item = Method::create($data);
+                    $id = $item->id;
+                    $item->update(['slug' => $slug . '-' . $id]);
+                    break;
+                    
+                default:
+                    throw new \Exception('Invalid category selected');
+            }
+            
+            // Reset form
+            $this->reset(['title', 'description', 'image']);
+            
+            // Dispatch success events
+            $this->dispatch('hideModal');
+            $this->dispatch('toast', ['text' => 'Category added successfully', 'type' => 'success']);
+            
+        } catch (\Exception $e) {
+            // If database save fails, delete the uploaded image
+            \Storage::delete('public/' . $imageName);
+            $this->dispatch('toast', ['text' => 'Failed to save category: ' . $e->getMessage(), 'type' => 'error']);
         }
-
-        // Store the image
-        $this->image->storeAs('public', $imageName);
-        
-        // Reset form
-        $this->reset(['title', 'description', 'image']);
-        
-        // Dispatch events
-        $this->dispatch('hideModal');
-        $this->dispatch('toast', ['text' => 'Category added successfully', 'type' => 'success']);
     }
 }
