@@ -26,7 +26,7 @@ class NewHashtag extends Component
         return [
             'title' => 'required|max:100',
             'description' => 'required|max:250',
-            'image' => 'required|image|max:1024'
+            'image' => 'required|file|mimes:jpeg,png,jpg,gif,webp|max:2048'
         ];
     }
 
@@ -36,8 +36,9 @@ class NewHashtag extends Component
         'description.required' => 'The description field is required.',
         'description.max' => 'The description may not be greater than 250 characters.',
         'image.required' => 'Please select an image.',
-        'image.image' => 'The file must be an image.',
-        'image.max' => 'The image may not be greater than 1MB.'
+        'image.file' => 'The file must be a valid file.',
+        'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, webp.',
+        'image.max' => 'The image may not be greater than 2MB.'
     ];
 
     public function setCategory($category)
@@ -58,6 +59,11 @@ class NewHashtag extends Component
     public function updatedImage()
     {
         $this->validateOnly('image');
+        
+        // Additional check for file upload errors
+        if ($this->image && !$this->image->isValid()) {
+            $this->addError('image', 'The image failed to upload. Please try again.');
+        }
     }
 
     public function resetForm()
@@ -73,16 +79,27 @@ class NewHashtag extends Component
 
     public function storeHashtag()
     {
+        // Check if image is present and valid before validation
+        if (!$this->image || !$this->image->isValid()) {
+            $this->addError('image', 'Please select a valid image file.');
+            return;
+        }
+        
         $this->validate();
 
         // Generate unique filename first
-        $imageName = 'hashtag_' . time() . '_' . uniqid() . '.' . $this->image->extension();
+        try {
+            $imageName = 'hashtag_' . time() . '_' . uniqid() . '.' . $this->image->getClientOriginalExtension();
+        } catch (\Exception $e) {
+            $this->addError('image', 'Invalid image file. Please select a different image.');
+            return;
+        }
         
         // Store the image first
         try {
             $this->image->storeAs('public', $imageName);
         } catch (\Exception $e) {
-            
+            $this->dispatch('toast', ['text' => 'Failed to upload image: ' . $e->getMessage(), 'type' => 'error']);
             return;
         }
         
@@ -141,7 +158,7 @@ class NewHashtag extends Component
             
         } catch (\Exception $e) {
             // If database save fails, delete the uploaded image
-            \Storage::delete('public/' . $imageName);
+            Storage::delete('public/' . $imageName);
             $this->dispatch('toast', ['text' => 'Failed to save category: ' . $e->getMessage(), 'type' => 'error']);
         }
     }
