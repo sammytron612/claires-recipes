@@ -52,6 +52,7 @@
     <script>
         let isInitialized = false;
         let resizeTimer = null;
+        let a =1;
 
         function initTinyMCE() {
             if (isInitialized) return;
