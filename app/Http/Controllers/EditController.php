@@ -82,13 +82,17 @@ class EditController extends Controller
         {
             if($request->has('attachment'))
             {
-                $attach = md5($request->attachment . microtime()).'.'.$request->attachment->extension();
+                if(!$recipe->attachment)
+                {
+                    $attach = md5($request->attachment . microtime()).'.'.$request->attachment->extension();
 
-                Storage::delete($recipe->attachment);
+                    Storage::delete($recipe->attachment);
 
-                RecipeMethod::where('recipe_id', $request->recipeId)->delete();
-                $request->attachment->storeAs('public',$attach);
-                $recipe->attachment = $attach;
+                    RecipeMethod::where('recipe_id', $request->recipeId)->delete();
+                    $request->attachment->storeAs('public',$attach);
+                    $recipe->attachment = $attach;
+                }
+                
             }
         }
         else
