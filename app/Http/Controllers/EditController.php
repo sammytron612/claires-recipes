@@ -97,7 +97,6 @@ class EditController extends Controller
                 $request->attachment->storeAs('public', $attach);
                 
                 // Delete old recipe methods
-                RecipeMethod::where('recipe_id', $request->recipeId)->delete();
                 
                 $recipe->attachment = $attach;
             }
@@ -133,7 +132,7 @@ class EditController extends Controller
 
 
 
-        
+        RecipeMethod::where('recipe_id', $request->recipeId)->delete();
         $method = new RecipeMethod;
         $method->description = $request->method;
         $method->recipe_id = $request->recipeId;
