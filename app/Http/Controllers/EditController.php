@@ -95,18 +95,7 @@ class EditController extends Controller
                 
             }
         }
-        else
-        {
-
-            try {
-                Storage::delete($recipe->attachment);
-                $recipe->attachment = null;}
-            catch (\Exception $e) {
-
-            }
-
-        }
-
+       
         if($request->has('photo'))
         {
             $pic = md5($request->photo . microtime()).'.'.$request->photo->extension();
