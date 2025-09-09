@@ -122,45 +122,15 @@ class EditController extends Controller
 
 
 
-        if($request->check)
-        {
-            $IngredientJson = new IngredientJson;
-            $json = $IngredientJson->toJson($request->method);
+        
+        $method = new RecipeMethod;
+        $method->description = $request->method;
+        $method->recipe_id = $request->recipeId;
+        $method->save();
 
+            
 
-            $count = IngredientList::where('recipe_id', $request->recipeId)->count();
-
-            if($count)
-            {
-                IngredientList::where('recipe_id', $request->recipeId)->update(['list' => $json]);
-            }
-            else
-            {
-
-                $ingList = new IngredientList;
-                $ingList->recipe_id = $request->recipeId;
-                $ingList->list = $json;
-                $ingList->save();
-
-            }
-
-            $count = RecipeMethod::where('recipe_id', $request->recipeId)->count();
-
-
-            if($count)
-            {
-                RecipeMethod::where('recipe_id', $request->recipeId)->update(['description' => $request->method]);
-            }
-            else
-            {
-                $method = new RecipeMethod;
-                $method->description = $request->method;
-                $method->recipe_id = $request->recipeId;
-                $method->save();
-
-            }
-
-        }
+        
 
         HashIngredient::where('recipe_id', $request->recipeId)->delete();
         if($request->has('wireIngredients'))
