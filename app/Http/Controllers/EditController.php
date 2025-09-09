@@ -59,12 +59,13 @@ class EditController extends Controller
     {
         if($request->check)
         {
-
             $request->validate([
-            'title' =>  'required',
-            'description' => 'required',
-            'cookingTime' => 'numeric',
-            'method' => 'required']);
+                'title' =>  'required',
+                'description' => 'required',
+                'cookingTime' => 'numeric',
+                'method' => 'required',
+                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048'
+            ]);
         }
         else
         {
@@ -72,6 +73,8 @@ class EditController extends Controller
                 'title' =>  'required',
                 'description' => 'required',
                 'cooking_time' => 'numeric',
+                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+                'attachment' => 'nullable|file|max:10240'
             ]);
         }
 
@@ -80,36 +83,44 @@ class EditController extends Controller
 
         if(!$request->check)
         {
-            if($request->has('attachment'))
+            if($request->hasFile('attachment'))
             {
-                if(!$recipe->attachment)
-                {
-                    $attach = md5($request->attachment . microtime()).'.'.$request->attachment->extension();
-
-                    Storage::delete($recipe->attachment);
-
-                    RecipeMethod::where('recipe_id', $request->recipeId)->delete();
-                    $request->attachment->storeAs('public',$attach);
-                    $recipe->attachment = $attach;
+                // Delete old attachment if exists
+                if($recipe->attachment) {
+                    Storage::delete('public/' . $recipe->attachment);
                 }
+
+                // Generate unique filename
+                $attach = 'attachment_' . time() . '_' . uniqid() . '.' . $request->attachment->extension();
+
+                // Store new attachment
+                $request->attachment->storeAs('public', $attach);
                 
+                // Delete old recipe methods
+                RecipeMethod::where('recipe_id', $request->recipeId)->delete();
+                
+                $recipe->attachment = $attach;
             }
         }
        
-        if($request->has('photo'))
+        if($request->hasFile('photo'))
         {
-            $pic = "kevinwilson".$request->photo->extension();
+            // Generate unique filename with timestamp and random string
+            $pic = 'recipe_' . time() . '_' . uniqid() . '.' . $request->photo->extension();
 
-            try {
-                Storage::delete($recipe->image);
+            // Delete old image if exists
+            if($recipe->image) {
+                try {
+                    Storage::delete('public/' . $recipe->image);
+                } catch (\Exception $e) {
+                    // Log error but continue
+                    \Log::warning('Failed to delete old image: ' . $e->getMessage());
+                }
             }
-            catch (\Exception $e) {
 
-            }
-
+            // Store new image
             $request->photo->storeAs('public', $pic);
             $recipe->image = $pic;
-
         }
 
         $recipe->title = $request->title;
