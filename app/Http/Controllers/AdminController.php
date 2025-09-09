@@ -61,7 +61,7 @@ class AdminController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'cooking_time' => 'required|integer|min:1',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'attachment' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
             'method' => 'nullable|string',
             'wireIngredients' => 'array',
@@ -75,12 +75,12 @@ class AdminController extends Controller
             // Handle file uploads
             $imagePath = null;
             if ($request->hasFile('photo')) {
-                $imagePath = $request->file('photo')->store('recipes', 'public');
+                $imagePath = $request->file('photo')->store('public');
             }
 
             $attachmentPath = null;
             if ($request->hasFile('attachment')) {
-                $attachmentPath = $request->file('attachment')->store('attachments', 'public');
+                $attachmentPath = $request->file('attachment')->store('public');
             }
 
         // Create the recipe

@@ -20,6 +20,7 @@
 </form>
     <form id="newRecipe" method="post" enctype="multipart/form-data" action="{{ route('admin.recipe-update') }}">
         @csrf
+        @method('PUT')
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-2">Ingredients</label>
