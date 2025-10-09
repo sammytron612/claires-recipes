@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex flex-col md:flex-row items-center justify-between py-3">
                 <div class="text-center md:text-left mb-4 md:mb-0">
-                    <p class="text-white mb-2">© KLW-DESIGN 2021</p>
+                    <p class="text-white mb-2">© KLW-DESIGN 2024</p>
                     <a class="text-white hover:text-gray-200 transition-colors" href="{{ route('privacy') }}" aria-label="Privacy">
                         Privacy notice
                     </a>
