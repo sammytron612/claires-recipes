@@ -29,7 +29,7 @@ class SelectIngredients extends Component
         if (strlen($this->search) >= 2) {
             $selectedIds = collect($this->selectedIngredients)->pluck('id')->toArray();
             
-            $this->availableIngredients = Ingredient::where('title', 'like', '%' . $this->search . '%')
+            $this->availableIngredients = Ingredient::where('title', 'ilike', '%' . $this->search . '%')
                 ->whereNotIn('id', $selectedIds)
                 ->take(10)
                 ->get()

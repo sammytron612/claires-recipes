@@ -31,7 +31,7 @@ class Nutrition extends Component
 
     public function getNutrition($ingredient)
     {
-        $ingredient = Ingredient::where('title', 'like', '%' . ucfirst($ingredient) . '%')->limit(1)->get();
+        $ingredient = Ingredient::where('title', 'ilike', '%' . ucfirst($ingredient) . '%')->limit(1)->get();
 
 	if(!$ingredient->isEmpty())
 	{

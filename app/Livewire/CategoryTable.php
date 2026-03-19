@@ -48,40 +48,40 @@ class CategoryTable extends Component
             $this->visible = true;
             $query = Ingredient::query();
             if($this->searchTerm) {
-                $query->where('title', 'like', '%' . $this->searchTerm . '%')
-                      ->orWhere('description', 'like', '%' . $this->searchTerm . '%');
+                $query->where('title', 'ilike', '%' . $this->searchTerm . '%')
+                      ->orWhere('description', 'ilike', '%' . $this->searchTerm . '%');
             }
             $categories = $query->paginate(15);
         } elseif($this->selection === '2') {
             $this->visible = true;
             $query = Cuisine::query();
             if($this->searchTerm) {
-                $query->where('title', 'like', '%' . $this->searchTerm . '%')
-                      ->orWhere('description', 'like', '%' . $this->searchTerm . '%');
+                $query->where('title', 'ilike', '%' . $this->searchTerm . '%')
+                      ->orWhere('description', 'ilike', '%' . $this->searchTerm . '%');
             }
             $categories = $query->paginate(15);
         } elseif($this->selection === '3') {
             $this->visible = true;
             $query = Diet::query();
             if($this->searchTerm) {
-                $query->where('title', 'like', '%' . $this->searchTerm . '%')
-                      ->orWhere('description', 'like', '%' . $this->searchTerm . '%');
+                $query->where('title', 'ilike', '%' . $this->searchTerm . '%')
+                      ->orWhere('description', 'ilike', '%' . $this->searchTerm . '%');
             }
             $categories = $query->paginate(15);
         } elseif($this->selection === '4') {
             $this->visible = true;
             $query = Course::query();
             if($this->searchTerm) {
-                $query->where('title', 'like', '%' . $this->searchTerm . '%')
-                      ->orWhere('description', 'like', '%' . $this->searchTerm . '%');
+                $query->where('title', 'ilike', '%' . $this->searchTerm . '%')
+                      ->orWhere('description', 'ilike', '%' . $this->searchTerm . '%');
             }
             $categories = $query->paginate(15);
         } elseif($this->selection === '5') {
             $this->visible = true;
             $query = Method::query();
             if($this->searchTerm) {
-                $query->where('title', 'like', '%' . $this->searchTerm . '%')
-                      ->orWhere('description', 'like', '%' . $this->searchTerm . '%');
+                $query->where('title', 'ilike', '%' . $this->searchTerm . '%')
+                      ->orWhere('description', 'ilike', '%' . $this->searchTerm . '%');
             }
             $categories = $query->paginate(15);
         } else {

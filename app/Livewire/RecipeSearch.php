@@ -46,18 +46,18 @@ class RecipeSearch extends Component
             
             $this->WireRecipes = Recipe::with('recipeIngredients')
                 ->where(function($query) use ($searchTerm) {
-                    $query->where('title', 'like', $searchTerm)
+                    $query->where('title', 'ilike', $searchTerm)
                           ->orWhereHas('recipeIngredients', function($q) use ($searchTerm) {
-                              $q->where('ingredients', 'like', $searchTerm);
+                              $q->where('ingredients', 'ilike', $searchTerm);
                           });
                 })
                 ->limit(5)
                 ->get();
                 
-            $this->WireCuisines = Cuisine::where('title', 'like', $searchTerm)->limit(2)->get();
-            $this->WireIngredients = Ingredient::where('title', 'like', $searchTerm)->limit(4)->get();
-            $this->WireDiets = Diet::where('title', 'like', $searchTerm)->limit(2)->get();
-            $this->WireCourses = Course::where('title', 'like', $searchTerm)->limit(2)->get();
+            $this->WireCuisines = Cuisine::where('title', 'ilike', $searchTerm)->limit(2)->get();
+            $this->WireIngredients = Ingredient::where('title', 'ilike', $searchTerm)->limit(4)->get();
+            $this->WireDiets = Diet::where('title', 'ilike', $searchTerm)->limit(2)->get();
+            $this->WireCourses = Course::where('title', 'ilike', $searchTerm)->limit(2)->get();
           
 
             $this->isVisible = $this->WireRecipes->isNotEmpty() || 

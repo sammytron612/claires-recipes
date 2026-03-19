@@ -30,7 +30,7 @@ class RecipeBuilder extends Component
         if ($this->searchTerm != '' && strlen($this->searchTerm) >= 2)
             {
                 $searchTerm = '%' . $this->searchTerm . '%';
-                $this->wireIngredients = Ingredient::where('title', 'like', $searchTerm)->limit(4)->get();
+                $this->wireIngredients = Ingredient::where('title', 'ilike', $searchTerm)->limit(4)->get();
             }
             else
             {
@@ -57,16 +57,15 @@ class RecipeBuilder extends Component
     {
         if(count($this->ingredients) > 0)
         {
+            $query = IngredientList::with(['recipes.user', 'recipes.commentRecipe']);
             foreach($this->ingredients as $ingredient)
                 {
                     $title = rtrim($ingredient['title'], 's');
                     $title = strtolower($title);
-                    $condition[] = array('list', 'like', '%'.$title.'%');
+                    $query->whereRaw('list::text ilike ?', ['%'.$title.'%']);
                 }
 
-
-                $this->recipes = IngredientList::with(['recipes.user', 'recipes.commentRecipe'])
-                    ->where($condition)
+                $this->recipes = $query
                     ->limit($this->limit)
                     ->get();
 

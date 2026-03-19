@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('recipe', function (Blueprint $table) {
-            $table->boolean('featured')->default(false)->after('views');
+            $table->boolean('featured')->default(false);
         });
     }
 
