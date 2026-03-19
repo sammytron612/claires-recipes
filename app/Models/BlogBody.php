@@ -10,7 +10,7 @@ class BlogBody extends Model
     use HasFactory;
 
     protected $fillable = [
-        'body','ArticleId'
+        'body','articleid'
     ];
     protected $table = 'blog-body';
     public $timestamps = false;

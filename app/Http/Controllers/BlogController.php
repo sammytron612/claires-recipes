@@ -35,7 +35,7 @@ class BlogController extends Controller
                                         'slug' => $slug                             
     ]);
 
-        BlogBody::create(['body' => $request->body, 'ArticleId' => $article->id]);
+        BlogBody::create(['body' => $request->body, 'articleid' => $article->id]);
 
        
         return redirect()->back()->with('message',"Success");

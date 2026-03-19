@@ -20,7 +20,7 @@ class BlogArticle extends Model
     
     public function postBody()
     {
-        return $this->hasOne(BlogBody::class,'ArticleId');
+        return $this->hasOne(BlogBody::class,'articleid');
     }
 
     public function articleAuthor()
