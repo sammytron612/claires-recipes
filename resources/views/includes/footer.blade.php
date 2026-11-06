@@ -7,6 +7,10 @@
                     <a class="text-white hover:text-gray-200 transition-colors" href="{{ route('privacy') }}" aria-label="Privacy">
                         Privacy notice
                     </a>
+                    <span class="text-white mx-2">|</span>
+                    <a class="text-white hover:text-gray-200 transition-colors" href="https://ak-design.uk/" target="_blank" rel="noopener" aria-label="AK Design website">
+                        Website by AK Design
+                    </a>
                 </div>
                 
                 <div class="flex space-x-4">
