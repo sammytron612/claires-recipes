@@ -138,18 +138,11 @@ Route::middleware('auth')->group(function () {
 });
 
 // SEO and Sitemap routes
+// robots.txt is served as a static file from public/robots.txt
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
 Route::get('/sitemap/recipes.xml', [SitemapController::class, 'recipes'])->name('sitemap.recipes');
 Route::get('/sitemap/blog.xml', [SitemapController::class, 'blog'])->name('sitemap.blog');
-Route::get('/sitemap/pages.xml', function() {
-    $content = view('sitemap.pages')->render();
-    return response($content, 200)->header('Content-Type', 'text/xml');
-})->name('sitemap.pages');
-
-Route::get('/robots.txt', function() {
-    $content = view('robots')->render();
-    return response($content, 200)->header('Content-Type', 'text/plain');
-})->name('robots');
+Route::get('/sitemap/pages.xml', [SitemapController::class, 'pages'])->name('sitemap.pages');
 
 //Route::get('/test', [App\Http\Controllers\TestController::class, 'index']);
 
