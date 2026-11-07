@@ -7,4 +7,7 @@ cmds = [
 ]
 
 [start]
-cmd = "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-3000}"
+# optimize:clear wipes stale compiled Blade views, config and route caches on every
+# boot. Required because storage/ (and therefore storage/framework/views) persists
+# across deploys, so Blade can keep executing old compiled views after a release.
+cmd = "php artisan optimize:clear && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-3000}"
